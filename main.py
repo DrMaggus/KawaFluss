@@ -22,7 +22,7 @@ if __name__ == "__main__":
 	init() #see config.py
 	
 	#open short explanation about the Kawa Model
-	show_start_window((700,300))
+	show_start_window(START_SIZE)
 
 	###
 	# Continue here! :D

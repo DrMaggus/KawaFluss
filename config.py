@@ -17,6 +17,7 @@
 import pygame, pygame.font, codecs, os
 
 SIZE = HEIGHT, WIDTH = 1000, 600
+START_SIZE = (700,300)
 
 IMG_PATH = "images/"
 FONT_PATH = "fonts/"
@@ -24,7 +25,7 @@ FONT_PATH = "fonts/"
 ICON = os.path.join(IMG_PATH, "icon.ico")
 CAPTION = "Kawa - Fluss"
 
-SCREEN = pygame.display.set_mode(SIZE, pygame.DOUBLEBUF, 32)
+SCREEN = pygame.display.set_mode(START_SIZE, pygame.DOUBLEBUF, 32)
 
 FONT = os.path.join(FONT_PATH, "DroidSans.ttf")
 FONT_SIZE = 13

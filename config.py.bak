@@ -17,6 +17,7 @@
 import pygame, pygame.font, codecs, os
 
 SIZE = HEIGHT, WIDTH = 1000, 600
+START_SIZE = (700,300)
 
 IMG_PATH = "images/"
 FONT_PATH = "fonts/"
@@ -53,7 +54,7 @@ nämlich inwieweit sind die Kernideen und Konzepte der Ergotherapie,
 welche sich hauptsächlich auf kulturelle Eigenheiten und Normen 
 nordamerikanischer soziokultureller Kontexte befasst hat, für andere
 Kulturkreise anwendbar?
-""", "iso-8859-1" )
+""", "utf-8" )
 
 def init():
     pygame.init()
