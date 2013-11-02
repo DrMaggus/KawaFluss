@@ -23,7 +23,6 @@ if __name__ == "__main__":
 	
 	#open short explanation about the Kawa Model
 	show_start_window((700,300))
-
-	###
-	# Continue here! :D
-	###
+	
+	while True:
+		pass
