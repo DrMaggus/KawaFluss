@@ -1,0 +1,243 @@
+###############################################
+#
+#             KAWA-FLUSS MODELL
+#
+#
+#                Written by
+#        Matthias Eiserloh, Markus Wolf
+#
+#
+#          Copyright (c) 2013 by 
+#          M. Eiserloh and M. Wolf
+#
+#
+################################################
+
+##### CLASS INPUTBOX #####
+# Constructor:
+#     InputBox(pos, buffer, color = BOX_EMPTY_COLOR, padding = BOX_PADDING, max_char = None) <=>
+#       pos : position of the inputbox
+#       buffer : pygame.Surface (transparent) to blit the box on (to update the box properly)
+#       color : Border color
+#       padding : size of padding in the box
+#       max_char : maximum character number in one line. If None it's 1000
+#       max_size : input box ist static to this pixel size
+#
+# Methods:
+#    blit( dest, pos = None ) <=> blits the content of the inputbox to dest
+#                                 if pos != None it's blit to the inputbox position. pos is a 2-tuple (x,y)
+#    isFocus() <=> True if inputbox is selected. False if not.
+#    makeFocus() <=> put's the box into focus to write in it.
+#    releaseFocus() <=> releases the focus of the current box
+#    putChar(char) <=> adds char to string
+#    makeRow() <=> creates second row
+#    hasSecondRow() <=> True if there is a second row in use. False if not
+#    isEmpty() <=> True if the box has no content
+#    delChar() <=> deletes the last character added to the inputbox
+#    getString()  <=> return the content string
+#    isMouseInside <=> True if mouse is over inputbox rect
+#####
+
+##### CLASS EventInputBoxes #####
+# Constructor:
+#    EventInputBoxes(pos_lst, screen) <=>
+#       pos_lst : list of positions (2-tuple) 
+#       screen : screen to blit on.
+#
+# Methods:
+#    updateBoxes() <=> refreshes the inputboxes and blits them first to buffer and then to the screen
+#    handelEvent(event) <=> event is an element from pygame.event.get(). 'handleEvent' checks for events
+#                                    important for the inputboxes e.g. Key presses and mouse clicks
+#
+#    nextBox() <=> jump to the next box in the list. This box is made to focus.
+#####
+
+
+import pygame, pygame.font
+import string
+from config import *
+
+class InputBox:
+    def __init__(self, pos, buffer, color = BOX_EMPTY_COLOR, padding = BOX_PADDING, max_char = None, max_size = None):
+        self.buffer = buffer
+        self.rect = (pos[0], pos[1],\
+                max_size if max_size else FONT_SIZE + 2*padding,\
+                FONT_SIZE + 2*padding)
+        self.color = color
+        self.focus = False
+        self.string = []
+        self.string2 = []
+        self.string_rend = None
+        self.string2_rend = None
+        self.stringX = 0
+        self.stringY = 0
+        self.string2Y = 0
+        self.padding = padding
+        self.SecondRow = False
+        self.secondRowPadding = 4
+        self.max_char = 1000 if max_char == None else max_char
+        self.max_size = max_size
+        print self.rect
+        
+        
+    #blits the inputbox to the buffer and then to the screen
+    def _blitToBuffer(self, dest):    
+        self._renderString()
+        if self.color:
+            pygame.draw.rect(self.buffer, self.color, self.rect, 2)
+        self.buffer.blit( self.string_rend , (self.stringX, self.stringY) )
+        if self.SecondRow:
+            self.buffer.blit( self.string2_rend , (self.stringX, self.string2Y) )
+        dest.blit(self.buffer, (0,0))
+        
+    def blit(self, dest, pos = None):
+        self._renderString()
+        if not pos:
+            dest.blit( self.string_rend , (self.stringX, self.stringY) )
+            if self.SecondRow:
+                dest.blit( self.string2_rend , (self.stringX, self.string2Y) )
+        else:
+            dest.blit( self.string_rend , pos )
+            if self.SecondRow:
+                dest.blit( self.string2_rend , (pos[0], pos[1] + self.string_rend.get_height() + self.secondRowPadding) )
+            
+    
+    def _renderString(self):  
+        #render string an d calculate position for the first string
+        self.string_rend = pygame.font.Font( FONT, FONT_SIZE).render( string.join(self.string,""), True, FONT_COLOR )
+        self.stringX = self.rect[0] + self.padding
+        self.stringY = self.rect[1] + self.padding
+        self.rect = ( self.rect[0], self.rect[1],\
+                        self.string_rend.get_width() + 2*self.padding,\
+                        self.string_rend.get_height() + 2*self.padding ) 
+                        
+        #render string an d calculate position for the first string
+        if self.SecondRow:
+            self.string2_rend = pygame.font.Font( FONT, FONT_SIZE).render( string.join(self.string2,""), True, FONT_COLOR )
+            self.string2Y = self.stringY + self.string_rend.get_height() + self.secondRowPadding
+            lengthX = self.string_rend.get_width() if self.string_rend.get_width() > self.string2_rend.get_width() else self.string2_rend.get_width()
+            self.rect = ( self.rect[0], self.rect[1],\
+                         lengthX + 2*self.padding,\
+                        self.string_rend.get_height() + self.string2_rend.get_height() + self.secondRowPadding + 2*self.padding )
+        
+        if self.max_size:
+            self.rect = (self.rect[0],\
+                        self.rect[1],\
+                        self.max_size,\
+                        self.rect[3])
+   
+    def isFocus(self):
+        return self.focus
+    
+    def makeFocus(self):
+        self.focus = True
+        self.color = BOX_FOCUS_COLOR
+        
+    def releaseFocus(self):
+        self.focus = False
+        if self.isEmpty():
+            self.color = BOX_EMPTY_COLOR
+        else:
+            self.color = BOX_COLOR
+   
+    def putChar(self, char): 
+        if char == u'\u1e9e': #capital sharp s
+            char = u'\?'
+        if self.SecondRow and len(self.string2) < self.max_char:
+            self.string2.append(char)
+        elif len(self.string) < self.max_char:
+            self.string.append(char)
+        self._renderString()
+        
+        if self.max_size:
+            if self.string_rend.get_width() + 2*self.padding > self.max_size or\
+                self.SecondRow and self.string2_rend.get_width() + 2*self.padding > self.max_size:
+                self.delChar()
+                self._renderString()
+        
+    def makeRow(self):
+        self.SecondRow = True
+        
+    def hasSecondRow(self):
+        return self.SecondRow
+
+    def isEmpty(self):
+        return len(self.string) == 0 and len(self.string2) == 0
+    
+    def delChar(self):
+        if self.isEmpty() and not self.isFocus():
+            self.color = BOX_EMPTY_COLOR
+        if len(self.string2) != 0:
+            self.string2 = self.string2[0:-1]
+        else:
+            self.string = self.string[0:-1]
+            self.SecondRow = False
+        self._renderString()
+            
+    def getString(self):
+        return string.join(self.string,"")
+            
+    def isMouseInside(self):
+        mouse = pygame.mouse.get_pos()
+        return  mouse[0] > self.rect[0] and mouse[0] < self.rect[0]+self.rect[2] \
+                    and mouse[1] > self.rect[1] and mouse[1] < self.rect[1]+self.rect[3]
+                    
+                    
+                    
+class EventInputBoxes:
+    def __init__(self, pos_lst, screen):
+        self.buffer = pygame.Surface(SIZE, flags=pygame.SRCALPHA)
+        self.buffer.fill((255, 255, 255, 0))
+        self.boxes = []
+        for pos in pos_lst:
+            if len(pos) == 2:
+                self.boxes.append( InputBox(pos, self.buffer) )
+            if len(pos) == 3:
+                self.boxes.append( InputBox(pos, self.buffer, max_size = pos[2]) )
+        self.amount = len(self.boxes)
+        self.screen = screen
+        
+    def _clearBuffer(self):
+        self.buffer.fill((255, 255, 255, 0))
+        
+    def updateBoxes(self):
+        self._clearBuffer()
+        for box in self.boxes:
+            box._blitToBuffer(self.screen)
+    
+    def handleEvent(self, event):
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            for box in self.boxes:
+                if box.isMouseInside():
+                    box.makeFocus()
+                else:
+                    if box.isFocus():
+                        box.releaseFocus()
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_TAB: #always?
+                self.nextBox()
+            else:
+                for box in self.boxes:
+                    if box.isFocus():
+                        if event.key == pygame.K_ESCAPE:
+                            box.releaseFocus()
+                        elif event.key == pygame.K_RETURN:
+                            #if box.hasSecondRow():
+                            #    box.releaseFocus()
+                            if not box.hasSecondRow():
+                                box.makeRow()
+                        elif event.key == pygame.K_BACKSPACE:
+                            box.delChar()
+                        else:
+                            box.putChar(event.unicode)
+                        
+    def nextBox(self):
+        current = 0
+        for box in self.boxes:
+            if box.isFocus():
+                box.releaseFocus()
+                break
+            current += 1
+        self.boxes[(current+1)%self.amount].makeFocus()
+                        
+                        

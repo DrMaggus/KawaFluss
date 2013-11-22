@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 ###############################################
 #
 #             KAWA-FLUSS MODELL
@@ -21,7 +20,9 @@ import sys
 from riverbedSelection import show_riverbed_selection
 from startwindow import show_start_window
 from config import *
+from InputBox import EventInputBoxes
 
+input_boxes = EventInputBoxes( [(750,0,200)] , SCREEN)
 
 if __name__ == "__main__":
 	
@@ -31,11 +32,10 @@ if __name__ == "__main__":
 	show_start_window(START_SIZE)
 	
 	riverbedNumber = show_riverbed_selection()
-	
-	running = True
-	while running:
-		# auf 30 FPS beschränken
-		CLOCK.tick(30)
+	counter = 0
+	while True:
+		# auf 30 FPS beschraenken
+		CLOCK.tick(FRAMERATE)
 
 		#get mouse position
 		mouseX, mouseY = pygame.mouse.get_pos()
@@ -46,20 +46,15 @@ if __name__ == "__main__":
 		
 		# Alle aufgelaufenen Events holen und abarbeiten.
 		for event in pygame.event.get():
-			# Spiel beenden, wenn wir ein QUIT-Event finden.
 			if event.type == pygame.QUIT:
 				sys.exit()
-		
-			# Wir interessieren uns auch fuer "Taste gedrueckt"-Events.
-			if event.type == pygame.KEYDOWN:
-				# Wenn Escape gedrueckt wird, posten wir ein QUIT-Event in Pygames Event-Warteschlange.
-				if event.key == pygame.K_ESCAPE:
-					pygame.event.post(pygame.event.Event(pygame.QUIT))    
 			
 			WOOD_STONE_BTN_LIST.eventHandler(event, mouseX, mouseY)
+			input_boxes.handleEvent(event)
 			
 		WOOD_STONE_BTN_LIST.blitter(SCREEN, mouseX, mouseY)
-			
+		input_boxes.updateBoxes()
+		
 		# Inhalt von screen anzeigen.
-		pygame.display.flip()
+		pygame.display.update()
 	

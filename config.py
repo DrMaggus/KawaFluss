@@ -18,6 +18,7 @@ import pygame, pygame.font, codecs, os, button, img
 
 SIZE = HEIGHT, WIDTH = 1000, 600
 START_SIZE = (700,300)
+FRAMERATE = 30
 
 IMG_PATH = "images/"
 FONT_PATH = "fonts/"
@@ -84,7 +85,7 @@ CLOCK = pygame.time.Clock()
 def init():
     pygame.init()
     pygame.font.init()
-    pygame.key.set_repeat(75,100)
+    #pygame.key.set_repeat(1000,1000)
     pygame.display.set_caption(CAPTION)
     #pygame.display.set_icon(pygame.image.load(ICON))
 
