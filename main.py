@@ -57,9 +57,11 @@ if __name__ == "__main__":
 					pygame.event.post(pygame.event.Event(pygame.QUIT))    
 			
 			WOOD_STONE_BTN_LIST.eventHandler(event, mouseX, mouseY)
+			FILE_BTN_LIST.eventHandler(event, mouseX, mouseY, WOOD_STONE_BTN_LIST)
 			
 		WOOD_STONE_BTN_LIST.blitter(SCREEN, mouseX, mouseY)
-			
+		FILE_BTN_LIST.blitter(SCREEN, mouseX, mouseY)
+
 		# Inhalt von screen anzeigen.
 		pygame.display.flip()
 	

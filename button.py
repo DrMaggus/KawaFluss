@@ -2,17 +2,17 @@
 
 import pygame
 
-
 class Button:
-    def __init__(self, posXY, is_pressed, img_unpressed, img_pressed, mouse_image, is_img_on_mouse):
-        self.posXY = posXY
-        self.width = img_pressed.get_width()
-        self.height = img_pressed.get_height()
-        self.is_pressed = is_pressed
-        self.img_pressed = img_pressed
-        self.img_unpressed = img_unpressed
-        self.mouse_image = mouse_image
-        self.is_img_on_mouse = is_img_on_mouse
+    def __init__(self, posXY, is_pressed, img_unpressed, img_pressed, mouse_image = None, is_img_on_mouse = None):
+            self.posXY = posXY
+            self.width = img_pressed.get_width()
+            self.height = img_pressed.get_height()
+            self.is_pressed = is_pressed
+            self.img_pressed = img_pressed
+            self.img_unpressed = img_unpressed
+            self.mouse_image = mouse_image
+            self.is_img_on_mouse = is_img_on_mouse
+
         
     def getX(self):
         return self.posXY[0]
@@ -75,6 +75,37 @@ class Button:
         else:
             return False
         
+####### Handles Redo-/Undo-/New- and Save Buttons ######        
+class FileBtns:
+    def __init__(self, infoList):
+        self.buttonList = []
+        for item in infoList:
+            self.buttonList.append(Button(item[0], False, item[1], item[2]))
+    
+    def blitter(self, screen, mouseX, mouseY):
+        for btn in self.buttonList:
+            #buttons
+            if btn.getIsPressed():
+                screen.blit(btn.getImgPressed(), (btn.getX(), btn.getY()))
+            else:
+                screen.blit(btn.getImgUnpressed(), (btn.getX(), btn.getY()))
+    
+    def eventHandler(self, event, mouseX, mouseY, WoodnStoneBtnList):
+        for btn in self.buttonList:
+            if event.type == pygame.MOUSEBUTTONDOWN and btn.mouseOnButton(mouseX, mouseY) and event.button == 1:
+                btn.setIsPressed(True)
+                if WoodnStoneBtnList.getBufferArrayCount() > 0:
+                    print "pop now!"
+                    #WoodnStoneBtnList.setBufferArray(del WoodnStoneBtnList.getBufferArray()[-1])
+                    del WoodnStoneBtnList.getBufferArray()[-1]
+                    WoodnStoneBtnList.setBufferArrayCount(WoodnStoneBtnList.getBufferArrayCount()-1)
+                
+            if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
+                btn.setIsPressed(False)
+    
+        
+    
+    
 
 ####### Handles the Wood and Stone Buttons ######
 class WoodnStoneBtns:
@@ -83,17 +114,31 @@ class WoodnStoneBtns:
         self.buttonList = []
         self.buffer = pygame.Surface((1000, 600), flags=pygame.SRCALPHA)
         self.buffer.fill((0,0,0,0))
-        self.bufferArray = [self.buffer]
+        self.bufferArray = [self.buffer.copy()]
         self.bufferArrayCount = 0
         for item in infoList:
             self.buttonList.append(Button(item[0], False, item[1],  item[2], item[3], False))
+            
+    def getBufferArrayCount(self):
+        return self.bufferArrayCount
+    
+    def setBufferArrayCount(self, _count):
+        self.bufferArrayCount = _count
+    
+    def getBufferArray(self):
+        return self.bufferArray
+    
+    def setBufferArray(self, _bufferArray):
+        self.bufferArray = _bufferArray
+            
     
     #handles the events
         #- Blit Image to buffer
         #- Image to Mouse
         #- rotation
     def eventHandler(self, event, mouseX, mouseY):
-        for btn in self.buttonList:     
+        self.buffer = self.bufferArray[len(self.bufferArray)-1]
+        for btn in self.buttonList:
             #Blit Image to Buffer
             if event.type == pygame.MOUSEBUTTONDOWN and btn.getIsImgOnMouse() and event.button == 1:
                 self.buffer.blit(btn.getMouseImage().getRotObject(),\

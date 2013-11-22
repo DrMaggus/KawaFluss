@@ -56,12 +56,6 @@ nordamerikanischer soziokultureller Kontexte befasst hat, für andere
 Kulturkreise anwendbar?
 """, "utf-8" )
 
-RIVER_BTN_POS1 = 50, 100
-RIVER_BTN_POS2 = 367, 100
-RIVER_BTN_POS3 = 684, 100
-RIVER_BTN_POS4 = 50, 350
-RIVER_BTN_POS5 = 367, 350
-RIVER_BTN_POS6 = 684, 350
 
 RIVERBED_LIST = [pygame.image.load(IMG_PATH + 'riverbed1.png'),\
                  pygame.image.load(IMG_PATH + 'riverbed1.png'),\
@@ -73,10 +67,13 @@ RIVERBED_LIST = [pygame.image.load(IMG_PATH + 'riverbed1.png'),\
 STONE = pygame.image.load(IMG_PATH + 'stone.bmp')
 STONE_BUTTON_UP = pygame.image.load(IMG_PATH + 'stone_button_up.png')
 STONE_BUTTON_DOWN = pygame.image.load(IMG_PATH + 'stone_button_down.png')
+ARROW_UNDO_UP = pygame.image.load(IMG_PATH + 'arrowUndo.png')
 
-WOOD_STONE_BTN_LIST = button.WoodnStoneBtns([((800, 20), STONE_BUTTON_UP, STONE_BUTTON_DOWN, img.Img(0, 0, False, False, 0, STONE, STONE)),\
-                                             ((800, 170), STONE_BUTTON_UP, STONE_BUTTON_DOWN, img.Img(0, 0, False, False, 0, STONE, STONE)),\
-                                             ((800, 320), STONE_BUTTON_UP, STONE_BUTTON_DOWN, img.Img(0, 0, False, False, 0, STONE, STONE))])
+FILE_BTN_LIST = button.FileBtns([((800, 0), ARROW_UNDO_UP, ARROW_UNDO_UP)])
+
+WOOD_STONE_BTN_LIST = button.WoodnStoneBtns([((800, 100), STONE_BUTTON_UP, STONE_BUTTON_DOWN, img.Img(0, 0, False, False, 0, STONE, STONE)),\
+                                             ((800, 250), STONE_BUTTON_UP, STONE_BUTTON_DOWN, img.Img(0, 0, False, False, 0, STONE, STONE)),\
+                                             ((800, 400), STONE_BUTTON_UP, STONE_BUTTON_DOWN, img.Img(0, 0, False, False, 0, STONE, STONE))])
     
 
 CLOCK = pygame.time.Clock()

@@ -16,12 +16,12 @@ def show_riverbed_selection():
     pygame.mouse.set_visible(1)
     pygame.key.set_repeat(1, 30)     
         
-    riverbedButton1 = button.Button(RIVER_BTN_POS1, False, riverbedMini1, riverbedMini1, None, None)
-    riverbedButton2 = button.Button(RIVER_BTN_POS2, False, riverbedMini1, riverbedMini1, None, None)
-    riverbedButton3 = button.Button(RIVER_BTN_POS3, False, riverbedMini1, riverbedMini1, None, None)
-    riverbedButton4 = button.Button(RIVER_BTN_POS4, False, riverbedMini2, riverbedMini2, None, None)
-    riverbedButton5 = button.Button(RIVER_BTN_POS5, False, riverbedMini2, riverbedMini2, None, None)
-    riverbedButton6 = button.Button(RIVER_BTN_POS6, False, riverbedMini2, riverbedMini2, None, None)
+    riverbedButton1 = button.Button((50, 100), False, riverbedMini1, riverbedMini1, None, None)
+    riverbedButton2 = button.Button((367, 100), False, riverbedMini1, riverbedMini1, None, None)
+    riverbedButton3 = button.Button((684, 100), False, riverbedMini1, riverbedMini1, None, None)
+    riverbedButton4 = button.Button((50, 350), False, riverbedMini2, riverbedMini2, None, None)
+    riverbedButton5 = button.Button((367, 350), False, riverbedMini2, riverbedMini2, None, None)
+    riverbedButton6 = button.Button((684, 350), False, riverbedMini2, riverbedMini2, None, None)
    
     riverbedButtonList = [riverbedButton1, riverbedButton2, riverbedButton3, riverbedButton4, riverbedButton5, riverbedButton6]
 
