@@ -54,6 +54,11 @@ if __name__ == "__main__":
 		SCREEN.fill((177, 177, 177))
 		SCREEN.blit(RIVERBED_LIST[riverbedNumber], (20, 110))           
 		
+			
+		WOOD_STONE_BTN_LIST.blitter(SCREEN, mouseX, mouseY)
+		FILE_BTN_LIST.blitter(SCREEN, mouseX, mouseY)
+		input_boxes.updateBoxes()
+		
 		# Alle aufgelaufenen Events holen und abarbeiten.
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT:
@@ -65,15 +70,15 @@ if __name__ == "__main__":
 						show = False
 						
 			WOOD_STONE_BTN_LIST.eventHandler(event, mouseX, mouseY)
+			FILE_BTN_LIST.eventHandler(event, mouseX, mouseY, WOOD_STONE_BTN_LIST, RIVERBED_SIZE, SCREEN)
 			input_boxes.handleEvent(event)
-			if show:
-				des_box.handleEvent(event)
 			
 		WOOD_STONE_BTN_LIST.blitter(SCREEN, mouseX, mouseY)
 		input_boxes.updateBoxes()
 		if show:
 			pygame.draw.rect(SCREEN, (10,123, 20), (SCREEN.get_width()/2 - 250, SCREEN.get_height()/2 -150, 500, 300))
 			des_box.updateBoxes()
+
 		# Inhalt von screen anzeigen.
 		pygame.display.update()
 	
