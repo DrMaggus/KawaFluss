@@ -47,7 +47,7 @@ def show_riverbed_selection():
                         pygame.event.post(pygame.event.Event(pygame.QUIT))
                 
             for btn in riverbedButtonList:
-                if event.type == pygame.MOUSEBUTTONDOWN and btn.mouseOnButton(mouseX, mouseY) and event.button == 1:
+                if event.type == pygame.MOUSEBUTTONUP and btn.mouseOnButton(mouseX, mouseY) and event.button == 1:
                     SCREEN.blit(btn.getImgPressed(), (btn.getXY()))
                     button_pressed = True
                     return riverbedButtonList.index(btn)

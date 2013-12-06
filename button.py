@@ -89,20 +89,34 @@ class FileBtns:
                 screen.blit(btn.getImgPressed(), (btn.getX(), btn.getY()))
             else:
                 screen.blit(btn.getImgUnpressed(), (btn.getX(), btn.getY()))
-    
-    def eventHandler(self, event, mouseX, mouseY, WoodnStoneBtnList):
-        for btn in self.buttonList:
-            if event.type == pygame.MOUSEBUTTONDOWN and btn.mouseOnButton(mouseX, mouseY) and event.button == 1:
-                btn.setIsPressed(True)
-                if WoodnStoneBtnList.getBufferArrayCount() > 0:
-                    print "pop now!"
-                    #WoodnStoneBtnList.setBufferArray(del WoodnStoneBtnList.getBufferArray()[-1])
-                    del WoodnStoneBtnList.getBufferArray()[-1]
-                    WoodnStoneBtnList.setBufferArrayCount(WoodnStoneBtnList.getBufferArrayCount()-1)
-                
+
+    def eventHandler(self, event, mouseX, mouseY, WoodnStoneBtnList, RiverbedSize, screen):
+        if event.type == pygame.MOUSEBUTTONDOWN and self.buttonList[0].mouseOnButton(mouseX, mouseY) and event.button == 1:
+            self.buttonList[0].setIsPressed(True)
+            if WoodnStoneBtnList.getBufferArrayCount() > 0:
+                del WoodnStoneBtnList.getBufferArray()[len(WoodnStoneBtnList.getBufferArray())-1]
+                WoodnStoneBtnList.setBufferArrayCount(WoodnStoneBtnList.getBufferArrayCount()-1)
+                WoodnStoneBtnList.setBuffer()
+        
+        #SAVE-BUTTON:
+        if event.type == pygame.MOUSEBUTTONDOWN and self.buttonList[1].mouseOnButton(mouseX, mouseY) and event.button == 1:
+            self.buttonList[1].setIsPressed(True) 
+            imageToSave = pygame.Surface(RiverbedSize, flags=pygame.SRCALPHA)
+            currentX = 20
+            currentY = 110
+            currentY += 1
+            while currentX < RiverbedSize[0] + 20: 
+                while currentY < RiverbedSize[1] + 110:
+                    imageToSave.set_at((currentX-20,currentY-110), screen.get_at((currentX,currentY)))
+                    currentY += 1
+                currentY = 110   
+                currentX += 1
+            pygame.image.save(imageToSave, "testImage.png")
+            
+        for btn in self.buttonList:    
             if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
                 btn.setIsPressed(False)
-    
+
         
     
     
@@ -128,8 +142,12 @@ class WoodnStoneBtns:
     def getBufferArray(self):
         return self.bufferArray
     
-    def setBufferArray(self, _bufferArray):
-        self.bufferArray = _bufferArray
+    def setBuffer(self):
+        if self.bufferArrayCount == 0:
+            self.buffer.fill((0,0,0,0))
+        else:
+            self.buffer = self.bufferArray[self.bufferArrayCount]
+
             
     
     #handles the events
@@ -137,7 +155,6 @@ class WoodnStoneBtns:
         #- Image to Mouse
         #- rotation
     def eventHandler(self, event, mouseX, mouseY):
-        self.buffer = self.bufferArray[len(self.bufferArray)-1]
         for btn in self.buttonList:
             #Blit Image to Buffer
             if event.type == pygame.MOUSEBUTTONDOWN and btn.getIsImgOnMouse() and event.button == 1:
@@ -151,11 +168,13 @@ class WoodnStoneBtns:
             #Image to Mouse
             if event.type == pygame.MOUSEBUTTONDOWN and btn.mouseOnButton(mouseX, mouseY) and event.button == 1 and btn.getIsImgOnMouse() == False:
                 btn.setIsPressed(True)
-                btn.getMouseImage().setRotAngle(0)
-                btn.getMouseImage().setRotObject(btn.getMouseImage().getOriginalObject())
-                btn.setIsImgOnMouse(True)
+
             if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
                 btn.setIsPressed(False)
+                if btn.mouseOnButton(mouseX, mouseY) and btn.getIsImgOnMouse() == False:
+                    btn.getMouseImage().setRotAngle(0)
+                    btn.getMouseImage().setRotObject(btn.getMouseImage().getOriginalObject())
+                    btn.setIsImgOnMouse(True)
                
             #rotation
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 3 and btn.getIsImgOnMouse:

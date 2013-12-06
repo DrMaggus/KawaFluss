@@ -18,6 +18,7 @@ import pygame, pygame.font, codecs, os, button, img
 
 SIZE = HEIGHT, WIDTH = 1000, 600
 START_SIZE = (700,300)
+FRAMERATE = 30
 
 IMG_PATH = "images/"
 FONT_PATH = "fonts/"
@@ -64,12 +65,17 @@ RIVERBED_LIST = [pygame.image.load(IMG_PATH + 'riverbed1.png'),\
                  pygame.image.load(IMG_PATH + 'riverbed2.png'),\
                  pygame.image.load(IMG_PATH + 'riverbed2.png')]
                 
+RIVERBED_SIZE = (629, 470)
+                
 STONE = pygame.image.load(IMG_PATH + 'stone.bmp')
 STONE_BUTTON_UP = pygame.image.load(IMG_PATH + 'stone_button_up.png')
 STONE_BUTTON_DOWN = pygame.image.load(IMG_PATH + 'stone_button_down.png')
 ARROW_UNDO_UP = pygame.image.load(IMG_PATH + 'arrowUndo.png')
+SAVE_BTN_UP = pygame.image.load(IMG_PATH + 'saveBtn.png')
 
-FILE_BTN_LIST = button.FileBtns([((800, 0), ARROW_UNDO_UP, ARROW_UNDO_UP)])
+FILE_BTN_LIST = button.FileBtns([((800, 0), ARROW_UNDO_UP, ARROW_UNDO_UP),\
+                                 ((850, 0), SAVE_BTN_UP, SAVE_BTN_UP)])
+
 
 WOOD_STONE_BTN_LIST = button.WoodnStoneBtns([((800, 100), STONE_BUTTON_UP, STONE_BUTTON_DOWN, img.Img(0, 0, False, False, 0, STONE, STONE)),\
                                              ((800, 250), STONE_BUTTON_UP, STONE_BUTTON_DOWN, img.Img(0, 0, False, False, 0, STONE, STONE)),\
@@ -81,7 +87,7 @@ CLOCK = pygame.time.Clock()
 def init():
     pygame.init()
     pygame.font.init()
-    pygame.key.set_repeat(75,100)
+    #pygame.key.set_repeat(1000,1000)
     pygame.display.set_caption(CAPTION)
     #pygame.display.set_icon(pygame.image.load(ICON))
 
