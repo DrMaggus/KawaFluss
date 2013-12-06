@@ -71,7 +71,7 @@ RIVERBED_LIST = [pygame.image.load(IMG_PATH + 'riverbed1.png'),\
                  pygame.image.load(IMG_PATH + 'riverbed2.png'),\
                  pygame.image.load(IMG_PATH + 'riverbed2.png')]
                 
-STONE = pygame.image.load(IMG_PATH + 'stone.bmp')
+STONE = pygame.image.load(IMG_PATH + 'stone.png')
 STONE_BUTTON_UP = pygame.image.load(IMG_PATH + 'stone_button_up.png')
 STONE_BUTTON_DOWN = pygame.image.load(IMG_PATH + 'stone_button_down.png')
 
@@ -81,12 +81,5 @@ WOOD_STONE_BTN_LIST = button.WoodnStoneBtns([((800, 20), STONE_BUTTON_UP, STONE_
     
 
 CLOCK = pygame.time.Clock()
-
-def init():
-    pygame.init()
-    pygame.font.init()
-    #pygame.key.set_repeat(1000,1000)
-    pygame.display.set_caption(CAPTION)
-    #pygame.display.set_icon(pygame.image.load(ICON))
 
     

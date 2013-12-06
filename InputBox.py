@@ -77,7 +77,6 @@ class InputBox:
         self.secondRowPadding = 4
         self.max_char = 1000 if max_char == None else max_char
         self.max_size = max_size
-        print self.rect
         
         
     #blits the inputbox to the buffer and then to the screen

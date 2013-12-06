@@ -106,12 +106,13 @@ class WoodnStoneBtns:
             #Image to Mouse
             if event.type == pygame.MOUSEBUTTONDOWN and btn.mouseOnButton(mouseX, mouseY) and event.button == 1 and btn.getIsImgOnMouse() == False:
                 btn.setIsPressed(True)
-                btn.getMouseImage().setRotAngle(0)
-                btn.getMouseImage().setRotObject(btn.getMouseImage().getOriginalObject())
-                btn.setIsImgOnMouse(True)
+
             if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
                 btn.setIsPressed(False)
-               
+                if btn.mouseOnButton(mouseX, mouseY) and btn.getIsImgOnMouse() == False:
+                    btn.getMouseImage().setRotAngle(0)
+                    btn.getMouseImage().setRotObject(btn.getMouseImage().getOriginalObject())
+                    btn.setIsImgOnMouse(True)
             #rotation
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 3 and btn.getIsImgOnMouse:
                 btn.getMouseImage().setIsRotating(True)
