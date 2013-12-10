@@ -49,7 +49,7 @@
 #    handelEvent(event) <=> event is an element from pygame.event.get(). 'handleEvent' checks for events
 #                                    important for the inputboxes e.g. Key presses and mouse clicks
 #
-#    nextBox() <=> jump to the next box in the list. This box is made to focus.
+#    nextBox() <=> jump to the next box in the list. This box will be focused.
 #####
 
 
@@ -58,12 +58,14 @@ import string
 from config import *
 
 class InputBox:
-    def __init__(self, pos, buffer, color = BOX_EMPTY_COLOR, padding = BOX_PADDING, max_char = None, max_size = None):
+    def __init__(self, pos, buffer, color = BOX_COLORS, fontcolor = FONT_COLOR, padding = BOX_PADDING, max_char = None, max_size = None):
         self.buffer = buffer
         self.rect = (pos[0], pos[1],\
                 max_size if max_size else FONT_SIZE + 2*padding,\
                 FONT_SIZE + 2*padding)
-        self.color = color
+        self.colors = color
+        self.colorid = 2 # 0:no focus,1:focus,2:empty
+        self.fontcolor = fontcolor
         self.focus = False
         self.string = []
         self.string2 = []
@@ -82,8 +84,8 @@ class InputBox:
     #blits the inputbox to the buffer and then to the screen
     def _blitToBuffer(self, dest):    
         self._renderString()
-        if self.color:
-            pygame.draw.rect(self.buffer, self.color, self.rect, 2)
+        if self.colors[self.colorid]:
+            pygame.draw.rect(self.buffer, self.colors[self.colorid], self.rect, 2)
         self.buffer.blit( self.string_rend , (self.stringX, self.stringY) )
         if self.SecondRow:
             self.buffer.blit( self.string2_rend , (self.stringX, self.string2Y) )
@@ -103,7 +105,7 @@ class InputBox:
     
     def _renderString(self):  
         #render string an d calculate position for the first string
-        self.string_rend = pygame.font.Font( FONT, FONT_SIZE).render( string.join(self.string,""), True, FONT_COLOR )
+        self.string_rend = pygame.font.Font( FONT, FONT_SIZE).render( string.join(self.string,""), True, self.fontcolor )
         self.stringX = self.rect[0] + self.padding
         self.stringY = self.rect[1] + self.padding
         self.rect = ( self.rect[0], self.rect[1],\
@@ -112,7 +114,7 @@ class InputBox:
                         
         #render string an d calculate position for the first string
         if self.SecondRow:
-            self.string2_rend = pygame.font.Font( FONT, FONT_SIZE).render( string.join(self.string2,""), True, FONT_COLOR )
+            self.string2_rend = pygame.font.Font( FONT, FONT_SIZE).render( string.join(self.string2,""), True, self.fontcolor )
             self.string2Y = self.stringY + self.string_rend.get_height() + self.secondRowPadding
             lengthX = self.string_rend.get_width() if self.string_rend.get_width() > self.string2_rend.get_width() else self.string2_rend.get_width()
             self.rect = ( self.rect[0], self.rect[1],\
@@ -130,14 +132,14 @@ class InputBox:
     
     def makeFocus(self):
         self.focus = True
-        self.color = BOX_FOCUS_COLOR
+        self.colorid = 1 #BOX_FOCUSED_COLOR
         
     def releaseFocus(self):
         self.focus = False
         if self.isEmpty():
-            self.color = BOX_EMPTY_COLOR
+            self.colorid = 2 #BOX_EMPTY_COLOR
         else:
-            self.color = BOX_COLOR
+            self.colorid = 0 #BOX_COLOR
    
     def putChar(self, char): 
         if char == u'\u1e9e': #capital sharp s
@@ -165,7 +167,7 @@ class InputBox:
     
     def delChar(self):
         if self.isEmpty() and not self.isFocus():
-            self.color = BOX_EMPTY_COLOR
+            self.colorid = 2 #BOX_EMPTY_COLOR
         if len(self.string2) != 0:
             self.string2 = self.string2[0:-1]
         else:
@@ -181,12 +183,34 @@ class InputBox:
         return  mouse[0] > self.rect[0] and mouse[0] < self.rect[0]+self.rect[2] \
                     and mouse[1] > self.rect[1] and mouse[1] < self.rect[1]+self.rect[3]
                     
+    def handleEvent(self, event):
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if self.isMouseInside():
+                self.makeFocus()
+            else:
+                if self.isFocus():
+                    self.releaseFocus()
+        if event.type == pygame.KEYDOWN:
+            if self.isFocus():
+                if event.key == pygame.K_ESCAPE:
+                    self.releaseFocus()
+                elif event.key == pygame.K_RETURN:
+                    #if box.hasSecondRow():
+                    #    box.releaseFocus()
+                    if not self.hasSecondRow():
+                        self.makeRow()
+                elif event.key == pygame.K_BACKSPACE:
+                    self.delChar()
+                else:
+                    self.putChar(event.unicode)    
+    def update(self, dest):
+        self._blitToBuffer(dest)
+                    
                     
                     
 class EventInputBoxes:
-    def __init__(self, pos_lst, screen):
-        self.buffer = pygame.Surface(SIZE, flags=pygame.SRCALPHA)
-        self.buffer.fill((255, 255, 255, 0))
+    def __init__(self, pos_lst, screen, buffer = BUFFER):
+        self.buffer = buffer
         self.boxes = []
         for pos in pos_lst:
             if len(pos) == 2:
@@ -196,39 +220,17 @@ class EventInputBoxes:
         self.amount = len(self.boxes)
         self.screen = screen
         
-    def _clearBuffer(self):
-        self.buffer.fill((255, 255, 255, 0))
         
     def updateBoxes(self):
-        self._clearBuffer()
         for box in self.boxes:
-            box._blitToBuffer(self.screen)
+            box.update(self.screen)
     
     def handleEvent(self, event):
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            for box in self.boxes:
-                if box.isMouseInside():
-                    box.makeFocus()
-                else:
-                    if box.isFocus():
-                        box.releaseFocus()
+        for box in self.boxes:
+            box.handleEvent(event)
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_TAB: #always?
                 self.nextBox()
-            else:
-                for box in self.boxes:
-                    if box.isFocus():
-                        if event.key == pygame.K_ESCAPE:
-                            box.releaseFocus()
-                        elif event.key == pygame.K_RETURN:
-                            #if box.hasSecondRow():
-                            #    box.releaseFocus()
-                            if not box.hasSecondRow():
-                                box.makeRow()
-                        elif event.key == pygame.K_BACKSPACE:
-                            box.delChar()
-                        else:
-                            box.putChar(event.unicode)
                         
     def nextBox(self):
         current = 0
@@ -238,5 +240,5 @@ class EventInputBoxes:
                 break
             current += 1
         self.boxes[(current+1)%self.amount].makeFocus()
-                        
+    
                         

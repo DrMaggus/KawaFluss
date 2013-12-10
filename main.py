@@ -18,18 +18,19 @@ import img
 import sys
 
 from riverbedSelection import show_riverbed_selection
-from startwindow import show_start_window
+from util import show_start_window, show_popup
 from config import *
 from InputBox import *
 
-input_boxes = EventInputBoxes( [(750,0,200), (35,370), (150,463), (450, 460), (550, 365)] , SCREEN)
-des_box = EventInputBoxes( [(SCREEN.get_width()/2 + 30, SCREEN.get_height()/2+90, 250)], SCREEN)
+input_boxes = EventInputBoxes( [(35,370), (150,463), (450, 460), (550, 365)] , SCREEN)
+abox = InputBox((300,300), BUFFER)
 
 if __name__ == "__main__":
 	
 	pygame.init()
 	pygame.font.init()
 	pygame.display.set_caption(CAPTION)
+	HEADER = pygame.font.Font( FONT, 45).render( "KAWA - FLUSS", True, (0,0,0) )
 	#pygame.display.set_icon(pygame.image.load(ICON))
 	
 	#open short explanation about the Kawa Model
@@ -38,7 +39,6 @@ if __name__ == "__main__":
 	#open river bed selection
 	riverbedNumber = show_riverbed_selection()
 
-	
 	#set keyboard repeat rate
 	pygame.key.set_repeat(100,100)
 	#start main loop
@@ -46,19 +46,16 @@ if __name__ == "__main__":
 	while True:
 		# auf 30 FPS beschraenken
 		CLOCK.tick(FRAMERATE)
-
+		CLEAR(BUFFER)
 		#get mouse position
 		mouseX, mouseY = pygame.mouse.get_pos()
 		
 		# screen-Surface mit Grau (RGB = 177, 177, 177) fuellen.
 		SCREEN.fill((177, 177, 177))
-		SCREEN.blit(RIVERBED_LIST[riverbedNumber], (20, 110))           
-		
+		SCREEN.blit(RIVERBED_LIST[riverbedNumber], (20, 85))           
+		SCREEN.blit(HEADER, (230,15))
 			
-		WOOD_STONE_BTN_LIST.blitter(SCREEN, mouseX, mouseY)
-		FILE_BTN_LIST.blitter(SCREEN, mouseX, mouseY)
-		input_boxes.updateBoxes()
-		
+
 		# Alle aufgelaufenen Events holen und abarbeiten.
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT:
@@ -72,12 +69,16 @@ if __name__ == "__main__":
 			WOOD_STONE_BTN_LIST.eventHandler(event, mouseX, mouseY)
 			FILE_BTN_LIST.eventHandler(event, mouseX, mouseY, WOOD_STONE_BTN_LIST, RIVERBED_SIZE, SCREEN)
 			input_boxes.handleEvent(event)
+			abox.handleEvent(event)
 			
+		FILE_BTN_LIST.blitter(SCREEN, mouseX, mouseY)
 		WOOD_STONE_BTN_LIST.blitter(SCREEN, mouseX, mouseY)
 		input_boxes.updateBoxes()
+	
 		if show:
-			pygame.draw.rect(SCREEN, (10,123, 20), (SCREEN.get_width()/2 - 250, SCREEN.get_height()/2 -150, 500, 300))
-			des_box.updateBoxes()
+			show_popup(SCREEN.copy())
+			show = False
+			
 
 		# Inhalt von screen anzeigen.
 		pygame.display.update()
