@@ -1,11 +1,11 @@
 # -*- coding: UTF-8 -*-
 
-##DONT USE event.button == 1,3 or so !!
-
-
 import pygame
 from util import show_popup
 from config import *
+
+LEFT = 1
+RIGHT = 3
 
 class Button:
     def __init__(self, posXY, is_pressed, img_unpressed, img_pressed, mouse_image = None, is_img_on_mouse = None):
@@ -96,7 +96,7 @@ class FileBtns:
                 screen.blit(btn.getImgUnpressed(), (btn.getX(), btn.getY()))
 
     def eventHandler(self, event, mouseX, mouseY, WoodnStoneBtnList, RiverbedSize, screen):
-        if event.type == pygame.MOUSEBUTTONDOWN and self.buttonList[0].mouseOnButton(mouseX, mouseY):
+        if event.type == pygame.MOUSEBUTTONDOWN and self.buttonList[0].mouseOnButton(mouseX, mouseY) and event.button == LEFT:
             self.buttonList[0].setIsPressed(True)
             if WoodnStoneBtnList.getBufferArrayCount() > 0:
                 del WoodnStoneBtnList.getBufferArray()[len(WoodnStoneBtnList.getBufferArray())-1]
@@ -104,7 +104,7 @@ class FileBtns:
                 WoodnStoneBtnList.setBuffer()
         
         #SAVE-BUTTON:
-        if event.type == pygame.MOUSEBUTTONDOWN and self.buttonList[1].mouseOnButton(mouseX, mouseY):
+        if event.type == pygame.MOUSEBUTTONDOWN and self.buttonList[1].mouseOnButton(mouseX, mouseY) and event.button == LEFT:
             self.buttonList[1].setIsPressed(True) 
             imageToSave = pygame.Surface(RiverbedSize, flags=pygame.SRCALPHA)
             currentX = 20
@@ -119,7 +119,7 @@ class FileBtns:
             pygame.image.save(imageToSave, "testImage.png")
             
         for btn in self.buttonList:    
-            if event.type == pygame.MOUSEBUTTONUP:
+            if event.type == pygame.MOUSEBUTTONUP and event.button == LEFT:
                 btn.setIsPressed(False)
 
         
@@ -162,7 +162,7 @@ class WoodnStoneBtns:
     def eventHandler(self, event, mouseX, mouseY):
         for btn in self.buttonList:
             #Blit Image to Buffer
-            if event.type == pygame.MOUSEBUTTONDOWN and btn.getIsImgOnMouse():
+            if event.type == pygame.MOUSEBUTTONDOWN and btn.getIsImgOnMouse() and event.button == LEFT:
                 self.buffer.blit(btn.getMouseImage().getRotObject(),\
                 (mouseX - btn.getMouseImage().getRotObject().get_width()/2, \
                 mouseY - btn.getMouseImage().getRotObject().get_height()/2))
@@ -171,10 +171,10 @@ class WoodnStoneBtns:
                 btn.setIsImgOnMouse(False)
             
             #Image to Mouse
-            if event.type == pygame.MOUSEBUTTONDOWN and btn.mouseOnButton(mouseX, mouseY) and btn.getIsImgOnMouse() == False:
+            if event.type == pygame.MOUSEBUTTONDOWN and btn.mouseOnButton(mouseX, mouseY) and btn.getIsImgOnMouse() == False and event.button == LEFT:
                 btn.setIsPressed(True)
 
-            if event.type == pygame.MOUSEBUTTONUP:
+            if event.type == pygame.MOUSEBUTTONUP and event.button == LEFT:
                 btn.setIsPressed(False)
                 if btn.mouseOnButton(mouseX, mouseY) and btn.getIsImgOnMouse() == False:
                     #TODO: show popup, return and blit input
@@ -185,9 +185,9 @@ class WoodnStoneBtns:
                     print "clicked"
 
             #rotation
-            if event.type == pygame.MOUSEBUTTONDOWN and btn.getIsImgOnMouse:
+            if event.type == pygame.MOUSEBUTTONDOWN and btn.getIsImgOnMouse and event.button == RIGHT:
                 btn.getMouseImage().setIsRotating(True)
-            if event.type == pygame.MOUSEBUTTONUP and btn.getIsImgOnMouse:
+            if event.type == pygame.MOUSEBUTTONUP and btn.getIsImgOnMouse and event.button == RIGHT:
                 btn.getMouseImage().setIsRotating(False)
 
     #blits the buffer, buttons and MouseImage on the screen            
