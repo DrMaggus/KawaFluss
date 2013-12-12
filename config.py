@@ -14,7 +14,7 @@
 #
 ################################################
 
-import pygame, pygame.font, codecs, os, button, img
+import pygame, pygame.font, codecs, os, img #DONT IMPORT button => import error!
 
 SIZE = HEIGHT, WIDTH = 1000, 600
 START_SIZE = (700,300)
@@ -77,15 +77,6 @@ STONE_BUTTON_UP = pygame.image.load(IMG_PATH + 'stone_button_up.png')
 STONE_BUTTON_DOWN = pygame.image.load(IMG_PATH + 'stone_button_down.png')
 ARROW_UNDO_UP = pygame.image.load(IMG_PATH + 'arrowUndo.png')
 SAVE_BTN_UP = pygame.image.load(IMG_PATH + 'saveBtn.png')
-
-FILE_BTN_LIST = button.FileBtns([((800, 0), ARROW_UNDO_UP, ARROW_UNDO_UP),\
-                                 ((850, 0), SAVE_BTN_UP, SAVE_BTN_UP)])
-
-
-WOOD_STONE_BTN_LIST = button.WoodnStoneBtns([((750, 100), STONE_BUTTON_UP, STONE_BUTTON_DOWN, img.Img(0, 0, False, False, 0, STONE, STONE)),\
-                                             ((750, 250), STONE_BUTTON_UP, STONE_BUTTON_DOWN, img.Img(0, 0, False, False, 0, STONE, STONE)),\
-                                             ((750, 400), STONE_BUTTON_UP, STONE_BUTTON_DOWN, img.Img(0, 0, False, False, 0, STONE, STONE))])
-    
 
 CLOCK = pygame.time.Clock()
 

@@ -45,7 +45,8 @@ def show_start_window(size):
     
 
 #TODO: return inputtext
-def show_popup(background):
+def show_popup():
+    background = SCREEN.copy()
     input = InputBox((360,280), BUFFER, color=[(179,179,179),(0,186,220),(179,179,179)], max_size=280)
     text = pygame.font.Font( FONT, FONT_SIZE).render( "Bitte Beschreibung eingeben und bestaetigen", True, (0,0,0) )
     running = True

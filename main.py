@@ -25,6 +25,17 @@ from InputBox import *
 input_boxes = EventInputBoxes( [(35,370), (150,463), (450, 460), (550, 365)] , SCREEN)
 abox = InputBox((300,300), BUFFER)
 
+
+FILE_BTN_LIST = button.FileBtns([((800, 0), ARROW_UNDO_UP, ARROW_UNDO_UP),\
+								((850, 0), SAVE_BTN_UP, SAVE_BTN_UP)])
+
+
+WOOD_STONE_BTN_LIST = button.WoodnStoneBtns([((750, 100), STONE_BUTTON_UP, STONE_BUTTON_DOWN, img.Img(0, 0, False, False, 0, STONE, STONE)),\
+											((750, 250), STONE_BUTTON_UP, STONE_BUTTON_DOWN, img.Img(0, 0, False, False, 0, STONE, STONE)),\
+											((750, 400), STONE_BUTTON_UP, STONE_BUTTON_DOWN, img.Img(0, 0, False, False, 0, STONE, STONE))])
+	
+
+
 if __name__ == "__main__":
 	
 	pygame.init()
@@ -54,6 +65,10 @@ if __name__ == "__main__":
 		SCREEN.fill((177, 177, 177))
 		SCREEN.blit(RIVERBED_LIST[riverbedNumber], (20, 85))           
 		SCREEN.blit(HEADER, (230,15))
+		
+		FILE_BTN_LIST.blitter(SCREEN, mouseX, mouseY)
+		WOOD_STONE_BTN_LIST.blitter(SCREEN, mouseX, mouseY)
+		input_boxes.updateBoxes()
 			
 
 		# Alle aufgelaufenen Events holen und abarbeiten.
@@ -70,13 +85,9 @@ if __name__ == "__main__":
 			FILE_BTN_LIST.eventHandler(event, mouseX, mouseY, WOOD_STONE_BTN_LIST, RIVERBED_SIZE, SCREEN)
 			input_boxes.handleEvent(event)
 			abox.handleEvent(event)
-			
-		FILE_BTN_LIST.blitter(SCREEN, mouseX, mouseY)
-		WOOD_STONE_BTN_LIST.blitter(SCREEN, mouseX, mouseY)
-		input_boxes.updateBoxes()
 	
 		if show:
-			show_popup(SCREEN.copy())
+			show_popup()
 			show = False
 			
 
