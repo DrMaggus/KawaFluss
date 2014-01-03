@@ -127,8 +127,10 @@ class FileBtns:
     
 
 ####### Handles the Wood and Stone Buttons ######
+
 class WoodnStoneBtns:
     #prepare buffer/bufferArray and create buttons
+    #TODO vielleicht argumente anstatt infoList + defaults (siehe InputBox)
     def __init__(self, infoList):
         self.buttonList = []
         self.buffer = pygame.Surface((1000, 600), flags=pygame.SRCALPHA)

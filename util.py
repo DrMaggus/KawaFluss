@@ -1,11 +1,29 @@
-import pygame, pygame.font
+import pygame, pygame.font, time, sys, button
 
-from InputBox import InputBox
+from inputbox import InputBox
 from config import *
 
+##IN CONFIG
+riverbedMini1 = pygame.image.load(IMG_PATH + 'riverbed1mini.png')
+riverbedMini2 = pygame.image.load(IMG_PATH + 'riverbed2mini.png')
+LEFT = 1
+
+class Log():
+    def __init__(self, msg, status = "debug"):
+        #TODO delete file when to big
+        msg_type = {"debug":msg+"\n","warn":"## Warning ##  "+msg+"\n","err":"## Error ##  "+msg+"\n"}[status]
+        #create file if not existent
+        file = open("kawafluss.log","aw")
+        file.write("%s - %s" % (time.strftime("%c"),msg_type))
+        file.close()
+        import sys
+        sys.stdout.write(">>  " + msg_type)
+
 def show_start_window(size):
+    Log("Display infomation window")
     #change screen size
     screen = pygame.display.set_mode(size, pygame.DOUBLEBUF, 32)
+    Log("Change screen size successful to "+str(size))
     button_rect = (screen.get_width() - 100, screen.get_height() - 58, PIC_CONTINUE.get_width(), PIC_CONTINUE.get_height())
     #screen background?
     screen.fill((255,255,255))
@@ -42,6 +60,7 @@ def show_start_window(size):
         
     #change screen size
     pygame.display.set_mode(SIZE, pygame.DOUBLEBUF, 32)
+    Log("Change screen size successful to "+str(SIZE))
     
 
 #TODO: return inputtext
@@ -67,6 +86,44 @@ def show_popup():
         input.update(SCREEN)
         pygame.display.update()
         
+
+
+##1.TODO: Funktion um aus Riverbed "Thumbnails" bzw. Minibilder zu machen
+
+##nach 1.TODO =>  'show_riverbed_selection()' in util.py verschieben!
+def show_riverbed_selection():
+        
+    riverbedButton1 = button.Button((50, 100), False, riverbedMini1, riverbedMini1, None, None)
+    riverbedButton2 = button.Button((367, 100), False, riverbedMini1, riverbedMini1, None, None)
+    riverbedButton3 = button.Button((684, 100), False, riverbedMini1, riverbedMini1, None, None)
+    riverbedButton4 = button.Button((50, 350), False, riverbedMini2, riverbedMini2, None, None)
+    riverbedButton5 = button.Button((367, 350), False, riverbedMini2, riverbedMini2, None, None)
+    riverbedButton6 = button.Button((684, 350), False, riverbedMini2, riverbedMini2, None, None)
+   
+    riverbedButtonList = [riverbedButton1, riverbedButton2, riverbedButton3, riverbedButton4, riverbedButton5, riverbedButton6]
+
+    running = True
+    while running:
+        #get mouse position
+        mouseX, mouseY = pygame.mouse.get_pos()
+        
+        for btn in riverbedButtonList:
+            SCREEN.blit(btn.getImgUnpressed(), (btn.getXY()))
+    
+        for event in pygame.event.get():
+            # Spiel beenden, wenn wir ein QUIT-Event finden.
+            if event.type == pygame.QUIT:
+                sys.exit()
+                
+            for btn in riverbedButtonList:                                                  
+                if event.type == pygame.MOUSEBUTTONUP and btn.mouseOnButton(mouseX, mouseY) and event.button == LEFT:
+                    #SCREEN.blit(btn.getImgPressed(), (btn.getXY()))
+                    return riverbedButtonList.index(btn)
+                            
+        # Inhalt von screen anzeigen.
+        pygame.display.flip()
+        
+    
         
         
         

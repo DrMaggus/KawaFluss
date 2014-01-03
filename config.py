@@ -13,9 +13,14 @@
 #
 #
 ################################################
-
-import pygame, pygame.font, codecs, os, img #DONT IMPORT button => import error!
-
+###
+###
+#DON'T IMPORT A MODULE THAT IMPORTS THIS FILE (CONFIG) => CYCLIC IMPORTS
+import pygame, pygame.font, codecs, os, img 
+##
+##
+       
+            
 SIZE = HEIGHT, WIDTH = 1000, 600
 START_SIZE = (700,300)
 FRAMERATE = 30
@@ -77,6 +82,7 @@ STONE_BUTTON_UP = pygame.image.load(IMG_PATH + 'stone_button_up.png')
 STONE_BUTTON_DOWN = pygame.image.load(IMG_PATH + 'stone_button_down.png')
 ARROW_UNDO_UP = pygame.image.load(IMG_PATH + 'arrowUndo.png')
 SAVE_BTN_UP = pygame.image.load(IMG_PATH + 'saveBtn.png')
+
 
 CLOCK = pygame.time.Clock()
 
