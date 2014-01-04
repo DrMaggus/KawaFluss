@@ -116,6 +116,7 @@ class FileBtns:
             imageToSave.blit(SCREEN, dest=(0,0), area=(20,85,690,490))
             pygame.image.save(imageToSave, "testImage.png")
             
+        #RESET-BUTTON
         if event.type == pygame.MOUSEBUTTONDOWN and self.buttonList[2].mouseOnButton(mouseX, mouseY) and event.button == LEFT:
             #open river bed selection
             globals.riverbedNumber = show_riverbed_selection()
@@ -180,8 +181,8 @@ class WoodnStoneBtns:
                     (mouseX - btn.getMouseImage().getRotObject().get_width()/2, \
                     mouseY - btn.getMouseImage().getRotObject().get_height()/2))
                     self.bufferArray.append(self.buffer.copy())
-                    btn.setIsImgOnMouse(False)
-            
+                    for button in self.buttonList:
+                        button.setIsImgOnMouse(False)            
             #Image to Mouse
             if event.type == pygame.MOUSEBUTTONDOWN and btn.mouseOnButton(mouseX, mouseY) and btn.getIsImgOnMouse() == False and event.button == LEFT:
                 btn.setIsPressed(True)
@@ -193,7 +194,8 @@ class WoodnStoneBtns:
                     show_popup()
                     btn.getMouseImage().setRotAngle(0)
                     btn.getMouseImage().setRotObject(btn.getMouseImage().getOriginalObject())
-                    btn.setIsImgOnMouse(True)
+                    for button in self.buttonList:
+                        button.setIsImgOnMouse(True)
                     print "clicked"
                 
   
