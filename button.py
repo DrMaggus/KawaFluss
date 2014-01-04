@@ -116,6 +116,7 @@ class FileBtns:
             imageToSave.blit(SCREEN, dest=(0,0), area=(20,85,690,490))
             pygame.image.save(imageToSave, "testImage.png")
             
+        #RESET-BUTTON
         if event.type == pygame.MOUSEBUTTONDOWN and self.buttonList[2].mouseOnButton(mouseX, mouseY) and event.button == LEFT:
             #open river bed selection
             globals.riverbedNumber = show_riverbed_selection()
