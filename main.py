@@ -73,17 +73,15 @@ if __name__ == "__main__":
         input_boxes.updateBoxes()
             
         # Alle aufgelaufenen Events holen und abarbeiten.
-        img_place = None
+        allow_place = False
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
-            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                img_place = placement.itemFitOnScreen(menu_buttons.getButton(STONE_BTN_1).getMouseImage().getRotObject())
             if event.type == pygame.KEYDOWN:
                 placement.show(SCREEN, menu_buttons.getButton(STONE_BTN_1).getMouseImage().getRotObject())
                 
-            menu_buttons.eventHandler(event, mouseX, mouseY, img_place)
-            file_buttons.eventHandler(event, mouseX, mouseY, menu_buttons, RIVERBED_SIZE, SCREEN)
+            menu_buttons.eventHandler(event, mouseX, mouseY, placement)
+            file_buttons.eventHandler(event, mouseX, mouseY, placement, menu_buttons, RIVERBED_SIZE, SCREEN)
             input_boxes.handleEvent(event)
             abox.handleEvent(event)
             

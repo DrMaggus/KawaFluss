@@ -95,13 +95,15 @@ class FileBtns:
             else:
                 screen.blit(btn.getImgUnpressed(), (btn.getX(), btn.getY()))
 
-    def eventHandler(self, event, mouseX, mouseY, WoodnStoneBtnList, RiverbedSize, screen):
+    def eventHandler(self, event, mouseX, mouseY, placechecker, WoodnStoneBtnList, RiverbedSize, screen):
         if event.type == pygame.MOUSEBUTTONDOWN and self.buttonList[0].mouseOnButton(mouseX, mouseY) and event.button == LEFT:
             self.buttonList[0].setIsPressed(True)
             if WoodnStoneBtnList.getBufferArrayCount() > 0:
                 del WoodnStoneBtnList.getBufferArray()[len(WoodnStoneBtnList.getBufferArray())-1]
                 WoodnStoneBtnList.setBufferArrayCount(WoodnStoneBtnList.getBufferArrayCount()-1)
                 WoodnStoneBtnList.setBuffer()
+                placechecker.undo()
+                
         
         #SAVE-BUTTON:
         #TODO check wether files exist 
@@ -163,12 +165,14 @@ class WoodnStoneBtns:
         #- Blit Image to buffer
         #- Image to Mouse
         #- rotation
-    def eventHandler(self, event, mouseX, mouseY, img_pos):
+    def eventHandler(self, event, mouseX, mouseY, placechecker):
         for btn in self.buttonList:
             #Blit Image to Buffer
             if event.type == pygame.MOUSEBUTTONDOWN and btn.getIsImgOnMouse() and event.button == LEFT:
-                if img_pos:
-                    self.buffer.blit(btn.getMouseImage().getRotObject(), img_pos)
+                if placechecker.itemFitOnScreen(btn.getMouseImage().getRotObject()):
+                    self.buffer.blit(btn.getMouseImage().getRotObject(),\
+                    (mouseX - btn.getMouseImage().getRotObject().get_width()/2, \
+                    mouseY - btn.getMouseImage().getRotObject().get_height()/2))
                     self.bufferArray.append(self.buffer.copy())
                     self.bufferArrayCount += 1
                     btn.setIsImgOnMouse(False)

@@ -13,7 +13,7 @@ class Log():
         #TODO delete file when to big
         msg_type = {"debug":msg+"\n","warn":"## Warning ##  "+msg+"\n","err":"## Error ##  "+msg+"\n"}[status]
         #create file if not existent
-        file = open("kawafluss.log","aw")
+        file = open("kawafluss.log","a")
         file.write("%s - %s" % (time.strftime("%c"),msg_type))
         file.close()
         import sys

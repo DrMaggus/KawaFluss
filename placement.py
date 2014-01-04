@@ -19,7 +19,8 @@ class Placement:
     def undo(self):
         if len(self.itemsPlaced) != 0:
             self.itemsPlaced = self.itemsPlaced[:-1]
-    
+            self.itemsPos = self.itemsPos[:-1]
+            
     def show(self, dest, img):
         dest.blit(self.colormap, self.pos)
         dest.blit(self.placedMap, self.pos)
@@ -41,21 +42,21 @@ class Placement:
                         try:
                             if self.colormap.get_at(( img_pos_in_win[0]+x, img_pos_in_win[1]+y )) != (0,255,0):
                                 Log("Picture not entirely on colormap"+str(img.get_at((x,y))))
-                                return None
+                                return False
                             if self.placedMap.get_at(( img_pos_in_win[0]+x, img_pos_in_win[1]+y )) != (255,0,255):
                                 Log("Cannot be placed there (already placed sth)")
-                                return None
+                                return False
                         except:
                             Log("Picture outside place zone.")
-                            return None
+                            return False
         else:
             Log("Outside place zone.")
             self.placedMap.fill((255,0,255))
-            return None
+            return False
      
         self.itemsPos.append(img_pos_in_win)
         img_pos_in_win = (img_pos_in_win[0]+self.pos[0],img_pos_in_win[1]+self.pos[1])
         self.placedMap.fill((255,0,255))
-        self.itemsPlaced.append(img.copy().convert_alpha())  
+        self.itemsPlaced.append(img.copy())  
         Log("Inside place zone.")
-        return img_pos_in_win
+        return True
