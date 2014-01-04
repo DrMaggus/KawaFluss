@@ -18,6 +18,7 @@ import img
 import sys
 import inputbox
 import placement
+import globals
 
 from util import *
 from config import *
@@ -28,7 +29,8 @@ abox = inputbox.InputBox((300,300), BUFFER)
 
 #define buttons for saving, undo
 file_buttons = button.FileBtns([((800, 0), PIC_ARROW_UNDO_UP, PIC_ARROW_UNDO_UP),\
-                        ((850, 0), PIC_SAVE_BTN_UP, PIC_SAVE_BTN_UP)])
+                                ((850, 0), PIC_SAVE_BTN_UP, PIC_SAVE_BTN_UP),\
+                                ((900, 0), PIC_NEW_BTN_UP, PIC_NEW_BTN_UP)])
 
 #define buttons for stones and woods
 menu_buttons = button.WoodnStoneBtns([((900, 100), PIC_STONE_BUTTON_UP, PIC_STONE_BUTTON_DOWN, img.Img(0, 0, False, False, 0, PIC_STONE, PIC_STONE)),\
@@ -45,17 +47,19 @@ if __name__ == "__main__":
     Log("Initializing pygame and font, setting captions")
     #pygame.display.set_icon(pygame.image.load(ICON))
     
+    #globals.init()
+    
     #open short explanation about the Kawa Model
     show_start_window(START_SIZE)
         
     #open river bed selection
-    riverbedNumber = show_riverbed_selection()
+    globals.riverbedNumber = show_riverbed_selection()
 
     #set keyboard repeat rate
     pygame.key.set_repeat(100,100)
  
     #start main loop
-    placement = placement.Placement(COLORMAPS[riverbedNumber], (20,85))
+    globals.placementVar = placement.Placement(COLORMAPS[globals.riverbedNumber], (20,85))
     while True:
         # auf 30 FPS beschraenken
         CLOCK.tick(FRAMERATE)
@@ -64,11 +68,18 @@ if __name__ == "__main__":
         mouseX, mouseY = pygame.mouse.get_pos()
         
         # screen-Surface mit Grau (RGB = 177, 177, 177) fuellen.
+<<<<<<< HEAD
         SCREEN.fill((231, 232, 200))
         SCREEN.blit(RIVERBED_LIST[riverbedNumber], (20, 85))           
         SCREEN.blit(HEADER, (230,15))
         SCREEN.blit(PIC_MENU, (730,85))
         SCREEN.blit(PIC_MENU, (865,85))
+=======
+        SCREEN.fill((177, 177, 177))
+        SCREEN.blit(RIVERBED_LIST[globals.riverbedNumber], (20, 85))           
+        SCREEN.blit(HEADER, (230,15))
+        SCREEN.blit(COLORMAPS[globals.riverbedNumber], (20,85))
+>>>>>>> ce8ce2a1f353fe07247a09289dc787ab0b771c8d
         
         file_buttons.blitter(SCREEN, mouseX, mouseY)
         menu_buttons.blitter(SCREEN, mouseX, mouseY)
@@ -79,9 +90,14 @@ if __name__ == "__main__":
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
+<<<<<<< HEAD
+=======
+            if event.type == pygame.KEYDOWN:
+                globals.placementVar.show(SCREEN, menu_buttons.getButton(STONE_BTN_1).getMouseImage().getRotObject())
+>>>>>>> ce8ce2a1f353fe07247a09289dc787ab0b771c8d
                 
-            menu_buttons.eventHandler(event, mouseX, mouseY, placement)
-            file_buttons.eventHandler(event, mouseX, mouseY, placement, menu_buttons, RIVERBED_SIZE, SCREEN)
+            menu_buttons.eventHandler(event, mouseX, mouseY, globals.placementVar)
+            file_buttons.eventHandler(event, mouseX, mouseY, globals.placementVar, menu_buttons, RIVERBED_SIZE, SCREEN)
             input_boxes.handleEvent(event)
             abox.handleEvent(event)
             

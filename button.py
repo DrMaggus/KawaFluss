@@ -1,7 +1,10 @@
 # -*- coding: UTF-8 -*-
 
 import pygame
-from util import show_popup
+import placement
+import globals
+
+from util import *
 from config import *
 
 LEFT = 1
@@ -98,9 +101,8 @@ class FileBtns:
     def eventHandler(self, event, mouseX, mouseY, placechecker, WoodnStoneBtnList, RiverbedSize, screen):
         if event.type == pygame.MOUSEBUTTONDOWN and self.buttonList[0].mouseOnButton(mouseX, mouseY) and event.button == LEFT:
             self.buttonList[0].setIsPressed(True)
-            if WoodnStoneBtnList.getBufferArrayCount() > 0:
-                del WoodnStoneBtnList.getBufferArray()[len(WoodnStoneBtnList.getBufferArray())-1]
-                WoodnStoneBtnList.setBufferArrayCount(WoodnStoneBtnList.getBufferArrayCount()-1)
+            if len(WoodnStoneBtnList.getBufferArray())-1 > 0:
+                WoodnStoneBtnList.setBufferArray(WoodnStoneBtnList.getBufferArray()[:-1])
                 WoodnStoneBtnList.setBuffer()
                 placechecker.undo()
                 
@@ -113,6 +115,14 @@ class FileBtns:
             #CLEAR(imageToSave)
             imageToSave.blit(SCREEN, dest=(0,0), area=(20,85,690,490))
             pygame.image.save(imageToSave, "testImage.png")
+            
+        if event.type == pygame.MOUSEBUTTONDOWN and self.buttonList[2].mouseOnButton(mouseX, mouseY) and event.button == LEFT:
+            #open river bed selection
+            globals.riverbedNumber = show_riverbed_selection()
+            globals.placement = placement.Placement(COLORMAPS[globals.riverbedNumber], (20,85))
+            WoodnStoneBtnList.setBufferArray(WoodnStoneBtnList.getBufferArray()[:1])
+            WoodnStoneBtnList.setBuffer()
+            placechecker.deleteItems()
             
         for btn in self.buttonList:    
             if event.type == pygame.MOUSEBUTTONUP and event.button == LEFT:
@@ -132,19 +142,12 @@ class WoodnStoneBtns:
         self.buffer = pygame.Surface((1000, 600), flags=pygame.SRCALPHA)
         self.buffer.fill((0,0,0,0))
         self.bufferArray = [self.buffer.copy()]
-        self.bufferArrayCount = 0
         for item in infoList:
             self.buttonList.append(Button(item[0], False, item[1],  item[2], item[3], False))
     
     def getButton(self, index):
         return self.buttonList[index]
             
-    def getBufferArrayCount(self):
-        return self.bufferArrayCount
-    
-    def setBufferArrayCount(self, _count):
-        self.bufferArrayCount = _count
-    
     def getBufferArray(self):
         return self.bufferArray
     
@@ -154,11 +157,14 @@ class WoodnStoneBtns:
                 return True
         return False
     
+    def setBufferArray(self, newArray):
+        self.bufferArray = newArray;
+    
     def setBuffer(self):
-        if self.bufferArrayCount == 0:
+        if len(self.bufferArray)-1 == 0:
             self.buffer.fill((0,0,0,0))
         else:
-            self.buffer = self.bufferArray[self.bufferArrayCount]
+            self.buffer = self.bufferArray[len(self.bufferArray)-1]
 
     
     #handles the events
@@ -174,7 +180,6 @@ class WoodnStoneBtns:
                     (mouseX - btn.getMouseImage().getRotObject().get_width()/2, \
                     mouseY - btn.getMouseImage().getRotObject().get_height()/2))
                     self.bufferArray.append(self.buffer.copy())
-                    self.bufferArrayCount += 1
                     btn.setIsImgOnMouse(False)
             
             #Image to Mouse
@@ -202,7 +207,7 @@ class WoodnStoneBtns:
     #blits the buffer, buttons and MouseImage on the screen            
     def blitter(self, screen, mouseX, mouseY):
         #buffer
-        screen.blit(self.bufferArray[self.bufferArrayCount], (0, 0))
+        screen.blit(self.bufferArray[len(self.bufferArray)-1], (0, 0))
         for btn in self.buttonList:
             #buttons
             if btn.getIsPressed():
