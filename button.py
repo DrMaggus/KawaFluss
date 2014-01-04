@@ -104,18 +104,12 @@ class FileBtns:
                 WoodnStoneBtnList.setBuffer()
         
         #SAVE-BUTTON:
+        #TODO check wether files exist 
         if event.type == pygame.MOUSEBUTTONDOWN and self.buttonList[1].mouseOnButton(mouseX, mouseY) and event.button == LEFT:
             self.buttonList[1].setIsPressed(True) 
-            imageToSave = pygame.Surface(RiverbedSize, flags=pygame.SRCALPHA)
-            currentX = 20
-            currentY = 110
-            currentY += 1
-            while currentX < RiverbedSize[0] + 20: 
-                while currentY < RiverbedSize[1] + 110:
-                    imageToSave.set_at((currentX-20,currentY-110), screen.get_at((currentX,currentY)))
-                    currentY += 1
-                currentY = 110   
-                currentX += 1
+            imageToSave = pygame.Surface(RiverbedSize, pygame.SRCALPHA, 32)
+            #CLEAR(imageToSave)
+            imageToSave.blit(SCREEN, dest=(0,0), area=(20,85,690,490))
             pygame.image.save(imageToSave, "testImage.png")
             
         for btn in self.buttonList:    
@@ -139,6 +133,9 @@ class WoodnStoneBtns:
         self.bufferArrayCount = 0
         for item in infoList:
             self.buttonList.append(Button(item[0], False, item[1],  item[2], item[3], False))
+    
+    def getButton(self, index):
+        return self.buttonList[index]
             
     def getBufferArrayCount(self):
         return self.bufferArrayCount
@@ -149,28 +146,32 @@ class WoodnStoneBtns:
     def getBufferArray(self):
         return self.bufferArray
     
+    def isButtonClicked(self):
+        for btn in self.buttonList:
+            if btn.getIsImgOnMouse():
+                return True
+        return False
+    
     def setBuffer(self):
         if self.bufferArrayCount == 0:
             self.buffer.fill((0,0,0,0))
         else:
             self.buffer = self.bufferArray[self.bufferArrayCount]
 
-            
     
     #handles the events
         #- Blit Image to buffer
         #- Image to Mouse
         #- rotation
-    def eventHandler(self, event, mouseX, mouseY):
+    def eventHandler(self, event, mouseX, mouseY, img_pos):
         for btn in self.buttonList:
             #Blit Image to Buffer
             if event.type == pygame.MOUSEBUTTONDOWN and btn.getIsImgOnMouse() and event.button == LEFT:
-                self.buffer.blit(btn.getMouseImage().getRotObject(),\
-                (mouseX - btn.getMouseImage().getRotObject().get_width()/2, \
-                mouseY - btn.getMouseImage().getRotObject().get_height()/2))
-                self.bufferArray.append(self.buffer.copy())
-                self.bufferArrayCount += 1
-                btn.setIsImgOnMouse(False)
+                if img_pos:
+                    self.buffer.blit(btn.getMouseImage().getRotObject(), img_pos)
+                    self.bufferArray.append(self.buffer.copy())
+                    self.bufferArrayCount += 1
+                    btn.setIsImgOnMouse(False)
             
             #Image to Mouse
             if event.type == pygame.MOUSEBUTTONDOWN and btn.mouseOnButton(mouseX, mouseY) and btn.getIsImgOnMouse() == False and event.button == LEFT:
@@ -185,11 +186,13 @@ class WoodnStoneBtns:
                     btn.getMouseImage().setRotObject(btn.getMouseImage().getOriginalObject())
                     btn.setIsImgOnMouse(True)
                     print "clicked"
-
-            #rotation
-            if event.type == pygame.MOUSEBUTTONDOWN and btn.getIsImgOnMouse and event.button == RIGHT:
+                
+  
+            
+            #rotation  
+            if event.type == pygame.MOUSEBUTTONDOWN and btn.getIsImgOnMouse() and event.button == RIGHT:
                 btn.getMouseImage().setIsRotating(True)
-            if event.type == pygame.MOUSEBUTTONUP and btn.getIsImgOnMouse and event.button == RIGHT:
+            if event.type == pygame.MOUSEBUTTONUP and btn.getIsImgOnMouse() and event.button == RIGHT:
                 btn.getMouseImage().setIsRotating(False)
 
     #blits the buffer, buttons and MouseImage on the screen            

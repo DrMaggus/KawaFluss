@@ -46,10 +46,14 @@ BOX_FOCUS_COLOR = (179,1,99) # Magenta
 BOX_EMPTY_COLOR = (255,100,100)
 BOX_COLORS = [BOX_COLOR,BOX_FOCUS_COLOR,BOX_EMPTY_COLOR]
 
-STONE_COLOR = (51,51,51)
 
 PIC_CONTINUE = pygame.image.load(os.path.join(IMG_PATH, "continue.png"))
 PIC_POPUP = pygame.image.load(os.path.join(IMG_PATH, "popup.png"))
+PIC_STONE = pygame.transform.scale(pygame.image.load(os.path.join(IMG_PATH, "stone.png")), (100,75)).convert_alpha()
+PIC_STONE_BUTTON_UP = pygame.image.load(os.path.join(IMG_PATH, 'stone_button_up.png'))
+PIC_STONE_BUTTON_DOWN = pygame.image.load(os.path.join(IMG_PATH, 'stone_button_down.png'))
+PIC_ARROW_UNDO_UP = pygame.image.load(os.path.join(IMG_PATH, 'arrowUndo.png'))
+PIC_SAVE_BTN_UP = pygame.image.load(os.path.join(IMG_PATH, 'saveBtn.png'))
 
 START_SCREEN_TEXT = codecs.decode("""Michael Iwama ist Professor am Institut für Arbeitswissenschaft und 
 Ergotherapie an der Universität in Toronto.
@@ -66,26 +70,40 @@ Kulturkreise anwendbar?
 """, "utf-8" )
 
 
-RIVERBED_LIST = [pygame.image.load(IMG_PATH + 'riverbed1.png'),\
-                 pygame.image.load(IMG_PATH + 'riverbed1.png'),\
-                 pygame.image.load(IMG_PATH + 'riverbed1.png'),\
-                 pygame.image.load(IMG_PATH + 'riverbed2.png'),\
-                 pygame.image.load(IMG_PATH + 'riverbed2.png'),\
-                 pygame.image.load(IMG_PATH + 'riverbed2.png')]
+RIVERBED_LIST = [pygame.image.load(IMG_PATH + 'riverbed1.png'),
+                 pygame.image.load(IMG_PATH + 'riverbed2.png'),
+                 pygame.image.load(IMG_PATH + 'riverbed3.png'),
+                 pygame.image.load(IMG_PATH + 'riverbed4.png'),
+                 pygame.image.load(IMG_PATH + 'riverbed5.png'),
+                 pygame.image.load(IMG_PATH + 'riverbed6.png')]
+                 
+COLORMAPS = [ pygame.image.load(os.path.join(IMG_PATH, "colormap1.png")),
+              pygame.image.load(os.path.join(IMG_PATH, "colormap2.png")),
+              pygame.image.load(os.path.join(IMG_PATH, "colormap3.png")),
+              pygame.image.load(os.path.join(IMG_PATH, "colormap4.png")),
+              pygame.image.load(os.path.join(IMG_PATH, "colormap5.png")),
+              pygame.image.load(os.path.join(IMG_PATH, "colormap6.png"))]
                 
 
-STONE = pygame.image.load(IMG_PATH + 'stone.png')
 
-RIVERBED_SIZE = (695, 500)
-                
-STONE_BUTTON_UP = pygame.image.load(IMG_PATH + 'stone_button_up.png')
-STONE_BUTTON_DOWN = pygame.image.load(IMG_PATH + 'stone_button_down.png')
-ARROW_UNDO_UP = pygame.image.load(IMG_PATH + 'arrowUndo.png')
-SAVE_BTN_UP = pygame.image.load(IMG_PATH + 'saveBtn.png')
+
+RIVERBED_SIZE = (690, 490)
 
 
 CLOCK = pygame.time.Clock()
 
+STONE_BTN_1 = 0
+STONE_BTN_2 = 1
+STONE_BTN_3 = 2
+STONE_BTN_4 = 3
+STONE_BTN_5 = 4
+STONE_BTN_6 = 5
+WOOD_BTN_1 = 6
+WOOD_BTN_2 = 7
+WOOD_BTN_3 = 8
+WOOD_BTN_4 = 9
+WOOD_BTN_5 = 10
+WOOD_BTN_6 = 11
 
 def CLEAR(surface):
     surface.fill((255, 255, 255, 0))

@@ -23,7 +23,7 @@ def show_start_window(size):
     Log("Display infomation window")
     #change screen size
     screen = pygame.display.set_mode(size, pygame.DOUBLEBUF, 32)
-    Log("Change screen size successful to "+str(size))
+    Log("Change screen size to "+str(size))
     button_rect = (screen.get_width() - 100, screen.get_height() - 58, PIC_CONTINUE.get_width(), PIC_CONTINUE.get_height())
     #screen background?
     screen.fill((255,255,255))
@@ -60,14 +60,15 @@ def show_start_window(size):
         
     #change screen size
     pygame.display.set_mode(SIZE, pygame.DOUBLEBUF, 32)
-    Log("Change screen size successful to "+str(SIZE))
+    Log("Change screen size to "+str(SIZE))
     
 
 #TODO: return inputtext
 def show_popup():
+    Log("Open Pop up input screen")
     background = SCREEN.copy()
     input = InputBox((360,280), BUFFER, color=[(179,179,179),(0,186,220),(179,179,179)], max_size=280)
-    text = pygame.font.Font( FONT, FONT_SIZE).render( "Bitte Beschreibung eingeben und bestaetigen", True, (0,0,0) )
+    text = pygame.font.Font( FONT, FONT_SIZE ).render( "Bitte Beschreibung eingeben und bestaetigen", True, (0,0,0) )
     running = True
     while running:
         CLEAR(BUFFER)
@@ -85,6 +86,7 @@ def show_popup():
             
         input.update(SCREEN)
         pygame.display.update()
+    return input.getString()
         
 
 
