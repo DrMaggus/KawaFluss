@@ -68,18 +68,13 @@ if __name__ == "__main__":
         mouseX, mouseY = pygame.mouse.get_pos()
         
         # screen-Surface mit Grau (RGB = 177, 177, 177) fuellen.
-<<<<<<< HEAD
+
         SCREEN.fill((231, 232, 200))
-        SCREEN.blit(RIVERBED_LIST[riverbedNumber], (20, 85))           
+        SCREEN.blit(RIVERBED_LIST[globals.riverbedNumber], (20, 85)) 
+        SCREEN.blit(COLORMAPS[globals.riverbedNumber], (20,85))          
         SCREEN.blit(HEADER, (230,15))
         SCREEN.blit(PIC_MENU, (730,85))
         SCREEN.blit(PIC_MENU, (865,85))
-=======
-        SCREEN.fill((177, 177, 177))
-        SCREEN.blit(RIVERBED_LIST[globals.riverbedNumber], (20, 85))           
-        SCREEN.blit(HEADER, (230,15))
-        SCREEN.blit(COLORMAPS[globals.riverbedNumber], (20,85))
->>>>>>> ce8ce2a1f353fe07247a09289dc787ab0b771c8d
         
         file_buttons.blitter(SCREEN, mouseX, mouseY)
         menu_buttons.blitter(SCREEN, mouseX, mouseY)
@@ -90,11 +85,6 @@ if __name__ == "__main__":
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
-<<<<<<< HEAD
-=======
-            if event.type == pygame.KEYDOWN:
-                globals.placementVar.show(SCREEN, menu_buttons.getButton(STONE_BTN_1).getMouseImage().getRotObject())
->>>>>>> ce8ce2a1f353fe07247a09289dc787ab0b771c8d
                 
             menu_buttons.eventHandler(event, mouseX, mouseY, globals.placementVar)
             file_buttons.eventHandler(event, mouseX, mouseY, globals.placementVar, menu_buttons, RIVERBED_SIZE, SCREEN)
