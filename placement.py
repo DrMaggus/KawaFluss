@@ -20,7 +20,11 @@ class Placement:
         if len(self.itemsPlaced) != 0:
             self.itemsPlaced = self.itemsPlaced[:-1]
             self.itemsPos = self.itemsPos[:-1]
-            
+    
+    def deleteItems(self):
+        self.itemsPlaced = []
+        self.itemsPos = []   
+    
     def show(self, dest, img):
         dest.blit(self.colormap, self.pos)
         dest.blit(self.placedMap, self.pos)

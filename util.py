@@ -95,6 +95,7 @@ def show_popup():
 ##nach 1.TODO =>  'show_riverbed_selection()' in util.py verschieben!
 def show_riverbed_selection():
         
+    SCREEN.fill((177, 177, 177))    
     riverbedButton1 = button.Button((50, 100), False, riverbedMini1, riverbedMini1, None, None)
     riverbedButton2 = button.Button((367, 100), False, riverbedMini1, riverbedMini1, None, None)
     riverbedButton3 = button.Button((684, 100), False, riverbedMini1, riverbedMini1, None, None)
