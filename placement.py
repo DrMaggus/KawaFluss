@@ -25,6 +25,13 @@ class Placement:
         self.itemsPlaced = []
         self.itemsPos = []   
     
+
+    def show(self, dest, img):
+        dest.blit(self.colormap, self.pos)
+        dest.blit(self.placedMap, self.pos)
+        dest.blit(img, (pygame.mouse.get_pos()[0]-img.get_size()[0]/2, pygame.mouse.get_pos()[1]-img.get_size()[1]/2))
+    
+    
     def itemFitOnScreen(self, img):
         self._blitAllItems()
         #left hand corner of img
