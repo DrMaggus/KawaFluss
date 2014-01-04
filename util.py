@@ -127,9 +127,20 @@ def show_riverbed_selection():
         pygame.display.flip()
         
     
-def makeButtonImages(surface):
-    pass#pygame.draw.rect()
-        
+def makeButtonImage(surface):
+    unpressed = surface.copy()
+    pressed = surface.copy()
+    pygame.draw.rect(unpressed, (255,255,255), (0,0,4,surface.get_height()))
+    pygame.draw.rect(unpressed, (255,255,255), (0,0,surface.get_width(),3))
+    pygame.draw.rect(unpressed, (0,0,0), (0,surface.get_height()-3,surface.get_width(),3))
+    pygame.draw.rect(unpressed, (0,0,0), (surface.get_width()-4,0,4,surface.get_height()))
+    
+    pygame.draw.rect(pressed, (0,0,0), (0,0,4,surface.get_height()))
+    pygame.draw.rect(pressed, (0,0,0), (0,0,surface.get_width(),3))
+    pygame.draw.rect(pressed, (255,255,255), (0,surface.get_height()-3,surface.get_width(),3))
+    pygame.draw.rect(pressed, (255,255,255), (surface.get_width()-4,0,4,surface.get_height()))
+    
+    return (unpressed, pressed)
         
         
         

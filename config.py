@@ -85,6 +85,12 @@ COLORMAPS = [ pygame.image.load(os.path.join(IMG_PATH, "colormap1.png")),
               pygame.image.load(os.path.join(IMG_PATH, "colormap4.png")),
               pygame.image.load(os.path.join(IMG_PATH, "colormap5.png")),
               pygame.image.load(os.path.join(IMG_PATH, "colormap6.png"))]
+              
+def makeBorder(surface, color = (255,255,255), width=2):
+    pygame.draw.rect(surface, color, (0,0,surface.get_width(),surface.get_height()), width)
+    return surface
+             
+THUMBNAILS = [ makeBorder(pygame.transform.scale(PIC_STONE.copy(), (32+i*8,24+i*6))) for i in range(0,6)]
                 
 
 
@@ -94,18 +100,8 @@ RIVERBED_SIZE = (690, 490)
 
 CLOCK = pygame.time.Clock()
 
-STONE_BTN_1 = 0
-STONE_BTN_2 = 1
-STONE_BTN_3 = 2
-STONE_BTN_4 = 3
-STONE_BTN_5 = 4
-STONE_BTN_6 = 5
-WOOD_BTN_1 = 6
-WOOD_BTN_2 = 7
-WOOD_BTN_3 = 8
-WOOD_BTN_4 = 9
-WOOD_BTN_5 = 10
-WOOD_BTN_6 = 11
 
 def CLEAR(surface):
     surface.fill((255, 255, 255, 0))
+    return surface
+
