@@ -180,8 +180,8 @@ class WoodnStoneBtns:
                     (mouseX - btn.getMouseImage().getRotObject().get_width()/2, \
                     mouseY - btn.getMouseImage().getRotObject().get_height()/2))
                     self.bufferArray.append(self.buffer.copy())
-                    btn.setIsImgOnMouse(False)
-            
+                    for button in self.buttonList:
+                        button.setIsImgOnMouse(False)            
             #Image to Mouse
             if event.type == pygame.MOUSEBUTTONDOWN and btn.mouseOnButton(mouseX, mouseY) and btn.getIsImgOnMouse() == False and event.button == LEFT:
                 btn.setIsPressed(True)
@@ -193,7 +193,8 @@ class WoodnStoneBtns:
                     show_popup()
                     btn.getMouseImage().setRotAngle(0)
                     btn.getMouseImage().setRotObject(btn.getMouseImage().getOriginalObject())
-                    btn.setIsImgOnMouse(True)
+                    for button in self.buttonList:
+                        button.setIsImgOnMouse(True)
                     print "clicked"
                 
   
