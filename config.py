@@ -54,6 +54,7 @@ PIC_STONE_BUTTON_UP = pygame.image.load(os.path.join(IMG_PATH, 'stone_button_up.
 PIC_STONE_BUTTON_DOWN = pygame.image.load(os.path.join(IMG_PATH, 'stone_button_down.png'))
 PIC_ARROW_UNDO_UP = pygame.image.load(os.path.join(IMG_PATH, 'arrowUndo.png'))
 PIC_SAVE_BTN_UP = pygame.image.load(os.path.join(IMG_PATH, 'saveBtn.png'))
+PIC_MENU = pygame.image.load(os.path.join(IMG_PATH, 'menu.png'))
 
 START_SCREEN_TEXT = codecs.decode("""Michael Iwama ist Professor am Institut für Arbeitswissenschaft und 
 Ergotherapie an der Universität in Toronto.

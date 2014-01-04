@@ -20,11 +20,6 @@ class Placement:
         if len(self.itemsPlaced) != 0:
             self.itemsPlaced = self.itemsPlaced[:-1]
             self.itemsPos = self.itemsPos[:-1]
-            
-    def show(self, dest, img):
-        dest.blit(self.colormap, self.pos)
-        dest.blit(self.placedMap, self.pos)
-        dest.blit(img, (pygame.mouse.get_pos()[0]-img.get_size()[0]/2, pygame.mouse.get_pos()[1]-img.get_size()[1]/2))
     
     def itemFitOnScreen(self, img):
         self._blitAllItems()
