@@ -71,6 +71,9 @@ nordamerikanischer soziokultureller Kontexte befasst hat, für andere
 Kulturkreise anwendbar?
 """, "utf-8" )
 
+POP_UP_ITEM_TEXT =  codecs.decode("Bitte Beschreibung eingeben und bestaetigen", "utf-8")
+POP_UP_SAVE_TEXT = codecs.decode("Bitte Dateinamen für das zu speichernde Bild eingeben", "utf-8")
+
 
 RIVERBED_LIST = [pygame.image.load(IMG_PATH + 'riverbed1.png'),
                  pygame.image.load(IMG_PATH + 'riverbed2.png'),

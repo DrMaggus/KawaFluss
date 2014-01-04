@@ -63,18 +63,18 @@ def show_start_window(size):
     Log("Change screen size to "+str(SIZE))
     
 
-#TODO: return inputtext
-def show_popup():
+        #TODO POPUP OK-Button
+def show_popup(task, textPosition):
     Log("Open Pop up input screen")
     background = SCREEN.copy()
     input = InputBox((360,280), BUFFER, color=[(179,179,179),(0,186,220),(179,179,179)], max_size=280)
-    text = pygame.font.Font( FONT, FONT_SIZE ).render( "Bitte Beschreibung eingeben und bestaetigen", True, (0,0,0) )
+    text = pygame.font.Font( FONT, FONT_SIZE ).render(task , True, (0,0,0) )
     running = True
     while running:
         CLEAR(BUFFER)
         SCREEN.blit(background,(0,0))
         SCREEN.blit(PIC_POPUP,(0,0))
-        SCREEN.blit(text,(365,245))
+        SCREEN.blit(text,textPosition)
         
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -87,8 +87,28 @@ def show_popup():
         input.update(SCREEN)
         pygame.display.update()
     return input.getString()
-        
 
+        #TODO POPUP OK-Button        
+def show_warning(line1, line2, textPos1, textPos2):
+    Log("Open Pop up input screen")
+    background = SCREEN.copy()
+    _line1 = pygame.font.Font( FONT, FONT_SIZE ).render(line1 , True, (0,0,0) )
+    _line2 = pygame.font.Font( FONT, FONT_SIZE ).render(line2 , True, (0,0,0) )
+    running = True
+    while running:
+        CLEAR(BUFFER)
+        SCREEN.blit(background,(0,0))
+        SCREEN.blit(PIC_POPUP,(0,0))
+        SCREEN.blit(_line1, textPos1)
+        SCREEN.blit(_line2, textPos2)
+        
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                exit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RETURN:
+                    running = False
+        pygame.display.update()
 
 ##1.TODO: Funktion um aus Riverbed "Thumbnails" bzw. Minibilder zu machen
 

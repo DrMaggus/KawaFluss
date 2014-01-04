@@ -3,6 +3,7 @@
 import pygame
 import placement
 import globals
+import re
 
 from util import *
 from config import *
@@ -11,15 +12,17 @@ LEFT = 1
 RIGHT = 3
 
 class Button:
-    def __init__(self, posXY, is_pressed, img_unpressed, img_pressed, mouse_image = None, is_img_on_mouse = None):
+    def __init__(self, posXY, is_pressed, img_unpressed, img_pressed, unpressable, mouse_image = None, is_img_on_mouse = None):
             self.posXY = posXY
             self.width = img_pressed.get_width()
             self.height = img_pressed.get_height()
             self.is_pressed = is_pressed
             self.img_pressed = img_pressed
             self.img_unpressed = img_unpressed
+            self.unpressable = unpressable
             self.mouse_image = mouse_image
             self.is_img_on_mouse = is_img_on_mouse
+            
 
         
     def getX(self):
@@ -63,6 +66,12 @@ class Button:
     
     def setImgUnpressed(self, _img_unpressed):
         self.img_unpressed = _img_unpressed
+        
+    def getUnpressable(self):
+        return self.unpressable
+    
+    def setUnpressable(self, _unpressable):
+        self.unpressable = _unpressable
             
     def getMouseImage(self):
         return self.mouse_image
@@ -88,7 +97,7 @@ class FileBtns:
     def __init__(self, infoList):
         self.buttonList = []
         for item in infoList:
-            self.buttonList.append(Button(item[0], False, item[1], item[2]))
+            self.buttonList.append(Button(item[0], False, item[1], item[2], False))
     
     def blitter(self, screen, mouseX, mouseY):
         for btn in self.buttonList:
@@ -108,13 +117,26 @@ class FileBtns:
                 
         
         #SAVE-BUTTON:
-        #TODO check wether files exist 
+        #TODO POPUP OK-Button
         if event.type == pygame.MOUSEBUTTONDOWN and self.buttonList[1].mouseOnButton(mouseX, mouseY) and event.button == LEFT:
             self.buttonList[1].setIsPressed(True) 
             imageToSave = pygame.Surface(RiverbedSize, pygame.SRCALPHA, 32)
             #CLEAR(imageToSave)
             imageToSave.blit(SCREEN, dest=(0,0), area=(20,85,690,490))
-            pygame.image.save(imageToSave, "testImage.png")
+            name = show_popup(POP_UP_SAVE_TEXT, (345, 245))
+            #Regex matches only alphanumerical letters(no symbols except of "_")
+            if (re.match(r'\W+', name)):         
+                #error handling     
+                show_warning("Der Dateiname muss aus mindestens einem Zeichen bestehen", \
+                             "und darf nur Buchstaben, Nummern und Unterstriche enthalten.",\
+                              (320, 260), (320, 275))
+                Log("wrong name")
+            #Does the file already exist?    
+            elif os.path.isfile(name + ".png"):
+                show_warning("Der Dateiname existiert bereits.", \
+                             "", (400, 275), (0,0))               
+            else:
+                pygame.image.save(imageToSave, name + ".png")
             
         #RESET-BUTTON
         if event.type == pygame.MOUSEBUTTONDOWN and self.buttonList[2].mouseOnButton(mouseX, mouseY) and event.button == LEFT:
@@ -144,7 +166,7 @@ class WoodnStoneBtns:
         self.buffer.fill((0,0,0,0))
         self.bufferArray = [self.buffer.copy()]
         for item in infoList:
-            self.buttonList.append(Button(item[0], False, item[1],  item[2], item[3], False))
+            self.buttonList.append(Button(item[0], False, item[1],  item[2], False,  item[3], False))
     
     def getButton(self, index):
         return self.buttonList[index]
@@ -181,21 +203,23 @@ class WoodnStoneBtns:
                     (mouseX - btn.getMouseImage().getRotObject().get_width()/2, \
                     mouseY - btn.getMouseImage().getRotObject().get_height()/2))
                     self.bufferArray.append(self.buffer.copy())
+                    btn.setIsImgOnMouse(False)
                     for button in self.buttonList:
-                        button.setIsImgOnMouse(False)            
+                        button.setUnpressable(False)            
             #Image to Mouse
-            if event.type == pygame.MOUSEBUTTONDOWN and btn.mouseOnButton(mouseX, mouseY) and btn.getIsImgOnMouse() == False and event.button == LEFT:
+            if event.type == pygame.MOUSEBUTTONDOWN and btn.mouseOnButton(mouseX, mouseY) and btn.getUnpressable() == False and event.button == LEFT:
                 btn.setIsPressed(True)
 
             if event.type == pygame.MOUSEBUTTONUP and event.button == LEFT:
                 btn.setIsPressed(False)
-                if btn.mouseOnButton(mouseX, mouseY) and btn.getIsImgOnMouse() == False:
+                if btn.mouseOnButton(mouseX, mouseY) and btn.getUnpressable() == False:
                     #TODO: show popup, return and blit input
-                    show_popup()
+                    show_popup(POP_UP_ITEM_TEXT, (365,245))
                     btn.getMouseImage().setRotAngle(0)
                     btn.getMouseImage().setRotObject(btn.getMouseImage().getOriginalObject())
+                    btn.setIsImgOnMouse(True)
                     for button in self.buttonList:
-                        button.setIsImgOnMouse(True)
+                        button.setUnpressable(True)
                     print "clicked"
                 
   
@@ -216,6 +240,9 @@ class WoodnStoneBtns:
                 screen.blit(btn.getImgPressed(), (btn.getX(), btn.getY()))
             else:
                 screen.blit(btn.getImgUnpressed(), (btn.getX(), btn.getY()))
+        
+        #second for-loop to print item on mouse in front of buttons
+        for btn in self.buttonList:
             #MouseImage
             if btn.getIsImgOnMouse():
                 screen.blit(btn.getMouseImage().getRotObject(),(mouseX - btn.getMouseImage().getRotObject().get_width()/2, mouseY - btn.getMouseImage().getRotObject().get_height()/2))

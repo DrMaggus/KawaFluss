@@ -52,6 +52,9 @@
 #    nextBox() <=> jump to the next box in the list. This box will be focused.
 #####
 
+####TODO: 
+#### - Inputboxes show tabsymbol
+
 
 import pygame, pygame.font
 import string
