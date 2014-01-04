@@ -33,9 +33,10 @@ file_buttons = button.FileBtns([((800, 0), PIC_ARROW_UNDO_UP, PIC_ARROW_UNDO_UP)
                                 ((900, 0), PIC_NEW_BTN_UP, PIC_NEW_BTN_UP)])
 
 #define buttons for stones and woods
-menu_buttons = button.WoodnStoneBtns([((750, 100), PIC_STONE_BUTTON_UP, PIC_STONE_BUTTON_DOWN, img.Img(0, 0, False, False, 0, PIC_STONE, PIC_STONE)),\
-                                    ((750, 250), PIC_STONE_BUTTON_UP, PIC_STONE_BUTTON_DOWN, img.Img(0, 0, False, False, 0, PIC_STONE, PIC_STONE)),\
-                                    ((750, 400), PIC_STONE_BUTTON_UP, PIC_STONE_BUTTON_DOWN, img.Img(0, 0, False, False, 0, PIC_STONE, PIC_STONE))])
+menu_buttons = button.WoodnStoneBtns([((900, 100), PIC_STONE_BUTTON_UP, PIC_STONE_BUTTON_DOWN, img.Img(0, 0, False, False, 0, PIC_STONE, PIC_STONE)),\
+                                    ((900, 250), PIC_STONE_BUTTON_UP, PIC_STONE_BUTTON_DOWN, img.Img(0, 0, False, False, 0, PIC_STONE, PIC_STONE)),\
+                                    ((900, 400), PIC_STONE_BUTTON_UP, PIC_STONE_BUTTON_DOWN, img.Img(0, 0, False, False, 0, PIC_STONE, PIC_STONE))])
+
 
 if __name__ == "__main__":
  
@@ -67,10 +68,13 @@ if __name__ == "__main__":
         mouseX, mouseY = pygame.mouse.get_pos()
         
         # screen-Surface mit Grau (RGB = 177, 177, 177) fuellen.
-        SCREEN.fill((177, 177, 177))
-        SCREEN.blit(RIVERBED_LIST[globals.riverbedNumber], (20, 85))           
+
+        SCREEN.fill((231, 232, 200))
+        SCREEN.blit(RIVERBED_LIST[globals.riverbedNumber], (20, 85)) 
+        SCREEN.blit(COLORMAPS[globals.riverbedNumber], (20,85))          
         SCREEN.blit(HEADER, (230,15))
-        SCREEN.blit(COLORMAPS[globals.riverbedNumber], (20,85))
+        SCREEN.blit(PIC_MENU, (730,85))
+        SCREEN.blit(PIC_MENU, (865,85))
         
         file_buttons.blitter(SCREEN, mouseX, mouseY)
         menu_buttons.blitter(SCREEN, mouseX, mouseY)
@@ -81,8 +85,6 @@ if __name__ == "__main__":
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
-            if event.type == pygame.KEYDOWN:
-                globals.placementVar.show(SCREEN, menu_buttons.getButton(STONE_BTN_1).getMouseImage().getRotObject())
                 
             menu_buttons.eventHandler(event, mouseX, mouseY, globals.placementVar)
             file_buttons.eventHandler(event, mouseX, mouseY, globals.placementVar, menu_buttons, RIVERBED_SIZE, SCREEN)
