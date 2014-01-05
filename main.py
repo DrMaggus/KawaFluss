@@ -44,7 +44,18 @@ for i in range(0,len(raw_buttons)):
     raw_buttons[i][0].blit(THUMBNAILS[i],(raw_buttons[i][0].get_width()/2-THUMBNAILS[i].get_width()/2,raw_buttons[i][0].get_height()/2-THUMBNAILS[i].get_height()/2))
     raw_buttons[i][1].blit(THUMBNAILS[i],(raw_buttons[i][0].get_width()/2-THUMBNAILS[i].get_width()/2,raw_buttons[i][1].get_height()/2-THUMBNAILS[i].get_height()/2))
 #((732, 105+i), raw_buttons[i/78][0], raw_buttons[i/78][1], img.Img(0, 0, False, False, 0, PIC_STONE, PIC_STONE)) for i in range(0,6*78,78))
-menu_buttons = button.WoodnStoneBtns([((865, 65), PIC_STONE_BUTTON_UP, PIC_STONE_BUTTON_DOWN, img.Img(0, 0, False, False, 0, PIC_STONE, PIC_STONE))]) 
+menu_buttons = button.WoodnStoneBtns([((732, 105), PIC_STONE_BUTTON1_UP, PIC_STONE_BUTTON1_DOWN, img.Img(0, 0, False, False, 0, PIC_STONE, PIC_STONE)),\
+                                      ((732, 183), PIC_STONE_BUTTON2_UP, PIC_STONE_BUTTON2_DOWN, img.Img(0, 0, False, False, 0, PIC_STONE, PIC_STONE)),\
+                                      ((732, 261), PIC_STONE_BUTTON3_UP, PIC_STONE_BUTTON3_DOWN, img.Img(0, 0, False, False, 0, PIC_STONE, PIC_STONE)),\
+                                      ((732, 339), PIC_STONE_BUTTON4_UP, PIC_STONE_BUTTON4_DOWN, img.Img(0, 0, False, False, 0, PIC_STONE, PIC_STONE)),\
+                                      ((732, 417), PIC_STONE_BUTTON5_UP, PIC_STONE_BUTTON5_DOWN, img.Img(0, 0, False, False, 0, PIC_STONE, PIC_STONE)),\
+                                      ((732, 495), PIC_STONE_BUTTON6_UP, PIC_STONE_BUTTON6_DOWN, img.Img(0, 0, False, False, 0, PIC_STONE, PIC_STONE)),\
+                                      ((865, 105), PIC_WOOD_BUTTON1_UP, PIC_WOOD_BUTTON1_DOWN, img.Img(0, 0, False, False, 0, PIC_STONE, PIC_STONE)),\
+                                      ((865, 183), PIC_WOOD_BUTTON2_UP, PIC_WOOD_BUTTON2_DOWN, img.Img(0, 0, False, False, 0, PIC_STONE, PIC_STONE)),\
+                                      ((865, 261), PIC_WOOD_BUTTON3_UP, PIC_WOOD_BUTTON3_DOWN, img.Img(0, 0, False, False, 0, PIC_STONE, PIC_STONE)),\
+                                      ((865, 339), PIC_WOOD_BUTTON4_UP, PIC_WOOD_BUTTON4_DOWN, img.Img(0, 0, False, False, 0, PIC_STONE, PIC_STONE)),\
+                                      ((865, 417), PIC_WOOD_BUTTON5_UP, PIC_WOOD_BUTTON5_DOWN, img.Img(0, 0, False, False, 0, PIC_STONE, PIC_STONE)),\
+                                      ((865, 495), PIC_WOOD_BUTTON6_UP, PIC_WOOD_BUTTON6_DOWN, img.Img(0, 0, False, False, 0, PIC_STONE, PIC_STONE))]) 
                                       
 
 if __name__ == "__main__":
