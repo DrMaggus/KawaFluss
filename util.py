@@ -71,10 +71,12 @@ def show_popup(task, textPosition):
     text = pygame.font.Font( FONT, FONT_SIZE ).render(task , True, (0,0,0) )
     running = True
     while running:
+        mouseX, mouseY = pygame.mouse.get_pos()
         CLEAR(BUFFER)
         SCREEN.blit(background,(0,0))
         SCREEN.blit(PIC_POPUP,(0,0))
         SCREEN.blit(text,textPosition)
+        SCREEN.blit(PIC_OK_BTN_UP, (456, 310))
         
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -82,6 +84,11 @@ def show_popup(task, textPosition):
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
                     running = False
+            #Left mouseclick on OK button
+            if event.type == pygame.MOUSEBUTTONDOWN and mouse_in_area(mouseX, mouseY, 456, 310, 87, 28) and  event.button == 1: 
+                SCREEN.blit(PIC_OK_BTN_DOWN, (456, 310)) 
+            if event.type == pygame.MOUSEBUTTONUP and mouse_in_area(mouseX, mouseY, 456, 310, 87, 28) and  event.button == 1:
+                running = False
             input.handleEvent(event)
             
         input.update(SCREEN)
@@ -96,11 +103,13 @@ def show_warning(line1, line2, textPos1, textPos2):
     _line2 = pygame.font.Font( FONT, FONT_SIZE ).render(line2 , True, (0,0,0) )
     running = True
     while running:
+        mouseX, mouseY = pygame.mouse.get_pos()
         CLEAR(BUFFER)
         SCREEN.blit(background,(0,0))
         SCREEN.blit(PIC_POPUP,(0,0))
         SCREEN.blit(_line1, textPos1)
         SCREEN.blit(_line2, textPos2)
+        SCREEN.blit(PIC_OK_BTN_UP, (456, 300))
         
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -108,8 +117,54 @@ def show_warning(line1, line2, textPos1, textPos2):
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
                     running = False
+            #Left mouseclick on OK button
+            if event.type == pygame.MOUSEBUTTONDOWN and mouse_in_area(mouseX, mouseY, 456, 300, 87, 28) and  event.button == 1: 
+                SCREEN.blit(PIC_OK_BTN_DOWN, (456, 300)) 
+            if event.type == pygame.MOUSEBUTTONUP and mouse_in_area(mouseX, mouseY, 456, 300, 87, 28) and  event.button == 1:
+                running = False
         pygame.display.update()
 
+def show_security():
+    Log("Open security query screen")
+    background = SCREEN.copy()
+    text = pygame.font.Font( FONT, FONT_SIZE ).render("Sie sind dabei Ihr Programm zu beenden oder neuzustarten." , True, (0,0,0) )
+    answer = True
+    running = True
+    while running:
+        mouseX, mouseY = pygame.mouse.get_pos()
+        CLEAR(BUFFER)
+        SCREEN.blit(background,(0,0))
+        SCREEN.blit(PIC_POPUP,(0,0))
+        SCREEN.blit(text, (315,260))
+        SCREEN.blit(PIC_OK_BTN_UP, (393, 300))
+        SCREEN.blit(PIC_CANCEL_BTN_UP, (520, 300))       
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                exit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RETURN:
+                    running = False
+            #Left mouseclick on OK button
+            if event.type == pygame.MOUSEBUTTONDOWN and mouse_in_area(mouseX, mouseY, 393, 300, 87, 28) and  event.button == 1: 
+                SCREEN.blit(PIC_OK_BTN_DOWN, (393, 300)) 
+            if event.type == pygame.MOUSEBUTTONUP and mouse_in_area(mouseX, mouseY, 393, 300, 87, 28) and  event.button == 1:
+                answer = True
+                running = False
+            #Left mouseclick on CANCEL button
+            if event.type == pygame.MOUSEBUTTONDOWN and mouse_in_area(mouseX, mouseY, 520, 300, 87, 28) and  event.button == 1: 
+                SCREEN.blit(PIC_CANCEL_BTN_DOWN, (520, 300)) 
+            if event.type == pygame.MOUSEBUTTONUP and mouse_in_area(mouseX, mouseY, 520, 300, 87, 28) and  event.button == 1:
+                answer = False
+                running = False            
+        pygame.display.update()
+    return answer
+
+
+def mouse_in_area(mouseX, mouseY, X, Y, width, height):
+    if mouseX > X and mouseX < X + width and mouseY > Y and mouseY < Y + height:
+        return True
+    return False
+    
 ##1.TODO: Funktion um aus Riverbed "Thumbnails" bzw. Minibilder zu machen
 
 ##nach 1.TODO =>  'show_riverbed_selection()' in util.py verschieben!
