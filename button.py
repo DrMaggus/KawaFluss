@@ -137,6 +137,8 @@ class FileBtns:
                              "", (400, 275), (0,0))               
             else:
                 pygame.image.save(imageToSave, name + ".png")
+                show_warning("Speichern war erfolgreich.", \
+                             "", (420, 275), (0,0))  
             
         #RESET-BUTTON
         if event.type == pygame.MOUSEBUTTONDOWN and self.buttonList[2].mouseOnButton(mouseX, mouseY) and event.button == LEFT:
