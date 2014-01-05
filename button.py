@@ -125,16 +125,36 @@ class FileBtns:
             imageToSave.blit(SCREEN, dest=(0,0), area=(20,85,690,490))
             name = show_popup(POP_UP_SAVE_TEXT, (345, 245))
             #Regex matches only alphanumerical letters(no symbols except of "_")
-            if (re.match(r'\W+', name)):         
+            if(re.match(r'\w+\..*', name)):
+                if(re.match(r'\w+\.bmp|\w+\.jpg|\w+\.png', name)):
+                    pygame.image.save(imageToSave, name)
+                    show_warning("Speichern war erfolgreich.", \
+                                 "", (420, 275), (0,0))     
+                    #Does the file already exist? 
+                elif os.path.isfile(name):
+                    show_warning("Der Dateiname existiert bereits.", \
+                                 "", (400, 275), (0,0)) 
+                    Log("Save warning:name already exists") 
+                else:
+                    show_warning("Bitte benutzen sie nur die Dateiendung \".bmp\", \".jpg\" und \".png\".",\
+                                 "Alle anderen(auch keine) werden durch .png ersetzt",\
+                                 (315, 260), (345, 275))
+                    Log("Save warning:wrong ending")
+                    name = re.sub(r'\..*', '', name)
+                    pygame.image.save(imageToSave, name + ".png")
+                    show_warning("Speichern als .png-Datei war erfolgreich.", \
+                                 "", (380, 275), (0,0))
+            elif (re.match(r'.*\W.*', name)):         
                 #error handling     
                 show_warning("Der Dateiname muss aus mindestens einem Zeichen bestehen", \
                              "und darf nur Buchstaben, Nummern und Unterstriche enthalten.",\
-                              (320, 260), (320, 275))
-                Log("wrong name")
-            #Does the file already exist?    
+                              (320, 260), (315, 275))
+                Log("Save warning:wrong Char")
+            #Does the file already exist?            
             elif os.path.isfile(name + ".png"):
                 show_warning("Der Dateiname existiert bereits.", \
-                             "", (400, 275), (0,0))               
+                             "", (400, 275), (0,0))  
+                Log("Save warning:name already exists")
             else:
                 pygame.image.save(imageToSave, name + ".png")
                 show_warning("Speichern war erfolgreich.", \

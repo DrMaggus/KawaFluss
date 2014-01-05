@@ -43,8 +43,9 @@ raw_buttons = [makeButtonImage(surface) for i in range(0,6)]
 for i in range(0,len(raw_buttons)):
     raw_buttons[i][0].blit(THUMBNAILS[i],(raw_buttons[i][0].get_width()/2-THUMBNAILS[i].get_width()/2,raw_buttons[i][0].get_height()/2-THUMBNAILS[i].get_height()/2))
     raw_buttons[i][1].blit(THUMBNAILS[i],(raw_buttons[i][0].get_width()/2-THUMBNAILS[i].get_width()/2,raw_buttons[i][1].get_height()/2-THUMBNAILS[i].get_height()/2))
-
-menu_buttons = button.WoodnStoneBtns([((732, 105+i), raw_buttons[i/78][0], raw_buttons[i/78][1], img.Img(0, 0, False, False, 0, PIC_STONE, PIC_STONE)) for i in range(0,6*78,78)]) 
+#((732, 105+i), raw_buttons[i/78][0], raw_buttons[i/78][1], img.Img(0, 0, False, False, 0, PIC_STONE, PIC_STONE)) for i in range(0,6*78,78))
+menu_buttons = button.WoodnStoneBtns([((865, 65), PIC_STONE_BUTTON_UP, PIC_STONE_BUTTON_DOWN, img.Img(0, 0, False, False, 0, PIC_STONE, PIC_STONE))]) 
+                                      
 
 if __name__ == "__main__":
  
@@ -80,7 +81,7 @@ if __name__ == "__main__":
         SCREEN.blit(RIVERBED_LIST[globals.riverbedNumber], (20, 85))          
         SCREEN.blit(HEADER, (230,15))
         #SCREEN.blit(PIC_MENU, (730,85))
-        SCREEN.blit(PIC_MENU, (865,85))
+        #SCREEN.blit(PIC_MENU, (865,85))
         
         file_buttons.blitter(SCREEN, mouseX, mouseY)
         menu_buttons.blitter(SCREEN, mouseX, mouseY)
