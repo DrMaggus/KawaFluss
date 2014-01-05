@@ -204,7 +204,7 @@ class InputBox:
                         self.makeRow()
                 elif event.key == pygame.K_BACKSPACE:
                     self.delChar()
-                else:
+                elif event.key != pygame.K_TAB:
                     self.putChar(event.unicode)    
     def update(self, dest):
         self._blitToBuffer(dest)
