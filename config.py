@@ -50,12 +50,13 @@ BOX_COLORS = [BOX_COLOR,BOX_FOCUS_COLOR,BOX_EMPTY_COLOR]
 PIC_CONTINUE = pygame.image.load(os.path.join(IMG_PATH, "continue.png"))
 PIC_POPUP = pygame.image.load(os.path.join(IMG_PATH, "popup.png"))
 PIC_STONE = pygame.transform.scale(pygame.image.load(os.path.join(IMG_PATH, "stone.png")), (100,75)).convert_alpha()
-PIC_STONE_BUTTON_UP = pygame.image.load(os.path.join(IMG_PATH, 'stone_button_up.png'))
-PIC_STONE_BUTTON_DOWN = pygame.image.load(os.path.join(IMG_PATH, 'stone_button_down.png'))
+PIC_STONE_BUTTON_UP = pygame.image.load(os.path.join(IMG_PATH, 'buttontestup.png'))
+PIC_STONE_BUTTON_DOWN = pygame.image.load(os.path.join(IMG_PATH, 'buttontestdown.png'))
 PIC_ARROW_UNDO_UP = pygame.image.load(os.path.join(IMG_PATH, 'arrowUndo.png'))
 PIC_SAVE_BTN_UP = pygame.image.load(os.path.join(IMG_PATH, 'saveBtn.png'))
 PIC_MENU = pygame.image.load(os.path.join(IMG_PATH, 'menu.png'))
 PIC_NEW_BTN_UP = pygame.image.load(os.path.join(IMG_PATH, 'newBtn.png'))
+
 
 START_SCREEN_TEXT = codecs.decode("""Michael Iwama ist Professor am Institut für Arbeitswissenschaft und 
 Ergotherapie an der Universität in Toronto.
