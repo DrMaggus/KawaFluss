@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import pygame, pygame.font, time, sys, button
 
 from inputbox import InputBox
@@ -169,14 +170,14 @@ def mouse_in_area(mouseX, mouseY, X, Y, width, height):
 
 ##nach 1.TODO =>  'show_riverbed_selection()' in util.py verschieben!
 def show_riverbed_selection():
-        
+    HEADER = pygame.font.Font( FONT, 45).render( "W�hlen Sie ein Flussbett aus", True, (0,0,0))    
     SCREEN.fill((231, 232, 200))    
-    riverbedButton1 = button.Button((50, 100), False, riverbedMini1, riverbedMini1, None, None)
-    riverbedButton2 = button.Button((367, 100), False, riverbedMini1, riverbedMini1, None, None)
-    riverbedButton3 = button.Button((684, 100), False, riverbedMini1, riverbedMini1, None, None)
-    riverbedButton4 = button.Button((50, 350), False, riverbedMini2, riverbedMini2, None, None)
-    riverbedButton5 = button.Button((367, 350), False, riverbedMini2, riverbedMini2, None, None)
-    riverbedButton6 = button.Button((684, 350), False, riverbedMini2, riverbedMini2, None, None)
+    riverbedButton1 = button.Button((50, 100), False, PIC_RIVERBED_MINI1, PIC_RIVERBED_MINI1, None, None)
+    riverbedButton2 = button.Button((367, 100), False, PIC_RIVERBED_MINI2, PIC_RIVERBED_MINI2, None, None)
+    riverbedButton3 = button.Button((684, 100), False, PIC_RIVERBED_MINI3, PIC_RIVERBED_MINI3, None, None)
+    riverbedButton4 = button.Button((50, 350), False, PIC_RIVERBED_MINI4, PIC_RIVERBED_MINI4, None, None)
+    riverbedButton5 = button.Button((367, 350), False, PIC_RIVERBED_MINI5, PIC_RIVERBED_MINI5, None, None)
+    riverbedButton6 = button.Button((684, 350), False, PIC_RIVERBED_MINI6, PIC_RIVERBED_MINI6, None, None)
    
     riverbedButtonList = [riverbedButton1, riverbedButton2, riverbedButton3, riverbedButton4, riverbedButton5, riverbedButton6]
 
@@ -184,7 +185,7 @@ def show_riverbed_selection():
     while running:
         #get mouse position
         mouseX, mouseY = pygame.mouse.get_pos()
-        
+        SCREEN.blit(HEADER, (190, 15))
         for btn in riverbedButtonList:
             SCREEN.blit(btn.getImgUnpressed(), (btn.getXY()))
     

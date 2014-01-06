@@ -88,13 +88,19 @@ PIC_WOOD_BUTTON6_UP = pygame.image.load(os.path.join(IMG_PATH, 'WoodButton6up.pn
 PIC_WOOD_BUTTON6_DOWN = pygame.image.load(os.path.join(IMG_PATH, 'WoodButton6down.png'))
 PIC_ARROW_UNDO_UP = pygame.image.load(os.path.join(IMG_PATH, 'arrowUndo.png'))
 PIC_SAVE_BTN_UP = pygame.image.load(os.path.join(IMG_PATH, 'saveBtn.png'))
-PIC_MENU = pygame.image.load(os.path.join(IMG_PATH, 'menu.png'))
 PIC_NEW_BTN_UP = pygame.image.load(os.path.join(IMG_PATH, 'newBtn.png'))
 PIC_OK_BTN_UP = pygame.image.load(os.path.join(IMG_PATH, 'OKButton.png'))
 PIC_OK_BTN_DOWN = pygame.image.load(os.path.join(IMG_PATH, 'OKButtonDown.png'))
 PIC_CANCEL_BTN_UP = pygame.image.load(os.path.join(IMG_PATH, 'AbbrechenButton.png'))
 PIC_CANCEL_BTN_DOWN = pygame.image.load(os.path.join(IMG_PATH, 'AbbrechenButtonDown.png'))
 PIC_RUBBISH = pygame.image.load(os.path.join(IMG_PATH, 'rubbish.png'))
+##Riverbed Minis
+PIC_RIVERBED_MINI1 = pygame.transform.scale(pygame.image.load(os.path.join(IMG_PATH, "riverbed1.png")), (281,200)).convert_alpha()
+PIC_RIVERBED_MINI2 = pygame.transform.scale(pygame.image.load(os.path.join(IMG_PATH, "riverbed2.png")), (281,200)).convert_alpha()
+PIC_RIVERBED_MINI3 = pygame.transform.scale(pygame.image.load(os.path.join(IMG_PATH, "riverbed3.png")), (281,200)).convert_alpha()
+PIC_RIVERBED_MINI4 = pygame.transform.scale(pygame.image.load(os.path.join(IMG_PATH, "riverbed4.png")), (281,200)).convert_alpha()
+PIC_RIVERBED_MINI5 = pygame.transform.scale(pygame.image.load(os.path.join(IMG_PATH, "riverbed5.png")), (281,200)).convert_alpha()
+PIC_RIVERBED_MINI6 = pygame.transform.scale(pygame.image.load(os.path.join(IMG_PATH, "riverbed6.png")), (281,200)).convert_alpha()
             
 
 
@@ -122,6 +128,7 @@ RIVERBED_LIST = [pygame.image.load(IMG_PATH + 'riverbed1.png'),
                  pygame.image.load(IMG_PATH + 'riverbed4.png'),
                  pygame.image.load(IMG_PATH + 'riverbed5.png'),
                  pygame.image.load(IMG_PATH + 'riverbed6.png')]
+
                  
 COLORMAPS = [ pygame.image.load(os.path.join(IMG_PATH, "colormap1.png")),
               pygame.image.load(os.path.join(IMG_PATH, "colormap2.png")),
