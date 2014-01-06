@@ -246,7 +246,7 @@ class WoodnStoneBtns:
                     self.bufferArray.append(self.buffer.copy())
                     btn.setIsImgOnMouse(False)
                     for button in self.buttonList:
-                        button.setUnpressable(False)            
+                        button.setUnpressable(False)  
             #Image to Mouse
             if event.type == pygame.MOUSEBUTTONDOWN and btn.mouseOnButton(mouseX, mouseY) and btn.getUnpressable() == False and event.button == LEFT:
                 btn.setIsPressed(True)

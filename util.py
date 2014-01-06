@@ -1,12 +1,9 @@
 # -*- coding: utf-8 -*-
-import pygame, pygame.font, time, sys, button
+import pygame, pygame.font, time, sys, button, string
 
 from inputbox import InputBox
 from config import *
 
-##IN CONFIG
-riverbedMini1 = pygame.image.load(IMG_PATH + 'riverbed1mini.png')
-riverbedMini2 = pygame.image.load(IMG_PATH + 'riverbed2mini.png')
 LEFT = 1
 
 class Log():
@@ -211,21 +208,47 @@ def show_riverbed_selection():
     
 def printTextOnImg(surface, text):
     font_size = 22
-    while font_size >= 11:
-        text_rend = pygame.font.Font( FONT, font_size ).render(text , True, (255,0,41) )
+    text_rend = None
+    text_rend1 = None
+    text_rend2 = None
+    while font_size >= 12:
+        text_rend = pygame.font.Font( FONT, font_size ).render(text , True, TEXT_ON_IMG_COLOR )
         font_size -= 1
-        if text_rend.get_width() < surface.get_width(): break
+        if text_rend.get_width() < surface.get_width()-5: break
     else:
+        text1 = ""
+        text2 = ""
         if text.count(" ") == 0:
-            print "cut in half"
-        else:
+            text1 = text[:len(text)/2]+"-"
+            text2 = text[len(text)/2:]
+        else:            
             count = 1
             if text.count(" ")%2 == 1 and text.count(" ") >= 3:
                 count = text.count(" ") + 1
             elif text.count(" ") != 1:
                 count = text.count(" ")/2
+            
+            words = text.split(" ")
+            text1 = string.join(words[:count], " ")
+            text2 = string.join(words[count:], " ")
+
+        font_size = 22
+        while font_size >= 12:
+            text_rend1 = pygame.font.Font( FONT, font_size ).render(text1 , True, TEXT_ON_IMG_COLOR )
+            text_rend2 = pygame.font.Font( FONT, font_size ).render(text2 , True, TEXT_ON_IMG_COLOR )
+            font_size -= 1
+            if text_rend1.get_width() < surface.get_width() and text_rend2.get_width() < surface.get_width(): break
+        else:
+            if text_rend1.get_width > surface.get_width():
+                text_rend1 = pygame.transform.scale(text_rend1, (surface.get_width(),text_rend1.get_height()))
+            if text_rend2.get_width > surface.get_width():
+                text_rend2 = pygame.transform.scale(text_rend2, (surface.get_width(),text_rend2.get_height()))
+        
+        surface.blit(text_rend1, ( surface.get_width()/2 - text_rend1.get_width()/2, surface.get_height()/2 - text_rend1.get_height()) )
+        surface.blit(text_rend2, ( surface.get_width()/2 - text_rend2.get_width()/2, surface.get_height()/2) )
+        return surface
+
                 
-    print text.count(" ")
     surface.blit(text_rend, ( surface.get_width()/2 - text_rend.get_width()/2, surface.get_height()/2 - text_rend.get_height()/2) )
     return surface
         

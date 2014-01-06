@@ -46,6 +46,7 @@ BOX_FOCUS_COLOR = (179,1,99) # Magenta
 BOX_EMPTY_COLOR = (255,100,100)
 BOX_COLORS = [BOX_COLOR,BOX_FOCUS_COLOR,BOX_EMPTY_COLOR]
 
+TEXT_ON_IMG_COLOR = (255,0,41)
 
 PIC_CONTINUE = pygame.image.load(os.path.join(IMG_PATH, "continue.png"))
 PIC_POPUP = pygame.image.load(os.path.join(IMG_PATH, "popup.png"))
@@ -87,7 +88,7 @@ PIC_WOOD_BUTTON5_DOWN = pygame.image.load(os.path.join(IMG_PATH, 'WoodButton5dow
 PIC_WOOD_BUTTON6_UP = pygame.image.load(os.path.join(IMG_PATH, 'WoodButton6up.png'))
 PIC_WOOD_BUTTON6_DOWN = pygame.image.load(os.path.join(IMG_PATH, 'WoodButton6down.png'))
 PIC_UNDO_BTN_UP = pygame.image.load(os.path.join(IMG_PATH, 'UndoUp.png'))
-PIC_UNDO_BTN_DOWN = pygame.image.load(os.path.join(IMG_PATH, 'UndoDOWN.png'))
+PIC_UNDO_BTN_DOWN = pygame.image.load(os.path.join(IMG_PATH, 'UndoDown.png'))
 PIC_SAVE_BTN_UP = pygame.image.load(os.path.join(IMG_PATH, 'SaveUp.png'))
 PIC_SAVE_BTN_DOWN = pygame.image.load(os.path.join(IMG_PATH, 'SaveDown.png'))
 PIC_NEW_BTN_UP = pygame.image.load(os.path.join(IMG_PATH, 'NewUp.png'))

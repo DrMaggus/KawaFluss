@@ -56,7 +56,11 @@ if __name__ == "__main__":
     Log("Initializing pygame and font, setting captions")
     #pygame.display.set_icon(pygame.image.load(ICON))
     
-    HEADER = pygame.font.Font( FONT, 45).render( "Kawa - Fluss", True, (0,0,0) )
+    header = pygame.font.Font( FONT, 45).render( "Kawa - Fluss", True, (0,0,0) )
+    stone_header = pygame.font.Font( FONT, 19).render( "Steine", True, (0,0,0) )
+    wood_header = pygame.font.Font( FONT, 19).render( "Treibholz", True, (0,0,0) )
+    stone_japan = pygame.font.Font( FONT, 13).render( "Iwa", True, (0,0,0) )
+    wood_japan = pygame.font.Font( FONT, 13).render( "Ryuboku", True, (0,0,0) )
     
     #open short explanation about the Kawa Model
     show_start_window(START_SIZE)
@@ -78,7 +82,11 @@ if __name__ == "__main__":
         
         SCREEN.fill((231, 232, 200))
         SCREEN.blit(RIVERBED_LIST[globals.riverbedNumber], (20, 85))          
-        SCREEN.blit(HEADER, (230,15))
+        SCREEN.blit(header, (230,15))
+        SCREEN.blit(stone_header, (759,64))
+        SCREEN.blit(wood_header, (881,64))
+        SCREEN.blit(stone_japan, (779,80))
+        SCREEN.blit(wood_japan, (902,80))
         
         menu_buttons.blitter(SCREEN, mouseX, mouseY)
         file_buttons.blitter(SCREEN, mouseX, mouseY)
@@ -90,6 +98,8 @@ if __name__ == "__main__":
             if event.type == pygame.QUIT:
                 if show_security():
                     sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                print pygame.mouse.get_pos()
                 
             menu_buttons.eventHandler(event, mouseX, mouseY, globals.placementVar)
             file_buttons.eventHandler(event, mouseX, mouseY, globals.placementVar, menu_buttons, RIVERBED_SIZE, SCREEN)
