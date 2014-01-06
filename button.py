@@ -151,9 +151,9 @@ class FileBtns:
                     name = re.sub(r'\..*', '', name)
                     pygame.image.save(imageToSave, "save/" + name + ".png")
                     show_warning("Speichern als .png-Datei war erfolgreich.", \
-                                 "", (380, 275), (0,0))
-            elif (re.match(r'.*\W.*', name)):         
-                #error handling     
+                                 "", (380, 275), (0,0))            
+            elif (re.match(r'.*\W.*|\W*', name)):
+                #error handling
                 show_warning("Der Dateiname muss aus mindestens einem Zeichen bestehen", \
                              "und darf nur Buchstaben, Nummern und Unterstriche enthalten.",\
                               (320, 260), (315, 275))
@@ -163,11 +163,12 @@ class FileBtns:
                 show_warning("Der Dateiname existiert bereits.", \
                              "", (400, 275), (0,0))  
                 Log("Save warning:name already exists")
-            else:
+            elif (re.match(r'\w+', name)):         
                 pygame.image.save(imageToSave, "save/" + name + ".png")
                 show_warning("Speichern war erfolgreich.", \
                              "", (420, 275), (0,0))  
-            
+            else:
+                Log("unknown save error")
         #RESET-BUTTON
         if event.type == pygame.MOUSEBUTTONDOWN and self.buttonList[3].mouseOnButton(mouseX, mouseY) and event.button == LEFT:
             #open river bed selection
@@ -250,7 +251,9 @@ class WoodnStoneBtns:
                     eingabe = show_popup(POP_UP_ITEM_TEXT, (365,245))
                     
                     btn.getMouseImage().setRotAngle(0)
-                    btn.getMouseImage().setRotObject( printTextToImg(btn.getMouseImage().getOriginalObject().copy(), eingabe) )
+                    btn.getMouseImage().setFontObject( printTextOnImg(btn.getMouseImage().getOriginalObject().copy(), eingabe) )
+                    btn.getMouseImage().setRotObject(btn.getMouseImage().getFontObject())
+
                     btn.setIsImgOnMouse(True)
                     for button in self.buttonList:
                         button.setUnpressable(True)

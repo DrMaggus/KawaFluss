@@ -33,18 +33,19 @@ file_buttons = button.FileBtns([((750, 0), PIC_RUBBISH, PIC_RUBBISH),\
                                 ((850, 0), PIC_SAVE_BTN_UP, PIC_SAVE_BTN_UP),\
                                 ((900, 0), PIC_NEW_BTN_UP, PIC_NEW_BTN_UP),])
 
-menu_buttons = button.WoodnStoneBtns([((732, 105), PIC_STONE_BUTTON1_UP, PIC_STONE_BUTTON1_DOWN, img.Img(0, 0, False, False, 0, PIC_STONE1, PIC_STONE1)),\
-                                      ((732, 183), PIC_STONE_BUTTON2_UP, PIC_STONE_BUTTON2_DOWN, img.Img(0, 0, False, False, 0, PIC_STONE2, PIC_STONE2)),\
-                                      ((732, 261), PIC_STONE_BUTTON3_UP, PIC_STONE_BUTTON3_DOWN, img.Img(0, 0, False, False, 0, PIC_STONE3, PIC_STONE3)),\
-                                      ((732, 339), PIC_STONE_BUTTON4_UP, PIC_STONE_BUTTON4_DOWN, img.Img(0, 0, False, False, 0, PIC_STONE4, PIC_STONE4)),\
-                                      ((732, 417), PIC_STONE_BUTTON5_UP, PIC_STONE_BUTTON5_DOWN, img.Img(0, 0, False, False, 0, PIC_STONE5, PIC_STONE5)),\
-                                      ((732, 495), PIC_STONE_BUTTON6_UP, PIC_STONE_BUTTON6_DOWN, img.Img(0, 0, False, False, 0, PIC_STONE6, PIC_STONE6)),\
-                                      ((865, 105), PIC_WOOD_BUTTON1_UP, PIC_WOOD_BUTTON1_DOWN, img.Img(0, 0, False, False, 0, PIC_WOOD1, PIC_WOOD1)),\
-                                      ((865, 183), PIC_WOOD_BUTTON2_UP, PIC_WOOD_BUTTON2_DOWN, img.Img(0, 0, False, False, 0, PIC_WOOD2, PIC_WOOD2)),\
-                                      ((865, 261), PIC_WOOD_BUTTON3_UP, PIC_WOOD_BUTTON3_DOWN, img.Img(0, 0, False, False, 0, PIC_WOOD3, PIC_WOOD3)),\
-                                      ((865, 339), PIC_WOOD_BUTTON4_UP, PIC_WOOD_BUTTON4_DOWN, img.Img(0, 0, False, False, 0, PIC_WOOD4, PIC_WOOD4)),\
-                                      ((865, 417), PIC_WOOD_BUTTON5_UP, PIC_WOOD_BUTTON5_DOWN, img.Img(0, 0, False, False, 0, PIC_WOOD5, PIC_WOOD5)),\
-                                      ((865, 495), PIC_WOOD_BUTTON6_UP, PIC_WOOD_BUTTON6_DOWN, img.Img(0, 0, False, False, 0, PIC_WOOD6, PIC_WOOD6))]) 
+
+menu_buttons = button.WoodnStoneBtns([((732, 105), PIC_STONE_BUTTON1_UP, PIC_STONE_BUTTON1_DOWN, img.Img(0, 0, False, False, 0, PIC_STONE1, PIC_STONE1, PIC_STONE1)),\
+                                      ((732, 183), PIC_STONE_BUTTON2_UP, PIC_STONE_BUTTON2_DOWN, img.Img(0, 0, False, False, 0, PIC_STONE2, PIC_STONE2, PIC_STONE2)),\
+                                      ((732, 261), PIC_STONE_BUTTON3_UP, PIC_STONE_BUTTON3_DOWN, img.Img(0, 0, False, False, 0, PIC_STONE3, PIC_STONE3, PIC_STONE3)),\
+                                      ((732, 339), PIC_STONE_BUTTON4_UP, PIC_STONE_BUTTON4_DOWN, img.Img(0, 0, False, False, 0, PIC_STONE4, PIC_STONE4, PIC_STONE4)),\
+                                      ((732, 417), PIC_STONE_BUTTON5_UP, PIC_STONE_BUTTON5_DOWN, img.Img(0, 0, False, False, 0, PIC_STONE5, PIC_STONE5, PIC_STONE5)),\
+                                      ((732, 495), PIC_STONE_BUTTON6_UP, PIC_STONE_BUTTON6_DOWN, img.Img(0, 0, False, False, 0, PIC_STONE6, PIC_STONE6, PIC_STONE6)),\
+                                      ((865, 105), PIC_WOOD_BUTTON1_UP, PIC_WOOD_BUTTON1_DOWN, img.Img(0, 0, False, False, 0, PIC_WOOD1, PIC_WOOD1, PIC_WOOD1)),\
+                                      ((865, 183), PIC_WOOD_BUTTON2_UP, PIC_WOOD_BUTTON2_DOWN, img.Img(0, 0, False, False, 0, PIC_WOOD2, PIC_WOOD2, PIC_WOOD2)),\
+                                      ((865, 261), PIC_WOOD_BUTTON3_UP, PIC_WOOD_BUTTON3_DOWN, img.Img(0, 0, False, False, 0, PIC_WOOD3, PIC_WOOD3, PIC_WOOD3)),\
+                                      ((865, 339), PIC_WOOD_BUTTON4_UP, PIC_WOOD_BUTTON4_DOWN, img.Img(0, 0, False, False, 0, PIC_WOOD4, PIC_WOOD4, PIC_WOOD4)),\
+                                      ((865, 417), PIC_WOOD_BUTTON5_UP, PIC_WOOD_BUTTON5_DOWN, img.Img(0, 0, False, False, 0, PIC_WOOD5, PIC_WOOD5, PIC_WOOD5)),\
+                                      ((865, 495), PIC_WOOD_BUTTON6_UP, PIC_WOOD_BUTTON6_DOWN, img.Img(0, 0, False, False, 0, PIC_WOOD6, PIC_WOOD6, PIC_WOOD6))]) 
                                       
 
 if __name__ == "__main__":
@@ -52,11 +53,10 @@ if __name__ == "__main__":
     pygame.init()
     pygame.font.init()
     pygame.display.set_caption(CAPTION)
-    HEADER = pygame.font.Font( FONT, 45).render( "KAWA - FLUSS", True, (0,0,0) )
     Log("Initializing pygame and font, setting captions")
     #pygame.display.set_icon(pygame.image.load(ICON))
     
-    #globals.init()
+    HEADER = pygame.font.Font( FONT, 45).render( "Kawa - Fluss", True, (0,0,0) )
     
     #open short explanation about the Kawa Model
     show_start_window(START_SIZE)

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import pygame, pygame.font, time, sys, button
 
 from inputbox import InputBox
@@ -43,7 +44,7 @@ def show_start_window(size):
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                exit()
+                    exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 #mouse over button ?
                 mouse = pygame.mouse.get_pos()
@@ -81,7 +82,8 @@ def show_popup(task, textPosition):
         
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                exit()
+                if show_security():
+                    exit()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
                     running = False
@@ -114,7 +116,8 @@ def show_warning(line1, line2, textPos1, textPos2):
         
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                exit()
+                if show_security():
+                    exit()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
                     running = False
@@ -170,29 +173,31 @@ def mouse_in_area(mouseX, mouseY, X, Y, width, height):
 
 ##nach 1.TODO =>  'show_riverbed_selection()' in util.py verschieben!
 def show_riverbed_selection():
-        
+   
     SCREEN.fill((231, 232, 200))    
-    riverbedButton1 = button.Button((50, 100), False, riverbedMini1, riverbedMini1, None, None)
-    riverbedButton2 = button.Button((367, 100), False, riverbedMini1, riverbedMini1, None, None)
-    riverbedButton3 = button.Button((684, 100), False, riverbedMini1, riverbedMini1, None, None)
-    riverbedButton4 = button.Button((50, 350), False, riverbedMini2, riverbedMini2, None, None)
-    riverbedButton5 = button.Button((367, 350), False, riverbedMini2, riverbedMini2, None, None)
-    riverbedButton6 = button.Button((684, 350), False, riverbedMini2, riverbedMini2, None, None)
+    riverbedButton1 = button.Button((50, 100), False, PIC_RIVERBED_MINI1, PIC_RIVERBED_MINI1, None, None)
+    riverbedButton2 = button.Button((367, 100), False, PIC_RIVERBED_MINI2, PIC_RIVERBED_MINI2, None, None)
+    riverbedButton3 = button.Button((684, 100), False, PIC_RIVERBED_MINI3, PIC_RIVERBED_MINI3, None, None)
+    riverbedButton4 = button.Button((50, 350), False, PIC_RIVERBED_MINI4, PIC_RIVERBED_MINI4, None, None)
+    riverbedButton5 = button.Button((367, 350), False, PIC_RIVERBED_MINI5, PIC_RIVERBED_MINI5, None, None)
+    riverbedButton6 = button.Button((684, 350), False, PIC_RIVERBED_MINI6, PIC_RIVERBED_MINI6, None, None)
    
     riverbedButtonList = [riverbedButton1, riverbedButton2, riverbedButton3, riverbedButton4, riverbedButton5, riverbedButton6]
 
+    header = pygame.font.Font( FONT, 45).render( u"Wählen Sie ein Flussbett aus", True, (0,0,0) ) 
     running = True
     while running:
         #get mouse position
         mouseX, mouseY = pygame.mouse.get_pos()
-        
+        SCREEN.blit(header, (190, 15))
         for btn in riverbedButtonList:
             SCREEN.blit(btn.getImgUnpressed(), (btn.getXY()))
     
         for event in pygame.event.get():
             # Spiel beenden, wenn wir ein QUIT-Event finden.
             if event.type == pygame.QUIT:
-                sys.exit()
+                if show_security():
+                    sys.exit()
                 
             for btn in riverbedButtonList:                                                  
                 if event.type == pygame.MOUSEBUTTONUP and btn.mouseOnButton(mouseX, mouseY) and event.button == LEFT:
@@ -204,7 +209,7 @@ def show_riverbed_selection():
     
     return (unpressed, pressed)
     
-def printTextToImg(surface, text):
+def printTextOnImg(surface, text):
     font_size = 20
     text_rend = pygame.font.Font( FONT, font_size ).render(text , True, (255,0,41) )
     while text_rend.get_width() > surface.get_width():
