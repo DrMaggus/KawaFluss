@@ -207,15 +207,25 @@ def show_riverbed_selection():
         # Inhalt von screen anzeigen.
         pygame.display.flip()
     
-    return (unpressed, pressed)
+
     
 def printTextOnImg(surface, text):
-    font_size = 20
-    text_rend = pygame.font.Font( FONT, font_size ).render(text , True, (255,0,41) )
-    while text_rend.get_width() > surface.get_width():
-        font_size -= 1
+    font_size = 22
+    while font_size >= 11:
         text_rend = pygame.font.Font( FONT, font_size ).render(text , True, (255,0,41) )
-
+        font_size -= 1
+        if text_rend.get_width() < surface.get_width(): break
+    else:
+        if text.count(" ") == 0:
+            print "cut in half"
+        else:
+            count = 1
+            if text.count(" ")%2 == 1 and text.count(" ") >= 3:
+                count = text.count(" ") + 1
+            elif text.count(" ") != 1:
+                count = text.count(" ")/2
+                
+    print text.count(" ")
     surface.blit(text_rend, ( surface.get_width()/2 - text_rend.get_width()/2, surface.get_height()/2 - text_rend.get_height()/2) )
     return surface
         
