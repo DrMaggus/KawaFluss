@@ -110,6 +110,12 @@ class FileBtns:
     def eventHandler(self, event, mouseX, mouseY, placechecker, WoodnStoneBtnList, RiverbedSize, screen):
         if event.type == pygame.MOUSEBUTTONDOWN and self.buttonList[0].mouseOnButton(mouseX, mouseY) and event.button == LEFT:
             self.buttonList[0].setIsPressed(True)
+            for btn in WoodnStoneBtnList.getButtonList():
+                btn.setIsImgOnMouse(False)
+                btn.setUnpressable(False)
+                     
+        if event.type == pygame.MOUSEBUTTONDOWN and self.buttonList[1].mouseOnButton(mouseX, mouseY) and event.button == LEFT:
+            self.buttonList[1].setIsPressed(True)
             if len(WoodnStoneBtnList.getBufferArray())-1 > 0:
                 WoodnStoneBtnList.setBufferArray(WoodnStoneBtnList.getBufferArray()[:-1])
                 WoodnStoneBtnList.setBuffer()
@@ -117,9 +123,8 @@ class FileBtns:
                 
         
         #SAVE-BUTTON:
-        #TODO POPUP OK-Button
-        if event.type == pygame.MOUSEBUTTONDOWN and self.buttonList[1].mouseOnButton(mouseX, mouseY) and event.button == LEFT:
-            self.buttonList[1].setIsPressed(True) 
+        if event.type == pygame.MOUSEBUTTONDOWN and self.buttonList[2].mouseOnButton(mouseX, mouseY) and event.button == LEFT:
+            self.buttonList[2].setIsPressed(True) 
             imageToSave = pygame.Surface(RiverbedSize, pygame.SRCALPHA, 32)
             #CLEAR(imageToSave)
             imageToSave.blit(SCREEN, dest=(0,0), area=(20,85,690,490))
@@ -161,19 +166,19 @@ class FileBtns:
                              "", (420, 275), (0,0))  
             
         #RESET-BUTTON
-        if event.type == pygame.MOUSEBUTTONDOWN and self.buttonList[2].mouseOnButton(mouseX, mouseY) and event.button == LEFT:
+        if event.type == pygame.MOUSEBUTTONDOWN and self.buttonList[3].mouseOnButton(mouseX, mouseY) and event.button == LEFT:
             #open river bed selection
-            globals.riverbedNumber = show_riverbed_selection()
-            globals.placement = placement.Placement(COLORMAPS[globals.riverbedNumber], (20,85))
-            WoodnStoneBtnList.setBufferArray(WoodnStoneBtnList.getBufferArray()[:1])
-            WoodnStoneBtnList.setBuffer()
-            placechecker.deleteItems()
+            self.buttonList[3].setIsPressed(True) 
+            if show_security():
+                globals.riverbedNumber = show_riverbed_selection()
+                globals.placement = placement.Placement(COLORMAPS[globals.riverbedNumber], (20,85))
+                WoodnStoneBtnList.setBufferArray(WoodnStoneBtnList.getBufferArray()[:1])
+                WoodnStoneBtnList.setBuffer()
+                placechecker.deleteItems()
             
         for btn in self.buttonList:    
             if event.type == pygame.MOUSEBUTTONUP and event.button == LEFT:
                 btn.setIsPressed(False)
-
-        
     
     
 
@@ -192,6 +197,9 @@ class WoodnStoneBtns:
     
     def getButton(self, index):
         return self.buttonList[index]
+    
+    def getButtonList(self):
+        return self.buttonList
             
     def getBufferArray(self):
         return self.bufferArray
@@ -242,9 +250,6 @@ class WoodnStoneBtns:
                     btn.setIsImgOnMouse(True)
                     for button in self.buttonList:
                         button.setUnpressable(True)
-                    print "clicked"
-                
-  
             
             #rotation  
             if event.type == pygame.MOUSEBUTTONDOWN and btn.getIsImgOnMouse() and event.button == RIGHT:

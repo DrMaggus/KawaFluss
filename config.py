@@ -49,7 +49,19 @@ BOX_COLORS = [BOX_COLOR,BOX_FOCUS_COLOR,BOX_EMPTY_COLOR]
 
 PIC_CONTINUE = pygame.image.load(os.path.join(IMG_PATH, "continue.png"))
 PIC_POPUP = pygame.image.load(os.path.join(IMG_PATH, "popup.png"))
-PIC_STONE = pygame.transform.scale(pygame.image.load(os.path.join(IMG_PATH, "stone.png")), (100,75)).convert_alpha()
+#PIC_STONE = pygame.transform.scale(pygame.image.load(os.path.join(IMG_PATH, "stone.png")), (100,75)).convert_alpha()
+PIC_STONE1 = pygame.image.load(os.path.join(IMG_PATH, "stone1.png"))
+PIC_STONE2 = pygame.image.load(os.path.join(IMG_PATH, "stone2.png"))
+PIC_STONE3 = pygame.image.load(os.path.join(IMG_PATH, "stone3.png"))
+PIC_STONE4 = pygame.image.load(os.path.join(IMG_PATH, "stone4.png"))
+PIC_STONE5 = pygame.image.load(os.path.join(IMG_PATH, "stone5.png"))
+PIC_STONE6 = pygame.image.load(os.path.join(IMG_PATH, "stone6.png"))
+PIC_WOOD1 = pygame.image.load(os.path.join(IMG_PATH, "wood1.png"))
+PIC_WOOD2 = pygame.image.load(os.path.join(IMG_PATH, "wood2.png"))
+PIC_WOOD3 = pygame.image.load(os.path.join(IMG_PATH, "wood3.png"))
+PIC_WOOD4 = pygame.image.load(os.path.join(IMG_PATH, "wood4.png"))
+PIC_WOOD5 = pygame.image.load(os.path.join(IMG_PATH, "wood5.png"))
+PIC_WOOD6 = pygame.image.load(os.path.join(IMG_PATH, "wood6.png"))
 PIC_STONE_BUTTON1_UP = pygame.image.load(os.path.join(IMG_PATH, 'StoneButton1up.png'))
 PIC_STONE_BUTTON1_DOWN = pygame.image.load(os.path.join(IMG_PATH, 'StoneButton1down.png'))
 PIC_STONE_BUTTON2_UP = pygame.image.load(os.path.join(IMG_PATH, 'StoneButton2up.png'))
@@ -78,6 +90,12 @@ PIC_ARROW_UNDO_UP = pygame.image.load(os.path.join(IMG_PATH, 'arrowUndo.png'))
 PIC_SAVE_BTN_UP = pygame.image.load(os.path.join(IMG_PATH, 'saveBtn.png'))
 PIC_MENU = pygame.image.load(os.path.join(IMG_PATH, 'menu.png'))
 PIC_NEW_BTN_UP = pygame.image.load(os.path.join(IMG_PATH, 'newBtn.png'))
+PIC_OK_BTN_UP = pygame.image.load(os.path.join(IMG_PATH, 'OKButton.png'))
+PIC_OK_BTN_DOWN = pygame.image.load(os.path.join(IMG_PATH, 'OKButtonDown.png'))
+PIC_CANCEL_BTN_UP = pygame.image.load(os.path.join(IMG_PATH, 'AbbrechenButton.png'))
+PIC_CANCEL_BTN_DOWN = pygame.image.load(os.path.join(IMG_PATH, 'AbbrechenButtonDown.png'))
+PIC_RUBBISH = pygame.image.load(os.path.join(IMG_PATH, 'rubbish.png'))
+            
 
 
 START_SCREEN_TEXT = codecs.decode("""Michael Iwama ist Professor am Institut für Arbeitswissenschaft und 
@@ -116,7 +134,7 @@ def makeBorder(surface, color = (255,255,255), width=2):
     pygame.draw.rect(surface, color, (0,0,surface.get_width(),surface.get_height()), width)
     return surface
              
-THUMBNAILS = [ makeBorder(pygame.transform.scale(PIC_STONE.copy(), (32+i*8,24+i*6))) for i in range(0,6)]
+THUMBNAILS = [ makeBorder(pygame.transform.scale(PIC_STONE1.copy(), (32+i*8,24+i*6))) for i in range(0,6)]
                 
 
 

@@ -28,9 +28,10 @@ input_boxes = inputbox.EventInputBoxes( [(35,370), (150,463), (450, 460), (550, 
 abox = inputbox.InputBox((300,300), BUFFER)
 
 #define buttons for saving, undo
-file_buttons = button.FileBtns([((800, 0), PIC_ARROW_UNDO_UP, PIC_ARROW_UNDO_UP),\
+file_buttons = button.FileBtns([((750, 0), PIC_RUBBISH, PIC_RUBBISH),\
+                                ((800, 0), PIC_ARROW_UNDO_UP, PIC_ARROW_UNDO_UP),\
                                 ((850, 0), PIC_SAVE_BTN_UP, PIC_SAVE_BTN_UP),\
-                                ((900, 0), PIC_NEW_BTN_UP, PIC_NEW_BTN_UP)])
+                                ((900, 0), PIC_NEW_BTN_UP, PIC_NEW_BTN_UP),])
 
 #define buttons for stones and woods
 #menu_buttons = button.WoodnStoneBtns([((900, 100), PIC_STONE_BUTTON_UP, PIC_STONE_BUTTON_DOWN, img.Img(0, 0, False, False, 0, PIC_STONE, PIC_STONE)),\
@@ -44,18 +45,18 @@ for i in range(0,len(raw_buttons)):
     raw_buttons[i][0].blit(THUMBNAILS[i],(raw_buttons[i][0].get_width()/2-THUMBNAILS[i].get_width()/2,raw_buttons[i][0].get_height()/2-THUMBNAILS[i].get_height()/2))
     raw_buttons[i][1].blit(THUMBNAILS[i],(raw_buttons[i][0].get_width()/2-THUMBNAILS[i].get_width()/2,raw_buttons[i][1].get_height()/2-THUMBNAILS[i].get_height()/2))
 #((732, 105+i), raw_buttons[i/78][0], raw_buttons[i/78][1], img.Img(0, 0, False, False, 0, PIC_STONE, PIC_STONE)) for i in range(0,6*78,78))
-menu_buttons = button.WoodnStoneBtns([((732, 105), PIC_STONE_BUTTON1_UP, PIC_STONE_BUTTON1_DOWN, img.Img(0, 0, False, False, 0, PIC_STONE, PIC_STONE)),\
-                                      ((732, 183), PIC_STONE_BUTTON2_UP, PIC_STONE_BUTTON2_DOWN, img.Img(0, 0, False, False, 0, PIC_STONE, PIC_STONE)),\
-                                      ((732, 261), PIC_STONE_BUTTON3_UP, PIC_STONE_BUTTON3_DOWN, img.Img(0, 0, False, False, 0, PIC_STONE, PIC_STONE)),\
-                                      ((732, 339), PIC_STONE_BUTTON4_UP, PIC_STONE_BUTTON4_DOWN, img.Img(0, 0, False, False, 0, PIC_STONE, PIC_STONE)),\
-                                      ((732, 417), PIC_STONE_BUTTON5_UP, PIC_STONE_BUTTON5_DOWN, img.Img(0, 0, False, False, 0, PIC_STONE, PIC_STONE)),\
-                                      ((732, 495), PIC_STONE_BUTTON6_UP, PIC_STONE_BUTTON6_DOWN, img.Img(0, 0, False, False, 0, PIC_STONE, PIC_STONE)),\
-                                      ((865, 105), PIC_WOOD_BUTTON1_UP, PIC_WOOD_BUTTON1_DOWN, img.Img(0, 0, False, False, 0, PIC_STONE, PIC_STONE)),\
-                                      ((865, 183), PIC_WOOD_BUTTON2_UP, PIC_WOOD_BUTTON2_DOWN, img.Img(0, 0, False, False, 0, PIC_STONE, PIC_STONE)),\
-                                      ((865, 261), PIC_WOOD_BUTTON3_UP, PIC_WOOD_BUTTON3_DOWN, img.Img(0, 0, False, False, 0, PIC_STONE, PIC_STONE)),\
-                                      ((865, 339), PIC_WOOD_BUTTON4_UP, PIC_WOOD_BUTTON4_DOWN, img.Img(0, 0, False, False, 0, PIC_STONE, PIC_STONE)),\
-                                      ((865, 417), PIC_WOOD_BUTTON5_UP, PIC_WOOD_BUTTON5_DOWN, img.Img(0, 0, False, False, 0, PIC_STONE, PIC_STONE)),\
-                                      ((865, 495), PIC_WOOD_BUTTON6_UP, PIC_WOOD_BUTTON6_DOWN, img.Img(0, 0, False, False, 0, PIC_STONE, PIC_STONE))]) 
+menu_buttons = button.WoodnStoneBtns([((732, 105), PIC_STONE_BUTTON1_UP, PIC_STONE_BUTTON1_DOWN, img.Img(0, 0, False, False, 0, PIC_STONE1, PIC_STONE1)),\
+                                      ((732, 183), PIC_STONE_BUTTON2_UP, PIC_STONE_BUTTON2_DOWN, img.Img(0, 0, False, False, 0, PIC_STONE2, PIC_STONE2)),\
+                                      ((732, 261), PIC_STONE_BUTTON3_UP, PIC_STONE_BUTTON3_DOWN, img.Img(0, 0, False, False, 0, PIC_STONE3, PIC_STONE3)),\
+                                      ((732, 339), PIC_STONE_BUTTON4_UP, PIC_STONE_BUTTON4_DOWN, img.Img(0, 0, False, False, 0, PIC_STONE4, PIC_STONE4)),\
+                                      ((732, 417), PIC_STONE_BUTTON5_UP, PIC_STONE_BUTTON5_DOWN, img.Img(0, 0, False, False, 0, PIC_STONE5, PIC_STONE5)),\
+                                      ((732, 495), PIC_STONE_BUTTON6_UP, PIC_STONE_BUTTON6_DOWN, img.Img(0, 0, False, False, 0, PIC_STONE6, PIC_STONE6)),\
+                                      ((865, 105), PIC_WOOD_BUTTON1_UP, PIC_WOOD_BUTTON1_DOWN, img.Img(0, 0, False, False, 0, PIC_WOOD1, PIC_WOOD1)),\
+                                      ((865, 183), PIC_WOOD_BUTTON2_UP, PIC_WOOD_BUTTON2_DOWN, img.Img(0, 0, False, False, 0, PIC_WOOD2, PIC_WOOD2)),\
+                                      ((865, 261), PIC_WOOD_BUTTON3_UP, PIC_WOOD_BUTTON3_DOWN, img.Img(0, 0, False, False, 0, PIC_WOOD3, PIC_WOOD3)),\
+                                      ((865, 339), PIC_WOOD_BUTTON4_UP, PIC_WOOD_BUTTON4_DOWN, img.Img(0, 0, False, False, 0, PIC_WOOD4, PIC_WOOD4)),\
+                                      ((865, 417), PIC_WOOD_BUTTON5_UP, PIC_WOOD_BUTTON5_DOWN, img.Img(0, 0, False, False, 0, PIC_WOOD5, PIC_WOOD5)),\
+                                      ((865, 495), PIC_WOOD_BUTTON6_UP, PIC_WOOD_BUTTON6_DOWN, img.Img(0, 0, False, False, 0, PIC_WOOD6, PIC_WOOD6))]) 
                                       
 
 if __name__ == "__main__":
@@ -87,30 +88,25 @@ if __name__ == "__main__":
         #get mouse position
         mouseX, mouseY = pygame.mouse.get_pos()
         
-        # screen-Surface mit Grau (RGB = 177, 177, 177) fuellen.
         SCREEN.fill((231, 232, 200))
         SCREEN.blit(RIVERBED_LIST[globals.riverbedNumber], (20, 85))          
         SCREEN.blit(HEADER, (230,15))
-        #SCREEN.blit(PIC_MENU, (730,85))
-        #SCREEN.blit(PIC_MENU, (865,85))
         
-        file_buttons.blitter(SCREEN, mouseX, mouseY)
         menu_buttons.blitter(SCREEN, mouseX, mouseY)
+        file_buttons.blitter(SCREEN, mouseX, mouseY)
         input_boxes.updateBoxes()
             
         # Alle aufgelaufenen Events holen und abarbeiten.
         allow_place = False
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                sys.exit()
+                if show_security():
+                    sys.exit()
                 
             menu_buttons.eventHandler(event, mouseX, mouseY, globals.placementVar)
             file_buttons.eventHandler(event, mouseX, mouseY, globals.placementVar, menu_buttons, RIVERBED_SIZE, SCREEN)
             input_boxes.handleEvent(event)
             abox.handleEvent(event)
-            
-        
-        #print menu_buttons.getButton(STONE_BTN_1).getIsImgOnMouse()
 
         # Inhalt von screen anzeigen.
         pygame.display.update()
