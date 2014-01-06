@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 ###############################################
 #
 #             KAWA-FLUSS MODELL
@@ -56,12 +57,12 @@
 #### - Inputboxes show tabsymbol
 
 
-import pygame, pygame.font
+import pygame, pygame.font, re
 import string
 from config import *
 
 class InputBox:
-    def __init__(self, pos, buffer, color = BOX_COLORS, fontcolor = FONT_COLOR, padding = BOX_PADDING, max_char = None, max_size = None):
+    def __init__(self, pos, buffer, color = BOX_COLORS, fontcolor = FONT_COLOR, padding = BOX_PADDING, max_char = None, max_size = None, enable_rows = True):
         self.buffer = buffer
         self.rect = (pos[0], pos[1],\
                 max_size if max_size else FONT_SIZE + 2*padding,\
@@ -82,6 +83,7 @@ class InputBox:
         self.secondRowPadding = 4
         self.max_char = 1000 if max_char == None else max_char
         self.max_size = max_size
+        self.enable_rows = enable_rows
         
         
     #blits the inputbox to the buffer and then to the screen
@@ -160,7 +162,8 @@ class InputBox:
                 self._renderString()
         
     def makeRow(self):
-        self.SecondRow = True
+        if self.enable_rows:
+            self.SecondRow = True
         
     def hasSecondRow(self):
         return self.SecondRow
@@ -179,7 +182,8 @@ class InputBox:
         self._renderString()
             
     def getString(self):
-        return string.join(self.string,"")
+        return string.join(self.string,"")+"\n"+string.join(self.string2,"") if self.hasSecondRow() \
+                else string.join(self.string,"")
             
     def isMouseInside(self):
         mouse = pygame.mouse.get_pos()
@@ -204,7 +208,7 @@ class InputBox:
                         self.makeRow()
                 elif event.key == pygame.K_BACKSPACE:
                     self.delChar()
-                elif event.key != pygame.K_TAB:
+                elif event.key not in FORBIDDEN_KEYS:
                     self.putChar(event.unicode)    
     def update(self, dest):
         self._blitToBuffer(dest)

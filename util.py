@@ -68,7 +68,8 @@ def show_start_window(size):
 def show_popup(task, textPosition):
     Log("Open Pop up input screen")
     background = SCREEN.copy()
-    input = InputBox((360,280), BUFFER, color=[(179,179,179),(0,186,220),(179,179,179)], max_size=280)
+    input = InputBox((360,280), BUFFER, color=[(179,179,179),(0,186,220),(179,179,179)], max_size=280, enable_rows = False)
+    input.makeFocus()
     text = pygame.font.Font( FONT, FONT_SIZE ).render(task , True, (0,0,0) )
     running = True
     while running:
@@ -172,7 +173,7 @@ def mouse_in_area(mouseX, mouseY, X, Y, width, height):
 
 ##nach 1.TODO =>  'show_riverbed_selection()' in util.py verschieben!
 def show_riverbed_selection():
-    HEADER = pygame.font.Font( FONT, 45).render( "W�hlen Sie ein Flussbett aus", True, (0,0,0))    
+   
     SCREEN.fill((231, 232, 200))    
     riverbedButton1 = button.Button((50, 100), False, PIC_RIVERBED_MINI1, PIC_RIVERBED_MINI1, None, None)
     riverbedButton2 = button.Button((367, 100), False, PIC_RIVERBED_MINI2, PIC_RIVERBED_MINI2, None, None)
@@ -183,11 +184,12 @@ def show_riverbed_selection():
    
     riverbedButtonList = [riverbedButton1, riverbedButton2, riverbedButton3, riverbedButton4, riverbedButton5, riverbedButton6]
 
+    header = pygame.font.Font( FONT, 45).render( u"Wählen Sie ein Flussbett aus", True, (0,0,0) ) 
     running = True
     while running:
         #get mouse position
         mouseX, mouseY = pygame.mouse.get_pos()
-        SCREEN.blit(HEADER, (190, 15))
+        SCREEN.blit(header, (190, 15))
         for btn in riverbedButtonList:
             SCREEN.blit(btn.getImgUnpressed(), (btn.getXY()))
     
@@ -204,22 +206,18 @@ def show_riverbed_selection():
                             
         # Inhalt von screen anzeigen.
         pygame.display.flip()
-        
-    
-def makeButtonImage(surface):
-    unpressed = surface.copy()
-    pressed = surface.copy()
-    pygame.draw.rect(unpressed, (255,255,255), (0,0,4,surface.get_height()))
-    pygame.draw.rect(unpressed, (255,255,255), (0,0,surface.get_width(),3))
-    pygame.draw.rect(unpressed, (0,0,0), (0,surface.get_height()-3,surface.get_width(),3))
-    pygame.draw.rect(unpressed, (0,0,0), (surface.get_width()-4,0,4,surface.get_height()))
-    
-    pygame.draw.rect(pressed, (0,0,0), (0,0,4,surface.get_height()))
-    pygame.draw.rect(pressed, (0,0,0), (0,0,surface.get_width(),3))
-    pygame.draw.rect(pressed, (255,255,255), (0,surface.get_height()-3,surface.get_width(),3))
-    pygame.draw.rect(pressed, (255,255,255), (surface.get_width()-4,0,4,surface.get_height()))
     
     return (unpressed, pressed)
+    
+def printTextOnImg(surface, text):
+    font_size = 20
+    text_rend = pygame.font.Font( FONT, font_size ).render(text , True, (255,0,41) )
+    while text_rend.get_width() > surface.get_width():
+        font_size -= 1
+        text_rend = pygame.font.Font( FONT, font_size ).render(text , True, (255,0,41) )
+
+    surface.blit(text_rend, ( surface.get_width()/2 - text_rend.get_width()/2, surface.get_height()/2 - text_rend.get_height()/2) )
+    return surface
         
         
         

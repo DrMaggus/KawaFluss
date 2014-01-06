@@ -34,7 +34,7 @@ CAPTION = "Kawa - Fluss"
 SCREEN = pygame.display.set_mode(START_SIZE, pygame.DOUBLEBUF, 32)
 BUFFER = pygame.Surface(SIZE, flags=pygame.SRCALPHA)
 
-FONT = os.path.join(FONT_PATH, "DroidSans.ttf")
+FONT = os.path.join(FONT_PATH, "CosmicSansNeueMono.ttf")
 FONT_SIZE = 13
 FONT_COLOR = (179,1,99)
 FONT_SIZE_START = 15
@@ -154,6 +154,12 @@ RIVERBED_SIZE = (690, 490)
 
 
 CLOCK = pygame.time.Clock()
+
+FORBIDDEN_KEYS = [pygame.K_TAB,pygame.K_UP,pygame.K_DOWN,pygame.K_RIGHT,pygame.K_LEFT,pygame.K_INSERT,pygame.K_HOME,
+                  pygame.K_END, pygame.K_PAGEUP, pygame.K_PAGEDOWN, pygame.K_F1, pygame.K_F2, pygame.K_F3,   
+                  pygame.K_F4,pygame.K_F5,pygame.K_F6,pygame.K_F7, pygame.K_F8,pygame.K_F9, pygame.K_F10 ,   
+                  pygame.K_F11,pygame.K_F12,pygame.K_F13,pygame.K_NUMLOCK, pygame.K_CAPSLOCK,pygame.K_SCROLLOCK ,pygame.K_RSHIFT, pygame.K_LSHIFT ,   
+                  pygame.K_RCTRL, pygame.K_LCTRL, pygame.K_RALT,pygame.K_LALT , pygame.K_RMETA  ,pygame.K_LMETA]
 
 
 def CLEAR(surface):
