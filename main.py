@@ -24,8 +24,14 @@ from util import *
 from config import *
 
 
-input_boxes = inputbox.EventInputBoxes( [(35,370), (150,463), (450, 460), (550, 365)] , SCREEN)
-abox = inputbox.InputBox((300,300), BUFFER)
+input_boxes_list = [inputbox.EventInputBoxes( [] , SCREEN),
+                    inputbox.EventInputBoxes( [(346,503)] , SCREEN),
+                    inputbox.EventInputBoxes( [(91,456), (511,476)] , SCREEN),
+                    inputbox.EventInputBoxes( [(178,391), (523,469), (36,465)] , SCREEN),
+                    inputbox.EventInputBoxes( [(21,191),(88,401),(218,437),(489,438)] , SCREEN),
+                    inputbox.EventInputBoxes( [(21,198),(21,438),(194,494),(401,515),(498,442)] , SCREEN)]
+
+pop_up_input = inputbox.InputBox((300,300), BUFFER)
 
 #define buttons for saving, undo
 file_buttons = button.FileBtns([((750, 0), PIC_TRASH_BTN_UP, PIC_TRASH_BTN_DOWN),\
@@ -80,8 +86,9 @@ if __name__ == "__main__":
         #get mouse position
         mouseX, mouseY = pygame.mouse.get_pos()
         
+        input_boxes = input_boxes_list[globals.riverbedNumber]
         SCREEN.fill((231, 232, 200))
-        SCREEN.blit(RIVERBED_LIST[globals.riverbedNumber], (20, 85))          
+        SCREEN.blit(RIVERBED_LIST[globals.riverbedNumber], (20, 85))   
         SCREEN.blit(header, (230,15))
         SCREEN.blit(stone_header, (759,64))
         SCREEN.blit(wood_header, (881,64))
@@ -104,7 +111,7 @@ if __name__ == "__main__":
             menu_buttons.eventHandler(event, mouseX, mouseY, globals.placementVar)
             file_buttons.eventHandler(event, mouseX, mouseY, globals.placementVar, menu_buttons, RIVERBED_SIZE, SCREEN)
             input_boxes.handleEvent(event)
-            abox.handleEvent(event)
+            pop_up_input.handleEvent(event)
 
         # Inhalt von screen anzeigen.
         pygame.display.update()
