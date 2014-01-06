@@ -4,13 +4,14 @@ import pygame
 
 class Img:
     
-    def __init__(self, posX, posY, visible, is_rotating, rot_angle, rot_object, original_object):
+    def __init__(self, posX, posY, visible, is_rotating, rot_angle, rot_object, font_object, original_object):
         self.posX = posX
         self.posY = posY
         self.visible = visible
         self.is_rotating = is_rotating
         self.rot_angle = rot_angle
         self.rot_object = rot_object
+        self.font_object = font_object
         self.original_object = original_object
         
     def getX(self):
@@ -48,6 +49,12 @@ class Img:
     
     def setRotObject(self, _rot_object):
         self.rot_object = _rot_object
+        
+    def getFontObject(self):
+        return self.font_object
+    
+    def setFontObject(self, _font_object):
+        self.font_object = _font_object    
         
     def getOriginalObject(self):
         return self.original_object
