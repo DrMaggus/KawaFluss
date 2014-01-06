@@ -44,7 +44,7 @@ def show_start_window(size):
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                exit()
+                    exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 #mouse over button ?
                 mouse = pygame.mouse.get_pos()
@@ -81,7 +81,8 @@ def show_popup(task, textPosition):
         
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                exit()
+                if show_security():
+                    exit()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
                     running = False
@@ -114,7 +115,8 @@ def show_warning(line1, line2, textPos1, textPos2):
         
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                exit()
+                if show_security():
+                    exit()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
                     running = False
@@ -192,7 +194,8 @@ def show_riverbed_selection():
         for event in pygame.event.get():
             # Spiel beenden, wenn wir ein QUIT-Event finden.
             if event.type == pygame.QUIT:
-                sys.exit()
+                if show_security():
+                    sys.exit()
                 
             for btn in riverbedButtonList:                                                  
                 if event.type == pygame.MOUSEBUTTONUP and btn.mouseOnButton(mouseX, mouseY) and event.button == LEFT:
