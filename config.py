@@ -46,6 +46,7 @@ BOX_FOCUS_COLOR = (179,1,99) # Magenta
 BOX_EMPTY_COLOR = (255,100,100)
 BOX_COLORS = [BOX_COLOR,BOX_FOCUS_COLOR,BOX_EMPTY_COLOR]
 
+TEXT_ON_IMG_COLOR = (255,0,41)
 
 PIC_CONTINUE = pygame.image.load(os.path.join(IMG_PATH, "continue.png"))
 PIC_POPUP = pygame.image.load(os.path.join(IMG_PATH, "popup.png"))
