@@ -22,7 +22,7 @@ import pygame, pygame.font, codecs, os, img
        
             
 SIZE = HEIGHT, WIDTH = 1000, 600
-START_SIZE = (700,300)
+START_SIZE = (730,635)
 FRAMERATE = 30
 
 IMG_PATH = "images/"
@@ -49,6 +49,7 @@ BOX_COLORS = [BOX_COLOR,BOX_FOCUS_COLOR,BOX_EMPTY_COLOR]
 TEXT_ON_IMG_COLOR = (255,0,41)
 
 PIC_CONTINUE = pygame.image.load(os.path.join(IMG_PATH, "continue.png"))
+PIC_CONTINUE_HOVER = pygame.image.load(os.path.join(IMG_PATH, "continue2.png"))
 PIC_POPUP = pygame.image.load(os.path.join(IMG_PATH, "popup.png"))
 #PIC_STONE = pygame.transform.scale(pygame.image.load(os.path.join(IMG_PATH, "stone.png")), (100,75)).convert_alpha()
 PIC_STONE1 = pygame.image.load(os.path.join(IMG_PATH, "stone1.png"))
@@ -107,21 +108,45 @@ PIC_RIVERBED_MINI4 = pygame.transform.scale(pygame.image.load(os.path.join(IMG_P
 PIC_RIVERBED_MINI5 = pygame.transform.scale(pygame.image.load(os.path.join(IMG_PATH, "riverbed5.png")), (281,200)).convert_alpha()
 PIC_RIVERBED_MINI6 = pygame.transform.scale(pygame.image.load(os.path.join(IMG_PATH, "riverbed6.png")), (281,200)).convert_alpha()
             
+BOLD_WORDS = [codecs.decode(word,"utf-8") for word in ["der Fluss", "Wasser","Flussbett","Steine", "Treibholz", "Sinn und Zweck"]]
+
+START_SCREEN_TEXT = codecs.decode("""
+Das KAWA-Modell ist eine Theorie über Betätigung und Ergotherapie, die in Asien
+entwickelt wurde. Zur Darstellung des fernöstlichen Bildes von Selbst und Kontext
+dient eine Naturmetapher:          . Dieser soll die momentane Lebenssituation
+eines Individuums darstellen.
+ 
+Das        (jap. Mizu) repräsentiert die Lebensenergie/den Lebensfluss des 
+Menschen. Die Qualität des Fließens wird vor allem beeinflusst durch
+das           (jap. Torimaki), das die soziale und physikalische Umwelt einer Person
+repräsentiert.        (jap. Iwa), die in Größe und Anzahl variieren können, 
+verkörpern die Probleme und Herausforderungen des täglichen Lebens. In 
+Kombination mit dem Flussbett (Umweltfaktoren) können Lebensfluss,
+Wohlergehen und Betätigung ermöglicht oder verhindert 
+werden.           (jap. Ryuboku), das Ressourcen und Barrieren darstellen soll 
+(z.B.: materielle/immaterielle Werte, Charakter, Fertigkeiten, Neigungen), 
+kann gegen feste Strukturen (Steine und Wände) stoßen oder sich daran reiben und 
+so ein größeres Flussbett schaffen, es kann aber auch von denselben Strukturen 
+abgefangen werden und so größere Hindernisse im Fluss bilden. Die Räume 
+zwischen den Hindernissen (jap. Sukima), durch die die Lebensenergie des 
+Klienten fließen kann, repräsentieren „Betätigung“ in einer ostasiatischen 
+Perspektive und sind somit Hauptanliegen der Ergotherapie.
+
+Der                 der Ergotherapie in dieser metaphorischen Repräsentation des 
+Menschen besteht darin, den Lebensfluss unserer Klienten zu ermöglichen und zu 
+verstärken. Um das Leben wieder fließen zu lassen, erfasst der/die Therapeut/in 
+die Komplexität der Betätigung im Kontext und sucht nach möglichen Wegen, um
+Partizipation zu ermöglichen.
 
 
-START_SCREEN_TEXT = codecs.decode("""Michael Iwama ist Professor am Institut für Arbeitswissenschaft und 
-Ergotherapie an der Universität in Toronto.
-Im Jahre 2006 hat er ein ergotherapeutisches Modell entwickelt,
-dem eine ganzheitliche und kulturberücksichtigende Sichtweise zu Grunde liegt.
 
-Der ursprüngliche Gedanke war, die Ergotherapie und deren Wert im 
-sozialen asiatischen Kontextzu beschreiben und zu erklären. 
-Dem ging eine Frage der japanischen Ergotherapeuten voraus,
-nämlich inwieweit sind die Kernideen und Konzepte der Ergotherapie,
-welche sich hauptsächlich auf kulturelle Eigenheiten und Normen 
-nordamerikanischer soziokultureller Kontexte befasst hat, für andere
-Kulturkreise anwendbar?
+Mit diesem auf dem KAWA-Modell basierenden Programm können nun auch motorisch 
+stark eingeschränkte Klienten ihren Fluss „malen“.
 """, "utf-8" )
+
+START_SCREEN_SOURCE = codecs.decode(
+"""Kubny-Lüke, B. (2003). Ergotherapie im Arbeitsfeld Psychiatrie. 2. Überarb. Aufl. Stuttgart: Georg Thieme Verlag.
+S.95-99.""", "utf-8" )
 
 POP_UP_ITEM_TEXT =  codecs.decode("Bitte Beschreibung eingeben und bestaetigen", "utf-8")
 POP_UP_SAVE_TEXT = codecs.decode("Bitte Dateinamen für das zu speichernde Bild eingeben", "utf-8")
