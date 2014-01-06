@@ -28,10 +28,10 @@ input_boxes = inputbox.EventInputBoxes( [(35,370), (150,463), (450, 460), (550, 
 abox = inputbox.InputBox((300,300), BUFFER)
 
 #define buttons for saving, undo
-file_buttons = button.FileBtns([((750, 0), PIC_RUBBISH, PIC_RUBBISH),\
-                                ((800, 0), PIC_ARROW_UNDO_UP, PIC_ARROW_UNDO_UP),\
-                                ((850, 0), PIC_SAVE_BTN_UP, PIC_SAVE_BTN_UP),\
-                                ((900, 0), PIC_NEW_BTN_UP, PIC_NEW_BTN_UP),])
+file_buttons = button.FileBtns([((750, 0), PIC_TRASH_BTN_UP, PIC_TRASH_BTN_DOWN),\
+                                ((800, 0), PIC_UNDO_BTN_UP, PIC_UNDO_BTN_DOWN),\
+                                ((850, 0), PIC_SAVE_BTN_UP, PIC_SAVE_BTN_DOWN),\
+                                ((900, 0), PIC_NEW_BTN_UP, PIC_NEW_BTN_DOWN),])
 
 #define buttons for stones and woods
 #menu_buttons = button.WoodnStoneBtns([((900, 100), PIC_STONE_BUTTON_UP, PIC_STONE_BUTTON_DOWN, img.Img(0, 0, False, False, 0, PIC_STONE, PIC_STONE)),\
