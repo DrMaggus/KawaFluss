@@ -68,6 +68,7 @@ def show_popup(task, textPosition):
     Log("Open Pop up input screen")
     background = SCREEN.copy()
     input = InputBox((360,280), BUFFER, color=[(179,179,179),(0,186,220),(179,179,179)], max_size=280)
+    input.makeFocus()
     text = pygame.font.Font( FONT, FONT_SIZE ).render(task , True, (0,0,0) )
     running = True
     while running:
