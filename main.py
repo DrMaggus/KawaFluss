@@ -41,9 +41,9 @@ file_buttons = button.FileBtns([((750, 0), PIC_RUBBISH, PIC_RUBBISH),\
 surface = pygame.Surface((121,78), pygame.SRCALPHA)
 surface.fill((243,228,155))
 raw_buttons = [makeButtonImage(surface) for i in range(0,6)]
-for i in range(0,len(raw_buttons)):
-    raw_buttons[i][0].blit(THUMBNAILS[i],(raw_buttons[i][0].get_width()/2-THUMBNAILS[i].get_width()/2,raw_buttons[i][0].get_height()/2-THUMBNAILS[i].get_height()/2))
-    raw_buttons[i][1].blit(THUMBNAILS[i],(raw_buttons[i][0].get_width()/2-THUMBNAILS[i].get_width()/2,raw_buttons[i][1].get_height()/2-THUMBNAILS[i].get_height()/2))
+#for i in range(0,len(raw_buttons)):
+#    raw_buttons[i][0].blit(THUMBNAILS[i],(raw_buttons[i][0].get_width()/2-THUMBNAILS[i].get_width()/2,raw_buttons[i][0].get_height()/2-THUMBNAILS[i].get_height()/2))
+#    raw_buttons[i][1].blit(THUMBNAILS[i],(raw_buttons[i][0].get_width()/2-THUMBNAILS[i].get_width()/2,raw_buttons[i][1].get_height()/2-THUMBNAILS[i].get_height()/2))
 #((732, 105+i), raw_buttons[i/78][0], raw_buttons[i/78][1], img.Img(0, 0, False, False, 0, PIC_STONE, PIC_STONE)) for i in range(0,6*78,78))
 menu_buttons = button.WoodnStoneBtns([((732, 105), PIC_STONE_BUTTON1_UP, PIC_STONE_BUTTON1_DOWN, img.Img(0, 0, False, False, 0, PIC_STONE1, PIC_STONE1)),\
                                       ((732, 183), PIC_STONE_BUTTON2_UP, PIC_STONE_BUTTON2_DOWN, img.Img(0, 0, False, False, 0, PIC_STONE2, PIC_STONE2)),\
