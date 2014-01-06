@@ -67,7 +67,7 @@ def show_start_window(size):
 def show_popup(task, textPosition):
     Log("Open Pop up input screen")
     background = SCREEN.copy()
-    input = InputBox((360,280), BUFFER, color=[(179,179,179),(0,186,220),(179,179,179)], max_size=280)
+    input = InputBox((360,280), BUFFER, color=[(179,179,179),(0,186,220),(179,179,179)], max_size=280, enable_rows = False)
     input.makeFocus()
     text = pygame.font.Font( FONT, FONT_SIZE ).render(task , True, (0,0,0) )
     running = True
@@ -201,22 +201,18 @@ def show_riverbed_selection():
                             
         # Inhalt von screen anzeigen.
         pygame.display.flip()
-        
-    
-def makeButtonImage(surface):
-    unpressed = surface.copy()
-    pressed = surface.copy()
-    pygame.draw.rect(unpressed, (255,255,255), (0,0,4,surface.get_height()))
-    pygame.draw.rect(unpressed, (255,255,255), (0,0,surface.get_width(),3))
-    pygame.draw.rect(unpressed, (0,0,0), (0,surface.get_height()-3,surface.get_width(),3))
-    pygame.draw.rect(unpressed, (0,0,0), (surface.get_width()-4,0,4,surface.get_height()))
-    
-    pygame.draw.rect(pressed, (0,0,0), (0,0,4,surface.get_height()))
-    pygame.draw.rect(pressed, (0,0,0), (0,0,surface.get_width(),3))
-    pygame.draw.rect(pressed, (255,255,255), (0,surface.get_height()-3,surface.get_width(),3))
-    pygame.draw.rect(pressed, (255,255,255), (surface.get_width()-4,0,4,surface.get_height()))
     
     return (unpressed, pressed)
+    
+def printTextToImg(surface, text):
+    font_size = 20
+    text_rend = pygame.font.Font( FONT, font_size ).render(text , True, (255,0,41) )
+    while text_rend.get_width() > surface.get_width():
+        font_size -= 1
+        text_rend = pygame.font.Font( FONT, font_size ).render(text , True, (255,0,41) )
+
+    surface.blit(text_rend, ( surface.get_width()/2 - text_rend.get_width()/2, surface.get_height()/2 - text_rend.get_height()/2) )
+    return surface
         
         
         

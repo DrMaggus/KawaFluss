@@ -247,9 +247,10 @@ class WoodnStoneBtns:
                 btn.setIsPressed(False)
                 if btn.mouseOnButton(mouseX, mouseY) and btn.getUnpressable() == False:
                     #TODO: show popup, return and blit input
-                    show_popup(POP_UP_ITEM_TEXT, (365,245))
+                    eingabe = show_popup(POP_UP_ITEM_TEXT, (365,245))
+                    
                     btn.getMouseImage().setRotAngle(0)
-                    btn.getMouseImage().setRotObject(btn.getMouseImage().getOriginalObject())
+                    btn.getMouseImage().setRotObject( printTextToImg(btn.getMouseImage().getOriginalObject().copy(), eingabe) )
                     btn.setIsImgOnMouse(True)
                     for button in self.buttonList:
                         button.setUnpressable(True)
