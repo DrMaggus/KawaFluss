@@ -4,6 +4,8 @@ import pygame, pygame.font, time, sys, button, string
 from inputbox import InputBox
 from config import *
 
+
+##IN CONFIG
 LEFT = 1
 
 class Log():
@@ -65,7 +67,7 @@ def show_start_window(size):
 def show_popup(task, textPosition):
     Log("Open Pop up input screen")
     background = SCREEN.copy()
-    input = InputBox((360,280), BUFFER, color=[(179,179,179),(0,186,220),(179,179,179)], max_size=280, enable_rows = False)
+    input = InputBox((360,268), BUFFER, color=[(179,179,179),(0,186,220),(179,179,179)], max_size=280, enable_rows = False)
     input.makeFocus()
     text = pygame.font.Font( FONT, FONT_SIZE ).render(task , True, (0,0,0) )
     running = True
@@ -75,7 +77,8 @@ def show_popup(task, textPosition):
         SCREEN.blit(background,(0,0))
         SCREEN.blit(PIC_POPUP,(0,0))
         SCREEN.blit(text,textPosition)
-        SCREEN.blit(PIC_OK_BTN_UP, (456, 310))
+        SCREEN.blit(PIC_OK_BTN_UP, (393, 300))
+        SCREEN.blit(PIC_CANCEL_BTN_UP, (520, 300))  
         
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -85,10 +88,15 @@ def show_popup(task, textPosition):
                 if event.key == pygame.K_RETURN:
                     running = False
             #Left mouseclick on OK button
-            if event.type == pygame.MOUSEBUTTONDOWN and mouse_in_area(mouseX, mouseY, 456, 310, 87, 28) and  event.button == 1: 
-                SCREEN.blit(PIC_OK_BTN_DOWN, (456, 310)) 
-            if event.type == pygame.MOUSEBUTTONUP and mouse_in_area(mouseX, mouseY, 456, 310, 87, 28) and  event.button == 1:
+            if event.type == pygame.MOUSEBUTTONDOWN and mouse_in_area(mouseX, mouseY, 393, 300, 87, 28) and  event.button == 1: 
+                SCREEN.blit(PIC_OK_BTN_DOWN, (393, 300))            
+            if event.type == pygame.MOUSEBUTTONUP and mouse_in_area(mouseX, mouseY, 393, 300, 87, 28) and  event.button == 1:
                 running = False
+            #Left mouseclick on CANCEL button
+            if event.type == pygame.MOUSEBUTTONDOWN and mouse_in_area(mouseX, mouseY, 520, 300, 87, 28) and  event.button == 1: 
+                SCREEN.blit(PIC_CANCEL_BTN_DOWN, (520, 300)) 
+            if event.type == pygame.MOUSEBUTTONUP and mouse_in_area(mouseX, mouseY, 520, 300, 87, 28) and  event.button == 1:
+                return None
             input.handleEvent(event)
             
         input.update(SCREEN)
@@ -120,7 +128,7 @@ def show_warning(line1, line2, textPos1, textPos2):
                     running = False
             #Left mouseclick on OK button
             if event.type == pygame.MOUSEBUTTONDOWN and mouse_in_area(mouseX, mouseY, 456, 300, 87, 28) and  event.button == 1: 
-                SCREEN.blit(PIC_OK_BTN_DOWN, (456, 300)) 
+                SCREEN.blit(PIC_OK_BTN_DOWN, (456, 300))
             if event.type == pygame.MOUSEBUTTONUP and mouse_in_area(mouseX, mouseY, 456, 300, 87, 28) and  event.button == 1:
                 running = False
         pygame.display.update()
@@ -136,7 +144,7 @@ def show_security():
         CLEAR(BUFFER)
         SCREEN.blit(background,(0,0))
         SCREEN.blit(PIC_POPUP,(0,0))
-        SCREEN.blit(text, (315,260))
+        SCREEN.blit(text, (300,260))
         SCREEN.blit(PIC_OK_BTN_UP, (393, 300))
         SCREEN.blit(PIC_CANCEL_BTN_UP, (520, 300))       
         for event in pygame.event.get():
@@ -166,9 +174,7 @@ def mouse_in_area(mouseX, mouseY, X, Y, width, height):
         return True
     return False
     
-##1.TODO: Funktion um aus Riverbed "Thumbnails" bzw. Minibilder zu machen
 
-##nach 1.TODO =>  'show_riverbed_selection()' in util.py verschieben!
 def show_riverbed_selection():
    
     SCREEN.fill((231, 232, 200))    
@@ -203,8 +209,7 @@ def show_riverbed_selection():
                             
         # Inhalt von screen anzeigen.
         pygame.display.flip()
-    
-
+        
     
 def printTextOnImg(surface, text):
     font_size = 22

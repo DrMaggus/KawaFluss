@@ -128,52 +128,57 @@ class FileBtns:
             imageToSave = pygame.Surface(RiverbedSize, pygame.SRCALPHA, 32)
             #CLEAR(imageToSave)
             imageToSave.blit(SCREEN, dest=(0,0), area=(20,85,690,490))
-            name = show_popup(POP_UP_SAVE_TEXT, (345, 245))
-            #Regex matches only alphanumerical letters(no symbols except of "_")
-            if not os.path.isdir("save"):
-                os.mkdir("save")
-            if(re.match(r'\w+\..*', name)):
-                if(re.match(r'\w+\.bmp|\w+\.jpg|\w+\.png', name)):
-                        pygame.image.save(imageToSave, "save/" + name)
-                        show_warning("Speichern war erfolgreich.", \
-                                     "", (420, 275), (0,0))  
-                        self.buttonList[2].setIsPressed(False)                           
-                    #Does the file already exist? 
-                elif os.path.isfile(name):
+            name = show_popup(POP_UP_SAVE_TEXT, (315, 245))
+            if not name == None:
+                #Regex matches only alphanumerical letters(no symbols except of "_")
+                if not os.path.isdir("save"):
+                    os.mkdir("save")
+                if(re.match(r'\w+\..*', name)):
+                    if(re.match(r'\w+\.bmp|\w+\.jpg|\w+\.png', name)):
+                            pygame.image.save(imageToSave, "save/" + name)
+                            show_warning("Speichern war erfolgreich.", \
+                                         "", (410, 260), (0,0))  
+                            self.buttonList[2].setIsPressed(False)                           
+                        #Does the file already exist? 
+                    elif os.path.isfile("save/" + name):
+                        show_warning("Der Dateiname existiert bereits.", \
+                                     "", (390, 260), (0,0)) 
+                        self.buttonList[2].setIsPressed(False)
+                        Log("Save warning:name already exists") 
+                    else:
+                        show_warning("Bitte nur \".bmp\", \".jpg\" und \".png\" verwenden.",\
+                                     "Alle anderen Dateiendungen werden durch \".png\" ersetzt.",\
+                                     (340, 260), (310, 275))
+                        Log("Save warning:wrong ending")
+                        name = re.sub(r'\..*', '', name)
+                        if os.path.isfile("save/" + name + ".png"):
+                            show_warning("Der Dateiname existiert bereits.", \
+                                         "", (390, 260), (0,0))  
+                        else:
+                            pygame.image.save(imageToSave, "save/" + name + ".png")
+                            show_warning("Speichern als .png-Datei war erfolgreich.", \
+                                         "", (360, 260), (0,0))            
+                        self.buttonList[2].setIsPressed(False)
+                elif (re.match(r'.*\W.*', name)) or name == "":
+                    #error handling
+                    show_warning("Der Dateiname muss aus mindestens einem Zeichen, sowie", \
+                                 "nur aus Buchstaben, Nummern und Unterstrichen bestehen.",\
+                                  (311, 260), (310, 275))
+                    self.buttonList[2].setIsPressed(False)
+                    Log("Save warning:wrong Char")
+                #Does the file already exist?            
+                elif os.path.isfile("save/" + name + ".png"):
                     show_warning("Der Dateiname existiert bereits.", \
-                                 "", (400, 275), (0,0)) 
-                    self.buttonList[2].setIsPressed(False)
-                    Log("Save warning:name already exists") 
-                else:
-                    show_warning("Bitte benutzen sie nur die Dateiendung \".bmp\", \".jpg\" und \".png\".",\
-                                 "Alle anderen(auch keine) werden durch .png ersetzt",\
-                                 (315, 260), (345, 275))
-                    Log("Save warning:wrong ending")
-                    name = re.sub(r'\..*', '', name)
+                                 "", (390, 260), (0,0))  
+                    self.buttonList[2].setIsPressed(False) 
+                    Log("Save warning:name already exists")
+                elif (re.match(r'\w+', name)):         
                     pygame.image.save(imageToSave, "save/" + name + ".png")
-                    show_warning("Speichern als .png-Datei war erfolgreich.", \
-                                 "", (380, 275), (0,0))            
-                    self.buttonList[2].setIsPressed(False)
-            elif (re.match(r'.*\W.*', name)) or name == "":
-                #error handling
-                show_warning("Der Dateiname muss aus mindestens einem Zeichen bestehen", \
-                             "und darf nur Buchstaben, Nummern und Unterstriche enthalten.",\
-                              (320, 260), (315, 275))
-                self.buttonList[2].setIsPressed(False)
-                Log("Save warning:wrong Char")
-            #Does the file already exist?            
-            elif os.path.isfile(name + ".png"):
-                show_warning("Der Dateiname existiert bereits.", \
-                             "", (400, 275), (0,0))  
-                self.buttonList[2].setIsPressed(False) 
-                Log("Save warning:name already exists")
-            elif (re.match(r'\w+', name)):         
-                pygame.image.save(imageToSave, "save/" + name + ".png")
-                show_warning("Speichern war erfolgreich.", \
-                             "", (420, 275), (0,0)) 
-                self.buttonList[2].setIsPressed(False) 
-            else:
-                Log("unknown save error")
+                    show_warning("Speichern war erfolgreich.", \
+                                 "", (410, 260), (0,0)) 
+                    self.buttonList[2].setIsPressed(False) 
+                else:
+                    Log("unknown save error")
         #RESET-BUTTON
         if event.type == pygame.MOUSEBUTTONDOWN and self.buttonList[3].mouseOnButton(mouseX, mouseY) and event.button == LEFT:
             #open river bed selection
@@ -184,6 +189,7 @@ class FileBtns:
                 WoodnStoneBtnList.setBufferArray(WoodnStoneBtnList.getBufferArray()[:1])
                 WoodnStoneBtnList.setBuffer()
                 placechecker.deleteItems()
+                self.buttonList[3].setIsPressed(False)
             else:
                 self.buttonList[3].setIsPressed(False)
             
@@ -255,15 +261,15 @@ class WoodnStoneBtns:
                 btn.setIsPressed(False)
                 if btn.mouseOnButton(mouseX, mouseY) and btn.getUnpressable() == False:
                     #TODO: show popup, return and blit input
-                    eingabe = show_popup(POP_UP_ITEM_TEXT, (365,245))
-                    
-                    btn.getMouseImage().setRotAngle(0)
-                    btn.getMouseImage().setFontObject( printTextOnImg(btn.getMouseImage().getOriginalObject().copy(), eingabe) )
-                    btn.getMouseImage().setRotObject(btn.getMouseImage().getFontObject())
-
-                    btn.setIsImgOnMouse(True)
-                    for button in self.buttonList:
-                        button.setUnpressable(True)
+                    eingabe = show_popup(POP_UP_ITEM_TEXT, (350,245))
+                    if not eingabe == None:    
+                        btn.getMouseImage().setRotAngle(0)
+                        btn.getMouseImage().setFontObject( printTextOnImg(btn.getMouseImage().getOriginalObject().copy(), eingabe) )
+                        btn.getMouseImage().setRotObject(btn.getMouseImage().getFontObject())
+    
+                        btn.setIsImgOnMouse(True)
+                        for button in self.buttonList:
+                            button.setUnpressable(True)
             
             #rotation  
             if event.type == pygame.MOUSEBUTTONDOWN and btn.getIsImgOnMouse() and event.button == RIGHT:
