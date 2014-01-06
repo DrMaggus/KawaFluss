@@ -64,7 +64,7 @@ class Img:
         
     def rotate(self):
         self.setRotAngle(self.getRotAngle()+2)
-        self.setRotObject(pygame.transform.rotate(self.original_object, self.getRotAngle()))
+        self.setRotObject(pygame.transform.rotate(self.font_object, self.getRotAngle()))
         
     def place(self, mouseX, mouseY):
         self.setX(mouseX - self.getRotObject().get_width()/2)
