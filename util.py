@@ -213,7 +213,7 @@ def show_riverbed_selection():
     while running:
         #get mouse position
         mouseX, mouseY = pygame.mouse.get_pos()
-        SCREEN.blit(header, (190, 15))
+        SCREEN.blit(header, (190, 18))
         for btn in riverbedButtonList:
             SCREEN.blit(btn.getImgUnpressed(), (btn.getXY()))
     
@@ -278,5 +278,47 @@ def printTextOnImg(surface, text):
     surface.blit(text_rend, ( surface.get_width()/2 - text_rend.get_width()/2, surface.get_height()/2 - text_rend.get_height()/2) )
     return surface
         
+def show_credits():
+    Log("Display credits")
+    header = pygame.font.Font( FONT, 45 ).render("CREDITS" , True, (255,255,255) )
+    name_font = pygame.font.Font( FONT, 20)
+    name_font.set_italic(True) 
+    sheader_font = pygame.font.Font( FONT, 30)
+    sheader_font.set_bold(True)
+    
+    subheaders = [sheader_font.render(sheader , True, (255,255,255)) for sheader in CREDITS_HEADER ]
+    names = [name_font.render(name , True, (255,255,255)) for name in CREDITS_NAMES ]
+
+    SCREEN.blit(PIC_CREDITS,(0,0))
+    SCREEN.blit(header,(SIZE[0]/2 - header.get_width()/2,45))
+    SCREEN.blit(subheaders[0],(SIZE[0]/4 - subheaders[0].get_width()/2,180))#Programming
+    SCREEN.blit(names[0],(SIZE[0]/4 - names[0].get_width()/2,230))#M.E
+    SCREEN.blit(names[1],(SIZE[0]/4 - names[1].get_width()/2,265))#M.W
+
+    SCREEN.blit(subheaders[1],(SIZE[0]/4 - subheaders[1].get_width()/2,345))#Design
+    SCREEN.blit(names[2],(SIZE[0]/4 - names[2].get_width()/2,395))#V.vG
+    SCREEN.blit(names[0],(SIZE[0]/4 - names[0].get_width()/2,430))#M.W
+    
+    SCREEN.blit(subheaders[2],(SIZE[0]*3/4 - subheaders[2].get_width()/2,240))#Special thx
+    SCREEN.blit(names[3],(SIZE[0]*3/4 - names[3].get_width()/2,290))#testers
+    SCREEN.blit(names[4],(SIZE[0]*3/4 - names[4].get_width()/2,325))#V.vG
+
+    running = True
+    while running:
         
-        
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                if show_security():
+                    exit()
+            if event.type == pygame.KEYDOWN:
+                running = False
+                
+        pygame.display.update()
+
+def isCreditsClicked(rect):
+    mouse = pygame.mouse.get_pos()
+    if mouse[0] > rect[0] and mouse[0] < rect[0]+rect[2] \
+            and mouse[1] > rect[1] and mouse[1] < rect[1]+rect[3]:
+                return True
+    else:
+        return False

@@ -70,6 +70,7 @@ if __name__ == "__main__":
     underline.set_underline(True)
     ustone = underline.render("Umweltfaktor", True, (0,0,0))
     uwood = underline.render("Ressource", True, (0,0,0))
+    credits = pygame.font.Font( FONT, 12).render( ">CREDITS<", True, (0,0,0) )
     
     #open short explanation about the Kawa Model
     show_start_window(START_SIZE)
@@ -92,13 +93,14 @@ if __name__ == "__main__":
         input_boxes = input_boxes_list[globals.riverbedNumber]
         SCREEN.fill((231, 232, 200))
         SCREEN.blit(RIVERBED_LIST[globals.riverbedNumber], RIVERBED_POS)   
-        SCREEN.blit(header, (230,15))
+        SCREEN.blit(header, (230,18))
         SCREEN.blit(stone_header, (761,60))
         SCREEN.blit(wood_header, (881,60))
         SCREEN.blit(stone_japan, (781,76))
         SCREEN.blit(wood_japan, (902,76))
         SCREEN.blit(ustone, (746,89))
         SCREEN.blit(uwood, (890,89))
+        SCREEN.blit( credits, (0,SIZE[1]-credits.get_height()) )
         
         menu_buttons.blitter(SCREEN, mouseX, mouseY)
         file_buttons.blitter(SCREEN, mouseX, mouseY)
@@ -111,11 +113,13 @@ if __name__ == "__main__":
                 if show_security():
                     sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
-                print pygame.mouse.get_pos()
+                if isCreditsClicked(credits.get_rect(x=0,y=SIZE[1]-credits.get_height())): show_credits() 
                 
             menu_buttons.eventHandler(event, mouseX, mouseY)
             file_buttons.eventHandler(event, mouseX, mouseY, input_boxes, menu_buttons, RIVERBED_SIZE, SCREEN)
             input_boxes.handleEvent(event)
+        
+        
 
         # Inhalt von screen anzeigen.
         pygame.display.update()

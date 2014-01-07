@@ -6,3 +6,6 @@
 save/
 pdn/
 Old Images/
+build/
+dist/
+*.spec

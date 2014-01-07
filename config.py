@@ -103,6 +103,7 @@ PIC_OK_BTN_UP = pygame.image.load(os.path.join(IMG_PATH, 'OKButton.png'))
 PIC_OK_BTN_DOWN = pygame.image.load(os.path.join(IMG_PATH, 'OKButtonDown.png'))
 PIC_CANCEL_BTN_UP = pygame.image.load(os.path.join(IMG_PATH, 'AbbrechenButton.png'))
 PIC_CANCEL_BTN_DOWN = pygame.image.load(os.path.join(IMG_PATH, 'AbbrechenButtonDown.png'))
+PIC_CREDITS = pygame.image.load(os.path.join(IMG_PATH, 'credits.png'))
 ##Riverbed Minis
 PIC_RIVERBED_MINI1 = pygame.transform.scale(pygame.image.load(os.path.join(IMG_PATH, "riverbed1.png")), (281,200)).convert_alpha()
 PIC_RIVERBED_MINI2 = pygame.transform.scale(pygame.image.load(os.path.join(IMG_PATH, "riverbed2.png")), (281,200)).convert_alpha()
@@ -153,6 +154,10 @@ S.95-99.""", "utf-8" )
 
 POP_UP_ITEM_TEXT =  codecs.decode("Bitte Beschreibung eingeben und bestaetigen", "utf-8")
 POP_UP_SAVE_TEXT = codecs.decode("Bitte Dateinamen für das zu speichernde Bild eingeben", "utf-8")
+
+CREDITS_HEADER =  [codecs.decode(word,"utf-8") for word in ["PROGRAMMING","DESIGN","SPECIAL THANKS"]]
+CREDITS_NAMES =  [codecs.decode(word,"utf-8") for word in ["Matthias Eiserloh", "Markus Wolf","Vincent van Gogh", "to all testers for their effort and input","to vincent for his amazing artwork"]]
+
 
 
 RIVERBED_LIST = [pygame.image.load(IMG_PATH + 'riverbed1.png'),
