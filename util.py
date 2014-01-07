@@ -24,7 +24,7 @@ def show_start_window(size):
     #change screen size
     screen = pygame.display.set_mode(size, pygame.DOUBLEBUF, 32)
     Log("Change screen size to "+str(size))
-    button_rect = (screen.get_width() - 100, screen.get_height() - 58, PIC_CONTINUE.get_width(), PIC_CONTINUE.get_height())
+    button_rect = (screen.get_width() - 88, screen.get_height() - 48, PIC_CONTINUE.get_width(), PIC_CONTINUE.get_height())
     #screen background?
     screen.fill((255,255,255))
     height = 0
@@ -53,9 +53,6 @@ def show_start_window(size):
     screen.blit( source_font.render(START_SCREEN_SOURCE.split('\n')[0], True, FONT_COLOR_START),  (26, 510))
     screen.blit( source_font.render(START_SCREEN_SOURCE.split('\n')[1], True, FONT_COLOR_START),  (656, 522))
         
-        
-    
-    
     running = True
     button_down = False
     while running:
@@ -91,7 +88,7 @@ def show_start_window(size):
 def show_popup(task, textPosition):
     Log("Open Pop up input screen")
     background = SCREEN.copy()
-    input = InputBox((360,268), BUFFER, color=[(179,179,179),(0,186,220),(179,179,179)], max_size=280, enable_rows = False)
+    input = InputBox((360,268), BUFFER, color=[(179,179,179),(0,186,220),(179,179,179)],font_color=FONT_COLOR_POPUP, max_size=280, enable_rows = False)
     input.makeFocus()
     text = pygame.font.Font( FONT, FONT_SIZE ).render(task , True, (0,0,0) )
     running = True

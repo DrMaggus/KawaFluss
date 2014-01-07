@@ -23,6 +23,8 @@ import pygame, pygame.font, codecs, os, img
             
 SIZE = HEIGHT, WIDTH = 1000, 600
 START_SIZE = (730,635)
+RIVERBED_SIZE = (690, 490)
+RIVERBED_POS = (20,88)
 FRAMERATE = 30
 
 IMG_PATH = "images/"
@@ -39,11 +41,12 @@ FONT_SIZE = 13
 FONT_COLOR = (49,200,49)
 FONT_SIZE_START = 15
 FONT_COLOR_START = (0,0,0)
+FONT_COLOR_POPUP = (0,0,0)
 
 BOX_PADDING = 4
 BOX_COLOR = None
 BOX_FOCUS_COLOR = (179,1,99) # Magenta
-BOX_EMPTY_COLOR = (255,100,100)
+BOX_EMPTY_COLOR = (8,138,8)
 BOX_COLORS = [BOX_COLOR,BOX_FOCUS_COLOR,BOX_EMPTY_COLOR]
 
 TEXT_ON_IMG_COLOR = (255,0,41)
@@ -166,17 +169,7 @@ COLORMAPS = [ pygame.image.load(os.path.join(IMG_PATH, "colormap1.png")),
               pygame.image.load(os.path.join(IMG_PATH, "colormap4.png")),
               pygame.image.load(os.path.join(IMG_PATH, "colormap5.png")),
               pygame.image.load(os.path.join(IMG_PATH, "colormap6.png"))]
-              
-def makeBorder(surface, color = (255,255,255), width=2):
-    pygame.draw.rect(surface, color, (0,0,surface.get_width(),surface.get_height()), width)
-    return surface
-             
-THUMBNAILS = [ makeBorder(pygame.transform.scale(PIC_STONE1.copy(), (32+i*8,24+i*6))) for i in range(0,6)]
-                
-
-
-
-RIVERBED_SIZE = (690, 490)
+                              
 
 
 CLOCK = pygame.time.Clock()

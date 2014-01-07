@@ -62,14 +62,13 @@ import string
 from config import *
 
 class InputBox:
-    def __init__(self, pos, buffer, color = BOX_COLORS, fontcolor = FONT_COLOR, padding = BOX_PADDING, max_char = None, max_size = None, enable_rows = True):
+    def __init__(self, pos, buffer, color = BOX_COLORS, font_color = FONT_COLOR, padding = BOX_PADDING, max_char = None, max_size = None, enable_rows = True):
         self.buffer = buffer
-        self.rect = (pos[0], pos[1],\
-                max_size if max_size else FONT_SIZE + 2*padding,\
-                FONT_SIZE + 2*padding)
+        self.pos = pos
+        self.rect = self.pos + ( max_size if max_size else FONT_SIZE + 4*padding, FONT_SIZE + 2*padding )
         self.colors = color
         self.colorid = 2 # 0:no focus,1:focus,2:empty
-        self.fontcolor = fontcolor
+        self.fontcolor = font_color
         self.focus = False
         self.string = []
         self.string2 = []
@@ -88,49 +87,61 @@ class InputBox:
         
     #blits the inputbox to the buffer and then to the screen
     def _blitToBuffer(self, dest):    
-        self._renderString()
-        if self.colors[self.colorid]:
-            pygame.draw.rect(self.buffer, self.colors[self.colorid], self.rect, 2)
-        self.buffer.blit( self.string_rend , (self.stringX, self.stringY) )
-        if self.SecondRow:
-            self.buffer.blit( self.string2_rend , (self.stringX, self.string2Y) )
-        dest.blit(self.buffer, (0,0))
+        if not self.isEmpty():
+            self._renderString()
+            if self.colors[self.colorid]:
+                pygame.draw.rect(self.buffer, self.colors[self.colorid], self.rect, 2)
+            self.buffer.blit( self.string_rend , (self.stringX, self.stringY) )
+            if self.SecondRow:
+                self.buffer.blit( self.string2_rend , (self.stringX, self.string2Y) )
+            dest.blit(self.buffer, (0,0))
+        else:
+            self.blitEmpty(dest)
         
     def blit(self, dest, pos = None):
-        self._renderString()
-        if not pos:
-            dest.blit( self.string_rend , (self.stringX, self.stringY) )
-            if self.SecondRow:
-                dest.blit( self.string2_rend , (self.stringX, self.string2Y) )
+        if not self.isEmpty():
+            self._renderString()
+            if not pos:
+                dest.blit( self.string_rend , (self.stringX, self.stringY) )
+                if self.SecondRow:
+                    dest.blit( self.string2_rend , (self.stringX, self.string2Y) )
+            else:
+                dest.blit( self.string_rend , pos )
+                if self.SecondRow:
+                    dest.blit( self.string2_rend , (pos[0], pos[1] + self.string_rend.get_height() + self.secondRowPadding) )
         else:
-            dest.blit( self.string_rend , pos )
-            if self.SecondRow:
-                dest.blit( self.string2_rend , (pos[0], pos[1] + self.string_rend.get_height() + self.secondRowPadding) )
+            self.blitEmpty(dest)
             
     
     def _renderString(self):  
-        #render string an d calculate position for the first string
-        self.string_rend = pygame.font.Font( FONT, FONT_SIZE).render( string.join(self.string,""), True, self.fontcolor )
-        self.stringX = self.rect[0] + self.padding
-        self.stringY = self.rect[1] + self.padding
-        self.rect = ( self.rect[0], self.rect[1],\
-                        self.string_rend.get_width() + 2*self.padding,\
-                        self.string_rend.get_height() + 2*self.padding ) 
-                        
-        #render string an d calculate position for the first string
-        if self.SecondRow:
-            self.string2_rend = pygame.font.Font( FONT, FONT_SIZE).render( string.join(self.string2,""), True, self.fontcolor )
-            self.string2Y = self.stringY + self.string_rend.get_height() + self.secondRowPadding
-            lengthX = self.string_rend.get_width() if self.string_rend.get_width() > self.string2_rend.get_width() else self.string2_rend.get_width()
+        if not self.isEmpty():
+            #render string an d calculate position for the first string
+            self.string_rend = pygame.font.Font( FONT, FONT_SIZE).render( string.join(self.string,""), True, self.fontcolor )
+            self.stringX = self.rect[0] + self.padding
+            self.stringY = self.rect[1] + self.padding
             self.rect = ( self.rect[0], self.rect[1],\
-                         lengthX + 2*self.padding,\
-                        self.string_rend.get_height() + self.string2_rend.get_height() + self.secondRowPadding + 2*self.padding )
-        
-        if self.max_size:
-            self.rect = (self.rect[0],\
-                        self.rect[1],\
-                        self.max_size,\
-                        self.rect[3])
+                            self.string_rend.get_width() + 2*self.padding,\
+                            self.string_rend.get_height() + 2*self.padding ) 
+                            
+            #render string an d calculate position for the first string
+            if self.SecondRow:
+                self.string2_rend = pygame.font.Font( FONT, FONT_SIZE).render( string.join(self.string2,""), True, self.fontcolor )
+                self.string2Y = self.stringY + self.string_rend.get_height() + self.secondRowPadding
+                lengthX = self.string_rend.get_width() if self.string_rend.get_width() > self.string2_rend.get_width() else self.string2_rend.get_width()
+                self.rect = ( self.rect[0], self.rect[1],\
+                             lengthX + 2*self.padding,\
+                            self.string_rend.get_height() + self.string2_rend.get_height() + self.secondRowPadding + 2*self.padding )
+            
+            if self.max_size:
+                self.rect = (self.rect[0],\
+                            self.rect[1],\
+                            self.max_size,\
+                            self.rect[3])
+            
+    def blitEmpty(self, dest):
+        rect = self.pos + ( self.max_size if self.max_size else FONT_SIZE + 4*self.padding, FONT_SIZE + 2*self.padding )
+        pygame.draw.rect(dest, self.colors[self.colorid], rect, 2)
+
    
     def isFocus(self):
         return self.focus
@@ -212,6 +223,12 @@ class InputBox:
                     self.putChar(event.unicode)    
     def update(self, dest):
         self._blitToBuffer(dest)
+    def reset(self):
+        self.string = []
+        self.string2 = []
+        self.SecondRow = False
+        self.colorid = 2
+        
                     
                     
                     
@@ -247,5 +264,9 @@ class EventInputBoxes:
                 break
             current += 1
         self.boxes[(current+1)%self.amount].makeFocus()
+    
+    def reset(self):
+        for box in self.boxes:
+            box.reset()
     
                         

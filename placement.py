@@ -6,7 +6,7 @@ from config import *
 class Placement:
     def __init__(self, colormap, pos):
         self.colormap = colormap.copy()
-        self.placedMap = pygame.Surface((690,490))
+        self.placedMap = pygame.Surface(RIVERBED_SIZE)
         self.placedMap.fill((255,0,255))
         self.itemsPlaced = []
         self.itemsPos = []
@@ -36,7 +36,7 @@ class Placement:
         self._blitAllItems()
         #left hand corner of img
         img_pos_in_win = ( pygame.mouse.get_pos()[0]-img.get_size()[0]/2, pygame.mouse.get_pos()[1]-img.get_size()[1]/2)
-        place_zone = pygame.Rect(self.pos[0],self.pos[1],690,490)
+        place_zone = pygame.Rect(self.pos[0],self.pos[1],RIVERBED_SIZE[0],RIVERBED_SIZE[1])
         Log("Click @ "+str(img_pos_in_win))
 
         if place_zone.collidepoint(img_pos_in_win):

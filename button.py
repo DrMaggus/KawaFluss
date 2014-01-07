@@ -107,7 +107,7 @@ class FileBtns:
             else:
                 screen.blit(btn.getImgUnpressed(), (btn.getX(), btn.getY()))
 
-    def eventHandler(self, event, mouseX, mouseY, placechecker, WoodnStoneBtnList, RiverbedSize, screen):
+    def eventHandler(self, event, mouseX, mouseY, input_boxes, WoodnStoneBtnList, RiverbedSize, screen):
         if event.type == pygame.MOUSEBUTTONDOWN and self.buttonList[0].mouseOnButton(mouseX, mouseY) and event.button == LEFT:
             self.buttonList[0].setIsPressed(True)
             for btn in WoodnStoneBtnList.getButtonList():
@@ -119,7 +119,7 @@ class FileBtns:
             if len(WoodnStoneBtnList.getBufferArray())-1 > 0:
                 WoodnStoneBtnList.setBufferArray(WoodnStoneBtnList.getBufferArray()[:-1])
                 WoodnStoneBtnList.setBuffer()
-                placechecker.undo()
+                globals.placementVar.undo()
                 
         
         #SAVE-BUTTON:
@@ -127,7 +127,7 @@ class FileBtns:
             self.buttonList[2].setIsPressed(True) 
             imageToSave = pygame.Surface(RiverbedSize, pygame.SRCALPHA, 32)
             #CLEAR(imageToSave)
-            imageToSave.blit(SCREEN, dest=(0,0), area=(20,85,690,490))
+            imageToSave.blit(SCREEN, dest=(0,0), area=RIVERBED_POS+RIVERBED_SIZE)
             name = show_popup(POP_UP_SAVE_TEXT, (315, 245))
             if not name == None:
                 #Regex matches only alphanumerical letters(no symbols except of "_")
@@ -185,10 +185,11 @@ class FileBtns:
             self.buttonList[3].setIsPressed(True) 
             if show_security():
                 globals.riverbedNumber = show_riverbed_selection()
-                globals.placement = placement.Placement(COLORMAPS[globals.riverbedNumber], (20,85))
+                globals.placementVar = placement.Placement(COLORMAPS[globals.riverbedNumber], RIVERBED_POS)
                 WoodnStoneBtnList.setBufferArray(WoodnStoneBtnList.getBufferArray()[:1])
                 WoodnStoneBtnList.setBuffer()
-                placechecker.deleteItems()
+                globals.placementVar.deleteItems()
+                input_boxes.reset()
                 self.buttonList[3].setIsPressed(False)
             else:
                 self.buttonList[3].setIsPressed(False)
@@ -241,11 +242,11 @@ class WoodnStoneBtns:
         #- Blit Image to buffer
         #- Image to Mouse
         #- rotation
-    def eventHandler(self, event, mouseX, mouseY, placechecker):
+    def eventHandler(self, event, mouseX, mouseY):
         for btn in self.buttonList:
             #Blit Image to Buffer
             if event.type == pygame.MOUSEBUTTONDOWN and btn.getIsImgOnMouse() and event.button == LEFT:
-                if placechecker.itemFitOnScreen(btn.getMouseImage().getRotObject()):
+                if globals.placementVar.itemFitOnScreen(btn.getMouseImage().getRotObject()):
                     self.buffer.blit(btn.getMouseImage().getRotObject(),\
                     (mouseX - btn.getMouseImage().getRotObject().get_width()/2, \
                     mouseY - btn.getMouseImage().getRotObject().get_height()/2))

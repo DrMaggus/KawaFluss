@@ -5,4 +5,4 @@ from config import *
 
 
 riverbedNumber = 0
-placementVar = placement.Placement(COLORMAPS[0], (20,85))
+placementVar = None #is set in main.py
