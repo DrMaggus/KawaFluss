@@ -1,18 +1,21 @@
-###############################################
-#
-#             KAWA-FLUSS MODELL
-#
-#
-#                Written by
-#        Matthias Eiserloh, Markus Wolf
-#
-#
-#          Copyright (c) 2013 by 
-#          M. Eiserloh and M. Wolf
-#
-#
-################################################
-
+# -*- coding: utf-8 -*-
+"""
+* Copyright (C) 2013 Matthias Eiserloh & Markus Wolf
+*
+* This file is part of KawaFluss.
+*
+* KawaFluss is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, version 3 of the License.
+*
+* KawaFluss is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with KawaFluss. If not, see <http://www.gnu.org/licenses/>.
+"""
 import button
 import img
 import sys
@@ -58,6 +61,7 @@ if __name__ == "__main__":
     pygame.init()
     pygame.font.init()
     pygame.display.set_caption(CAPTION)
+    pygame.display.set_icon(ICON)
     Log("Initializing pygame and font, setting captions")
     pygame.display.set_icon(pygame.image.load(ICON))
     

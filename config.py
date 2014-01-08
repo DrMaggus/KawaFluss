@@ -1,31 +1,37 @@
 # -*- coding: utf-8 -*-
-###############################################
-#
-#             KAWA-FLUSS MODELL
-#
-#
-#                Written by
-#        Matthias Eiserloh, Markus Wolf
-#
-#
-#          Copyright (c) 2013 by 
-#          M. Eiserloh and M. Wolf
-#
-#
-################################################
+"""
+* Copyright (C) 2013 Matthias Eiserloh & Markus Wolf
+*
+* This file is part of KawaFluss.
+*
+* KawaFluss is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, version 3 of the License.
+*
+* KawaFluss is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with KawaFluss. If not, see <http://www.gnu.org/licenses/>.
+"""
+
 ###
 ###
 #DON'T IMPORT A MODULE THAT IMPORTS THIS FILE (CONFIG) => CYCLIC IMPORTS
 import pygame, pygame.font, codecs, os, img 
 ##
 ##
-       
+
+os.environ['SDL_VIDEO_CENTERED'] = '0'#display window centered     
             
 SIZE = HEIGHT, WIDTH = 1000, 600
 START_SIZE = (730,635)
 RIVERBED_SIZE = (690, 490)
 RIVERBED_POS = (20,88)
 FRAMERATE = 30
+
 
 IMG_PATH = "images/"
 FONT_PATH = "fonts/"
@@ -43,6 +49,7 @@ FONT_SIZE_START = 15
 FONT_COLOR_START = (0,0,0)
 FONT_COLOR_POPUP = (0,0,0)
 
+
 BOX_PADDING = 4
 BOX_COLOR = None
 BOX_FOCUS_COLOR = (179,1,99) # Magenta
@@ -50,7 +57,7 @@ BOX_EMPTY_COLOR = (8,138,8)
 BOX_COLORS = [BOX_COLOR,BOX_FOCUS_COLOR,BOX_EMPTY_COLOR]
 
 TEXT_ON_IMG_COLOR = (255,0,41)
-
+ICON = pygame.image.load(os.path.join(IMG_PATH, "placeholder.ico")).convert_alpha()
 PIC_CONTINUE = pygame.image.load(os.path.join(IMG_PATH, "continue.png"))
 PIC_CONTINUE_HOVER = pygame.image.load(os.path.join(IMG_PATH, "continue2.png"))
 PIC_POPUP = pygame.image.load(os.path.join(IMG_PATH, "popup.png"))
