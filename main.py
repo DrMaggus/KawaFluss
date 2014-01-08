@@ -59,7 +59,7 @@ if __name__ == "__main__":
     pygame.font.init()
     pygame.display.set_caption(CAPTION)
     Log("Initializing pygame and font, setting captions")
-    #pygame.display.set_icon(pygame.image.load(ICON))
+    pygame.display.set_icon(pygame.image.load(ICON))
     
     header = pygame.font.Font( FONT, 45).render( "Kawa - Fluss", True, (0,0,0) )
     stone_header = pygame.font.Font( FONT, 19).render( "Steine", True, (0,0,0) )
