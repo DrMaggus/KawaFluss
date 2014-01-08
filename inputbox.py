@@ -1,18 +1,21 @@
 # -*- coding: utf-8 -*-
-###############################################
-#
-#             KAWA-FLUSS MODELL
-#
-#
-#                Written by
-#        Matthias Eiserloh, Markus Wolf
-#
-#
-#          Copyright (c) 2013 by 
-#          M. Eiserloh and M. Wolf
-#
-#
-################################################
+"""
+* Copyright (C) 2013 Matthias Eiserloh & Markus Wolf
+*
+* This file is part of KawaFluss.
+*
+* KawaFluss is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, version 3 of the License.
+*
+* KawaFluss is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with KawaFluss. If not, see <http://www.gnu.org/licenses/>.
+"""
 
 ##### CLASS INPUTBOX #####
 # Constructor:
@@ -139,7 +142,8 @@ class InputBox:
                             self.rect[3])
             
     def blitEmpty(self, dest):
-        rect = self.pos + ( self.max_size if self.max_size else FONT_SIZE + 4*self.padding, FONT_SIZE + 2*self.padding )
+        font_height = pygame.font.Font( FONT, FONT_SIZE).render( "", True, (0,0,0) ).get_height()
+        rect = self.pos + ( self.max_size if self.max_size else FONT_SIZE + 4*self.padding, font_height + 2*self.padding )
         pygame.draw.rect(dest, self.colors[self.colorid], rect, 2)
 
    

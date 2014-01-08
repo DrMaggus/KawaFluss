@@ -1,4 +1,22 @@
 # -*- coding: utf-8 -*-
+"""
+* Copyright (C) 2013 Matthias Eiserloh & Markus Wolf
+*
+* This file is part of KawaFluss.
+*
+* KawaFluss is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, version 3 of the License.
+*
+* KawaFluss is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with KawaFluss. If not, see <http://www.gnu.org/licenses/>.
+"""
+
 import pygame, pygame.font, time, sys, button, string
 
 from inputbox import InputBox
@@ -281,6 +299,8 @@ def printTextOnImg(surface, text):
 def show_credits():
     Log("Display credits")
     header = pygame.font.Font( FONT, 45 ).render("CREDITS" , True, (255,255,255) )
+    license = pygame.font.Font( FONT, 16 ).render("This Software is licensed under The GNU General Public License", True, (255,255,255) )
+    leave = pygame.font.Font( FONT, 11 ).render("Press any key", True, (255,255,255) )
     name_font = pygame.font.Font( FONT, 20)
     name_font.set_italic(True) 
     sheader_font = pygame.font.Font( FONT, 30)
@@ -291,18 +311,22 @@ def show_credits():
 
     SCREEN.blit(PIC_CREDITS,(0,0))
     SCREEN.blit(header,(SIZE[0]/2 - header.get_width()/2,45))
-    SCREEN.blit(subheaders[0],(SIZE[0]/4 - subheaders[0].get_width()/2,180))#Programming
-    SCREEN.blit(names[0],(SIZE[0]/4 - names[0].get_width()/2,230))#M.E
-    SCREEN.blit(names[1],(SIZE[0]/4 - names[1].get_width()/2,265))#M.W
+    SCREEN.blit(subheaders[0],(SIZE[0]/4 - subheaders[0].get_width()/2,170))#Programming
+    SCREEN.blit(names[0],(SIZE[0]/4 - names[0].get_width()/2,220))#M.E
+    SCREEN.blit(names[1],(SIZE[0]/4 - names[1].get_width()/2,255))#M.W
 
-    SCREEN.blit(subheaders[1],(SIZE[0]/4 - subheaders[1].get_width()/2,345))#Design
-    SCREEN.blit(names[2],(SIZE[0]/4 - names[2].get_width()/2,395))#V.vG
-    SCREEN.blit(names[0],(SIZE[0]/4 - names[0].get_width()/2,430))#M.W
+    SCREEN.blit(subheaders[1],(SIZE[0]/4 - subheaders[1].get_width()/2,335))#Design
+    SCREEN.blit(names[2],(SIZE[0]/4 - names[2].get_width()/2,385))#V.vG
+    SCREEN.blit(names[0],(SIZE[0]/4 - names[0].get_width()/2,420))#M.W
     
-    SCREEN.blit(subheaders[2],(SIZE[0]*3/4 - subheaders[2].get_width()/2,240))#Special thx
-    SCREEN.blit(names[3],(SIZE[0]*3/4 - names[3].get_width()/2,290))#testers
-    SCREEN.blit(names[4],(SIZE[0]*3/4 - names[4].get_width()/2,325))#V.vG
+    SCREEN.blit(subheaders[2],(SIZE[0]*3/4 - subheaders[2].get_width()/2,230))#Special thx
+    SCREEN.blit(names[3],(SIZE[0]*3/4 - names[3].get_width()/2,280))#testers
+    SCREEN.blit(names[4],(SIZE[0]*3/4 - names[4].get_width()/2,315))#V.vG
+    
+    SCREEN.blit(license,(SIZE[0]/2 - license.get_width()/2,553))#License
+    SCREEN.blit(leave,(0,SIZE[1]-leave.get_height()))#License
 
+    
     running = True
     while running:
         
@@ -310,7 +334,7 @@ def show_credits():
             if event.type == pygame.QUIT:
                 if show_security():
                     exit()
-            if event.type == pygame.KEYDOWN:
+            if event.type == pygame.KEYDOWN or event.type == pygame.MOUSEBUTTONDOWN:
                 running = False
                 
         pygame.display.update()
