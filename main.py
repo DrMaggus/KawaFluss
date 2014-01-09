@@ -58,10 +58,11 @@ menu_buttons = button.WoodnStoneBtns([((732, 110), PIC_STONE_BUTTON1_UP, PIC_STO
 
 if __name__ == "__main__":
  
+    
     pygame.init()
     pygame.font.init()
     pygame.display.set_caption(CAPTION)
-    #pygame.display.set_icon(ICON)
+    
     Log("Initializing pygame and font, setting captions")
     #pygame.display.set_icon(pygame.image.load(ICON))
     
