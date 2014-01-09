@@ -63,10 +63,10 @@ def show_start_window(size):
         
     screen.blit(bold_word[0], (264,90))    
     screen.blit(bold_word[1], (125,141))
-    screen.blit(bold_word[2], (98,175))
-    screen.blit(bold_word[3], (205,192))
-    screen.blit(bold_word[4], (145,260))
-    screen.blit(bold_word[5], (95,413))
+    screen.blit(bold_word[2], (94,175))
+    screen.blit(bold_word[3], (203,192))
+    screen.blit(bold_word[4], (142,260))
+    screen.blit(bold_word[5], (92,413))
     
     screen.blit( source_font.render(START_SCREEN_SOURCE.split('\n')[0], True, FONT_COLOR_START),  (62, 510))
     screen.blit( source_font.render(START_SCREEN_SOURCE.split('\n')[1], True, FONT_COLOR_START),  (622, 522))

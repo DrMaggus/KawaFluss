@@ -36,7 +36,7 @@ FRAMERATE = 30
 IMG_PATH = "images/"
 FONT_PATH = "fonts/"
 
-#ICON = os.path.join(IMG_PATH, "icon.ico")
+#ICON = os.path.join(IMG_PATH, "icon.jpg")
 CAPTION = "Kawa - Fluss"
 pygame.display.set_icon(pygame.image.load(os.path.join(IMG_PATH, "icon.png")))#Set icon BEFORE set_mode
 SCREEN = pygame.display.set_mode(START_SIZE, pygame.DOUBLEBUF, 32)
@@ -58,6 +58,7 @@ BOX_EMPTY_COLOR = (8,138,8)
 BOX_COLORS = [BOX_COLOR,BOX_FOCUS_COLOR,BOX_EMPTY_COLOR]
 
 TEXT_ON_IMG_COLOR = (255,0,41)
+
 
 PIC_CONTINUE = pygame.image.load(os.path.join(IMG_PATH, "continue.png"))
 PIC_CONTINUE_HOVER = pygame.image.load(os.path.join(IMG_PATH, "continue2.png"))
@@ -164,7 +165,7 @@ POP_UP_ITEM_TEXT =  codecs.decode("Bitte Beschreibung eingeben und bestätigen",
 POP_UP_SAVE_TEXT = codecs.decode("Bitte Dateinamen für das zu speichernde Bild eingeben", "utf-8")
 
 CREDITS_HEADER =  [codecs.decode(word,"utf-8") for word in ["PROGRAMMING","DESIGN","SPECIAL THANKS"]]
-CREDITS_NAMES =  [codecs.decode(word,"utf-8") for word in ["Matthias Eiserloh", "Markus Wolf","Vincent Grahn", "to all testers for their effort and input","to vincent for his amazing artwork"]]
+CREDITS_NAMES =  [codecs.decode(word,"utf-8") for word in ["Matthias Eiserloh", "Markus Wolf","Vincent Grahn", "to all testers for their effort and input","to Vincent for his amazing artwork"]]
 
 
 
