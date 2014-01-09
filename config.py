@@ -36,7 +36,7 @@ FRAMERATE = 30
 IMG_PATH = "images/"
 FONT_PATH = "fonts/"
 
-ICON = os.path.join(IMG_PATH, "icon.jpg")
+#ICON = os.path.join(IMG_PATH, "icon.jpg")
 CAPTION = "Kawa - Fluss"
 
 SCREEN = pygame.display.set_mode(START_SIZE, pygame.DOUBLEBUF, 32)
@@ -57,7 +57,8 @@ BOX_EMPTY_COLOR = (8,138,8)
 BOX_COLORS = [BOX_COLOR,BOX_FOCUS_COLOR,BOX_EMPTY_COLOR]
 
 TEXT_ON_IMG_COLOR = (255,0,41)
-ICON = pygame.image.load(os.path.join(IMG_PATH, "placeholder.ico")).convert_alpha()
+ICON = pygame.image.load(os.path.join(IMG_PATH, "placeholder.png")).convert_alpha()
+#ICON = os.path.join(IMG_PATH, "placeholder.jpg")
 PIC_CONTINUE = pygame.image.load(os.path.join(IMG_PATH, "continue.png"))
 PIC_CONTINUE_HOVER = pygame.image.load(os.path.join(IMG_PATH, "continue2.png"))
 PIC_POPUP = pygame.image.load(os.path.join(IMG_PATH, "popup.png"))
