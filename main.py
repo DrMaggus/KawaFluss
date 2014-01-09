@@ -27,12 +27,12 @@ from util import *
 from config import *
 
 
-input_boxes_list = [inputbox.EventInputBoxes( [] , SCREEN),
-                    inputbox.EventInputBoxes( [(340,502)] , SCREEN),
-                    inputbox.EventInputBoxes( [(91,459), (511,479)] , SCREEN),
-                    inputbox.EventInputBoxes( [(178,394), (523,474), (36,468)] , SCREEN),
-                    inputbox.EventInputBoxes( [(21,194),(88,404),(218,440),(489,441)] , SCREEN),
-                    inputbox.EventInputBoxes( [(21,201),(21,441),(194,497),(401,518),(498,445)] , SCREEN)]
+input_boxes_list = [inputbox.EventInputBoxes( [] , SCREEN, font = ARIAL),
+                    inputbox.EventInputBoxes( [(340,502)] , SCREEN, font = ARIAL),
+                    inputbox.EventInputBoxes( [(91,459), (511,479)] , SCREEN, font = ARIAL),
+                    inputbox.EventInputBoxes( [(178,394), (523,474), (36,468)] , SCREEN, font = ARIAL),
+                    inputbox.EventInputBoxes( [(21,194),(88,404),(218,440),(489,441)] , SCREEN, font = ARIAL),
+                    inputbox.EventInputBoxes( [(21,201),(21,441),(194,497),(401,518),(498,445)] , SCREEN, font = ARIAL)]
 
 
 #define buttons for saving, undo
@@ -61,7 +61,7 @@ if __name__ == "__main__":
     pygame.init()
     pygame.font.init()
     pygame.display.set_caption(CAPTION)
-    pygame.display.set_icon(ICON)
+    #pygame.display.set_icon(ICON)
     Log("Initializing pygame and font, setting captions")
     #pygame.display.set_icon(pygame.image.load(ICON))
     
@@ -87,6 +87,7 @@ if __name__ == "__main__":
  
     #start main loop
     globals.placementVar = placement.Placement(COLORMAPS[globals.riverbedNumber], RIVERBED_POS)
+    x = 0
     while True:
         # auf 30 FPS beschraenken
         CLOCK.tick(FRAMERATE)
@@ -122,8 +123,7 @@ if __name__ == "__main__":
             menu_buttons.eventHandler(event, mouseX, mouseY)
             file_buttons.eventHandler(event, mouseX, mouseY, input_boxes, menu_buttons, RIVERBED_SIZE, SCREEN)
             input_boxes.handleEvent(event)
-        
-        
+
 
         # Inhalt von screen anzeigen.
         pygame.display.update()

@@ -43,9 +43,10 @@ SCREEN = pygame.display.set_mode(START_SIZE, pygame.DOUBLEBUF, 32)
 BUFFER = pygame.Surface(SIZE, flags=pygame.SRCALPHA)
 
 FONT = os.path.join(FONT_PATH, "CosmicSansNeueMono.ttf")
+ARIAL = os.path.join(FONT_PATH, "Arial.ttf")
 FONT_SIZE = 13
 FONT_COLOR = (49,200,49)
-FONT_SIZE_START = 15
+FONT_SIZE_START = 16
 FONT_COLOR_START = (0,0,0)
 FONT_COLOR_POPUP = (0,0,0)
 
@@ -59,6 +60,7 @@ BOX_COLORS = [BOX_COLOR,BOX_FOCUS_COLOR,BOX_EMPTY_COLOR]
 TEXT_ON_IMG_COLOR = (255,0,41)
 ICON = pygame.image.load(os.path.join(IMG_PATH, "placeholder.png")).convert_alpha()
 #ICON = os.path.join(IMG_PATH, "placeholder.jpg")
+#ICON = pygame.image.load(os.path.join(IMG_PATH, "placeholder.ico")).convert_alpha()
 PIC_CONTINUE = pygame.image.load(os.path.join(IMG_PATH, "continue.png"))
 PIC_CONTINUE_HOVER = pygame.image.load(os.path.join(IMG_PATH, "continue2.png"))
 PIC_POPUP = pygame.image.load(os.path.join(IMG_PATH, "popup.png"))
@@ -125,17 +127,17 @@ BOLD_WORDS = [codecs.decode(word,"utf-8") for word in ["der Fluss", "Wasser","Fl
 START_SCREEN_TEXT = codecs.decode("""
 Das KAWA-Modell ist eine Theorie über Betätigung und Ergotherapie, die in Asien
 entwickelt wurde. Zur Darstellung des fernöstlichen Bildes von Selbst und Kontext
-dient eine Naturmetapher:          . Dieser soll die momentane Lebenssituation
+dient eine Naturmetapher:                    . Dieser soll die momentane Lebenssituation
 eines Individuums darstellen.
  
-Das        (jap. Mizu) repräsentiert die Lebensenergie/den Lebensfluss des 
+Das                  (jap. Mizu) repräsentiert die Lebensenergie/den Lebensfluss des 
 Menschen. Die Qualität des Fließens wird vor allem beeinflusst durch
-das           (jap. Torimaki), das die soziale und physikalische Umwelt einer Person
-repräsentiert.        (jap. Iwa), die in Größe und Anzahl variieren können, 
+das                     (jap. Torimaki), das die soziale und physikalische Umwelt einer Person
+repräsentiert.                (jap. Iwa), die in Größe und Anzahl variieren können, 
 verkörpern die Probleme und Herausforderungen des täglichen Lebens. In 
 Kombination mit dem Flussbett (Umweltfaktoren) können Lebensfluss,
 Wohlergehen und Betätigung ermöglicht oder verhindert 
-werden.           (jap. Ryuboku), das Ressourcen und Barrieren darstellen soll 
+werden.                     (jap. Ryuboku), das Ressourcen und Barrieren darstellen soll 
 (z.B.: materielle/immaterielle Werte, Charakter, Fertigkeiten, Neigungen), 
 kann gegen feste Strukturen (Steine und Wände) stoßen oder sich daran reiben und 
 so ein größeres Flussbett schaffen, es kann aber auch von denselben Strukturen 
@@ -144,7 +146,7 @@ zwischen den Hindernissen (jap. Sukima), durch die die Lebensenergie des
 Klienten fließen kann, repräsentieren „Betätigung“ in einer ostasiatischen 
 Perspektive und sind somit Hauptanliegen der Ergotherapie.
 
-Der                 der Ergotherapie in dieser metaphorischen Repräsentation des 
+Der                                   der Ergotherapie in dieser metaphorischen Repräsentation des 
 Menschen besteht darin, den Lebensfluss unserer Klienten zu ermöglichen und zu 
 verstärken. Um das Leben wieder fließen zu lassen, erfasst der/die Therapeut/in 
 die Komplexität der Betätigung im Kontext und sucht nach möglichen Wegen, um
@@ -160,7 +162,7 @@ START_SCREEN_SOURCE = codecs.decode(
 """Kubny-Lüke, B. (2003). Ergotherapie im Arbeitsfeld Psychiatrie. 2. Überarb. Aufl. Stuttgart: Georg Thieme Verlag.
 S.95-99.""", "utf-8" )
 
-POP_UP_ITEM_TEXT =  codecs.decode("Bitte Beschreibung eingeben und bestaetigen", "utf-8")
+POP_UP_ITEM_TEXT =  codecs.decode("Bitte Beschreibung eingeben und bestätigen", "utf-8")
 POP_UP_SAVE_TEXT = codecs.decode("Bitte Dateinamen für das zu speichernde Bild eingeben", "utf-8")
 
 CREDITS_HEADER =  [codecs.decode(word,"utf-8") for word in ["PROGRAMMING","DESIGN","SPECIAL THANKS"]]
