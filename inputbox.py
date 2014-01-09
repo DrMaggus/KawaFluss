@@ -78,13 +78,14 @@ class InputBox:
                 self.counter = 0
             self.counter += 1
             
-    def __init__(self, pos, buffer, color = BOX_COLORS, font_color = FONT_COLOR, padding = BOX_PADDING, max_char = None, max_size = None, enable_rows = True):
+    def __init__(self, pos, buffer, color = BOX_COLORS, font_color = FONT_COLOR, font = FONT, padding = BOX_PADDING, max_char = None, max_size = None, enable_rows = True):
         self.buffer = buffer
         self.pos = pos
         self.rect = self.pos + ( max_size if max_size else FONT_SIZE + 4*padding, FONT_SIZE + 2*padding )
         self.colors = color
         self.colorid = 2 # 0:no focus,1:focus,2:empty
         self.fontcolor = font_color
+        self.font = font
         self.focus = False
         self.string = []
         self.string2 = []
@@ -99,8 +100,8 @@ class InputBox:
         self.max_char = 1000 if max_char == None else max_char
         self.max_size = max_size
         self.enable_rows = enable_rows
-        self.coursor = self.Cursor((2,FONT_SIZE+2))        
-        
+        self.cursor = self.Cursor((2,FONT_SIZE+2))        
+    
     #blits the inputbox to the buffer and then to the screen
     def _blitToBuffer(self, dest):    
         if not self.isEmpty():
@@ -112,9 +113,9 @@ class InputBox:
                 self.buffer.blit( self.string2_rend , (self.stringX, self.string2Y) )
                 
             if self.SecondRow and self.isFocus():
-                self.coursor.blit_cursor(self.buffer, (self.stringX+self.string2_rend.get_width(), self.string2Y))
+                self.cursor.blit_cursor(self.buffer, (self.stringX+self.string2_rend.get_width(), self.string2Y))
             elif self.isFocus():
-                self.coursor.blit_cursor(self.buffer, (self.stringX+self.string_rend.get_width(), self.stringY))
+                self.cursor.blit_cursor(self.buffer, (self.stringX+self.string_rend.get_width(), self.stringY))
                 
             dest.blit(self.buffer, (0,0))
         else:
@@ -133,7 +134,7 @@ class InputBox:
     def _renderString(self):  
         if not self.isEmpty():
             #render string and calculate position for the first string
-            self.string_rend = pygame.font.Font( FONT, FONT_SIZE).render( string.join(self.string,""), True, self.fontcolor )
+            self.string_rend = pygame.font.Font( self.font, FONT_SIZE).render( string.join(self.string,""), True, self.fontcolor )
             self.stringX = self.rect[0] + self.padding
             self.stringY = self.rect[1] + self.padding
             self.rect = ( self.rect[0], self.rect[1],\
@@ -142,7 +143,7 @@ class InputBox:
                             
             #render string and calculate position for the second string
             if self.SecondRow:
-                self.string2_rend = pygame.font.Font( FONT, FONT_SIZE).render( string.join(self.string2,""), True, self.fontcolor )
+                self.string2_rend = pygame.font.Font( self.font, FONT_SIZE).render( string.join(self.string2,""), True, self.fontcolor )
                 self.string2Y = self.stringY + self.string_rend.get_height() + self.secondRowPadding
                 lengthX = self.string_rend.get_width() if self.string_rend.get_width() > self.string2_rend.get_width() else self.string2_rend.get_width()
                 self.rect = ( self.rect[0], self.rect[1],\
@@ -156,10 +157,10 @@ class InputBox:
                             self.rect[3])
             
     def blitEmpty(self, dest):
-        font_height = pygame.font.Font( FONT, FONT_SIZE).render( "", True, (0,0,0) ).get_height()
+        font_height = pygame.font.Font( self.font, FONT_SIZE).render( "", True, (0,0,0) ).get_height()
         rect = self.pos + ( self.max_size if self.max_size else FONT_SIZE + 4*self.padding, font_height + 2*self.padding )
         if self.isFocus():
-            self.coursor.blit_cursor(dest, (self.pos[0]+self.padding,self.pos[1]+self.padding))
+            self.cursor.blit_cursor(dest, (self.pos[0]+self.padding,self.pos[1]+self.padding))
         pygame.draw.rect(dest, self.colors[self.colorid], rect, 2)
 
    
@@ -253,14 +254,14 @@ class InputBox:
                     
                     
 class EventInputBoxes:
-    def __init__(self, pos_lst, screen, buffer = BUFFER):
+    def __init__(self, pos_lst, screen, buffer = BUFFER, font = FONT):
         self.buffer = buffer
         self.boxes = []
         for pos in pos_lst:
             if len(pos) == 2:
-                self.boxes.append( InputBox(pos, self.buffer) )
+                self.boxes.append( InputBox(pos, self.buffer, font = font) )
             if len(pos) == 3:
-                self.boxes.append( InputBox(pos, self.buffer, max_size = pos[2]) )
+                self.boxes.append( InputBox(pos, self.buffer, max_size = pos[2], font = font) )
         self.amount = len(self.boxes)
         self.screen = screen
         

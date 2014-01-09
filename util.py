@@ -47,29 +47,29 @@ def show_start_window(size):
     screen.fill((255,255,255))
     height = 0
     top_padding = 40
-    bold_font = pygame.font.Font( FONT, FONT_SIZE_START+1)
-    source_font = pygame.font.Font( FONT, FONT_SIZE_START - 4)
+    bold_font = pygame.font.Font( ARIAL, FONT_SIZE_START+1)
+    source_font = pygame.font.Font( ARIAL, FONT_SIZE_START - 4)
     bold_font.set_bold(True)
     source_font.set_italic(True)
     bold_word = [bold_font.render(word, True, FONT_COLOR_START) for word in BOLD_WORDS]
 
-    screen.blit( pygame.font.Font( FONT, 26).render( "KAWA - Modell", True, (0,0,0) ), (270,15))
+    screen.blit( pygame.font.Font( ARIAL, 26).render( "KAWA - Modell", True, (0,0,0) ), (270,15))
 
     #for each line in text print to screen
     for line in START_SCREEN_TEXT.split('\n'):
-        line_rend = pygame.font.Font( FONT, FONT_SIZE_START).render( line.strip(), True, FONT_COLOR_START )
+        line_rend = pygame.font.Font( ARIAL, FONT_SIZE_START).render( line.strip(), True, FONT_COLOR_START )
         screen.blit(line_rend, (screen.get_width()/2- line_rend.get_width()/2, height + top_padding )) #center
         height += 17
         
-    screen.blit(bold_word[0], (254,90))    
-    screen.blit(bold_word[1], (98,141))
-    screen.blit(bold_word[2], (57,175))
-    screen.blit(bold_word[3], (181,192))
-    screen.blit(bold_word[4], (112,260))
-    screen.blit(bold_word[5], (74,413))
+    screen.blit(bold_word[0], (264,90))    
+    screen.blit(bold_word[1], (125,141))
+    screen.blit(bold_word[2], (98,175))
+    screen.blit(bold_word[3], (205,192))
+    screen.blit(bold_word[4], (145,260))
+    screen.blit(bold_word[5], (95,413))
     
-    screen.blit( source_font.render(START_SCREEN_SOURCE.split('\n')[0], True, FONT_COLOR_START),  (26, 510))
-    screen.blit( source_font.render(START_SCREEN_SOURCE.split('\n')[1], True, FONT_COLOR_START),  (656, 522))
+    screen.blit( source_font.render(START_SCREEN_SOURCE.split('\n')[0], True, FONT_COLOR_START),  (62, 510))
+    screen.blit( source_font.render(START_SCREEN_SOURCE.split('\n')[1], True, FONT_COLOR_START),  (622, 522))
         
     running = True
     button_down = False
