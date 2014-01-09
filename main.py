@@ -87,6 +87,7 @@ if __name__ == "__main__":
  
     #start main loop
     globals.placementVar = placement.Placement(COLORMAPS[globals.riverbedNumber], RIVERBED_POS)
+    x = 0
     while True:
         # auf 30 FPS beschraenken
         CLOCK.tick(FRAMERATE)
@@ -122,8 +123,7 @@ if __name__ == "__main__":
             menu_buttons.eventHandler(event, mouseX, mouseY)
             file_buttons.eventHandler(event, mouseX, mouseY, input_boxes, menu_buttons, RIVERBED_SIZE, SCREEN)
             input_boxes.handleEvent(event)
-        
-        
+
 
         # Inhalt von screen anzeigen.
         pygame.display.update()

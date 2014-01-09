@@ -258,7 +258,7 @@ def printTextOnImg(surface, text):
     while font_size >= 12:
         text_rend = pygame.font.Font( FONT, font_size ).render(text , True, TEXT_ON_IMG_COLOR )
         font_size -= 1
-        if text_rend.get_width() < surface.get_width()-5: break
+        if text_rend.get_width() < surface.get_width(): break
     else:
         text1 = ""
         text2 = ""
@@ -269,7 +269,7 @@ def printTextOnImg(surface, text):
             count = 1
             if text.count(" ")%2 == 1 and text.count(" ") >= 3:
                 count = text.count(" ") + 1
-            elif text.count(" ") != 1:
+            if text.count(" ") != 1:
                 count = text.count(" ")/2
             
             words = text.split(" ")
@@ -283,9 +283,9 @@ def printTextOnImg(surface, text):
             font_size -= 1
             if text_rend1.get_width() < surface.get_width() and text_rend2.get_width() < surface.get_width(): break
         else:
-            if text_rend1.get_width > surface.get_width():
+            if text_rend1.get_width() > surface.get_width():
                 text_rend1 = pygame.transform.scale(text_rend1, (surface.get_width(),text_rend1.get_height()))
-            if text_rend2.get_width > surface.get_width():
+            if text_rend2.get_width() > surface.get_width():
                 text_rend2 = pygame.transform.scale(text_rend2, (surface.get_width(),text_rend2.get_height()))
         
         surface.blit(text_rend1, ( surface.get_width()/2 - text_rend1.get_width()/2, surface.get_height()/2 - text_rend1.get_height()) )

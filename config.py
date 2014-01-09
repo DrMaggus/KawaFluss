@@ -159,7 +159,7 @@ START_SCREEN_SOURCE = codecs.decode(
 """Kubny-Lüke, B. (2003). Ergotherapie im Arbeitsfeld Psychiatrie. 2. Überarb. Aufl. Stuttgart: Georg Thieme Verlag.
 S.95-99.""", "utf-8" )
 
-POP_UP_ITEM_TEXT =  codecs.decode("Bitte Beschreibung eingeben und bestaetigen", "utf-8")
+POP_UP_ITEM_TEXT =  codecs.decode("Bitte Beschreibung eingeben und bestätigen", "utf-8")
 POP_UP_SAVE_TEXT = codecs.decode("Bitte Dateinamen für das zu speichernde Bild eingeben", "utf-8")
 
 CREDITS_HEADER =  [codecs.decode(word,"utf-8") for word in ["PROGRAMMING","DESIGN","SPECIAL THANKS"]]
