@@ -79,7 +79,7 @@ def show_start_window(size):
         mouse = pygame.mouse.get_pos()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                    exit()
+                    sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 #mouse over button ?
                 if mouse[0] > button_rect[0] and mouse[0] < button_rect[0]+button_rect[2] \
@@ -122,7 +122,7 @@ def show_popup(task, textPosition):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 if show_security():
-                    exit()
+                    sys.exit()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
                     running = False
@@ -161,7 +161,7 @@ def show_warning(line1, line2, textPos1, textPos2):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 if show_security():
-                    exit()
+                    sys.exit()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
                     running = False
@@ -188,7 +188,7 @@ def show_security():
         SCREEN.blit(PIC_CANCEL_BTN_UP, (520, 300))       
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                exit()
+                sys.exit()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
                     running = False
@@ -333,7 +333,7 @@ def show_credits():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 if show_security():
-                    exit()
+                    sys.exit()
             if event.type == pygame.KEYDOWN or event.type == pygame.MOUSEBUTTONDOWN:
                 running = False
                 
