@@ -44,6 +44,7 @@ BUFFER = pygame.Surface(SIZE, flags=pygame.SRCALPHA)
 
 FONT = os.path.join(FONT_PATH, "CosmicSansNeueMono.ttf")
 ARIAL = os.path.join(FONT_PATH, "Arial.ttf")
+ARIAL_BOLD = os.path.join(FONT_PATH, "Arial_Bold.ttf")
 FONT_SIZE = 13
 FONT_COLOR = (49,200,49)
 FONT_SIZE_START = 16
@@ -57,7 +58,7 @@ BOX_FOCUS_COLOR = (179,1,99) # Magenta
 BOX_EMPTY_COLOR = (8,138,8)
 BOX_COLORS = [BOX_COLOR,BOX_FOCUS_COLOR,BOX_EMPTY_COLOR]
 
-TEXT_ON_IMG_COLOR = (255,0,41)
+TEXT_ON_IMG_COLOR = (183,0,29)
 
 
 PIC_CONTINUE = pygame.image.load(os.path.join(IMG_PATH, "continue.png"))
