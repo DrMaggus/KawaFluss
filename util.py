@@ -63,10 +63,10 @@ def show_start_window(size):
         
     screen.blit(bold_word[0], (264,90))    
     screen.blit(bold_word[1], (125,141))
-    screen.blit(bold_word[2], (94,175))
-    screen.blit(bold_word[3], (203,192))
-    screen.blit(bold_word[4], (142,260))
-    screen.blit(bold_word[5], (92,413))
+    screen.blit(bold_word[2], (97,175))
+    screen.blit(bold_word[3], (205,192))
+    screen.blit(bold_word[4], (144,260))
+    screen.blit(bold_word[5], (95,413))
     
     screen.blit( source_font.render(START_SCREEN_SOURCE.split('\n')[0], True, FONT_COLOR_START),  (62, 510))
     screen.blit( source_font.render(START_SCREEN_SOURCE.split('\n')[1], True, FONT_COLOR_START),  (622, 522))
@@ -79,7 +79,7 @@ def show_start_window(size):
         mouse = pygame.mouse.get_pos()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                    exit()
+                    sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 #mouse over button ?
                 if mouse[0] > button_rect[0] and mouse[0] < button_rect[0]+button_rect[2] \
@@ -122,7 +122,7 @@ def show_popup(task, textPosition):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 if show_security():
-                    exit()
+                    sys.exit()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
                     running = False
@@ -161,7 +161,7 @@ def show_warning(line1, line2, textPos1, textPos2):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 if show_security():
-                    exit()
+                    sys.exit()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
                     running = False
@@ -188,7 +188,7 @@ def show_security():
         SCREEN.blit(PIC_CANCEL_BTN_UP, (520, 300))       
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                exit()
+                sys.exit()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
                     running = False
@@ -256,7 +256,7 @@ def printTextOnImg(surface, text):
     text_rend1 = None
     text_rend2 = None
     while font_size >= 12:
-        text_rend = pygame.font.Font( FONT, font_size ).render(text , True, TEXT_ON_IMG_COLOR )
+        text_rend = pygame.font.Font( ARIAL_BOLD, font_size ).render(text , True, TEXT_ON_IMG_COLOR )
         font_size -= 1
         if text_rend.get_width() < surface.get_width(): break
     else:
@@ -278,8 +278,8 @@ def printTextOnImg(surface, text):
 
         font_size = 22
         while font_size >= 12:
-            text_rend1 = pygame.font.Font( FONT, font_size ).render(text1 , True, TEXT_ON_IMG_COLOR )
-            text_rend2 = pygame.font.Font( FONT, font_size ).render(text2 , True, TEXT_ON_IMG_COLOR )
+            text_rend1 = pygame.font.Font( ARIAL_BOLD, font_size ).render(text1 , True, TEXT_ON_IMG_COLOR )
+            text_rend2 = pygame.font.Font( ARIAL_BOLD, font_size ).render(text2 , True, TEXT_ON_IMG_COLOR )
             font_size -= 1
             if text_rend1.get_width() < surface.get_width() and text_rend2.get_width() < surface.get_width(): break
         else:
@@ -333,7 +333,7 @@ def show_credits():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 if show_security():
-                    exit()
+                    sys.exit()
             if event.type == pygame.KEYDOWN or event.type == pygame.MOUSEBUTTONDOWN:
                 running = False
                 
