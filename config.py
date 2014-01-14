@@ -38,7 +38,7 @@ FONT_PATH = "fonts/"
 
 #ICON = os.path.join(IMG_PATH, "icon.jpg")
 CAPTION = "Kawa - Fluss"
-pygame.display.set_icon(pygame.image.load(os.path.join(IMG_PATH, "Icon.png")))#Set icon BEFORE set_mode
+pygame.display.set_icon(pygame.image.load(os.path.join(IMG_PATH, "icon.png")))#Set icon BEFORE set_mode
 SCREEN = pygame.display.set_mode(START_SIZE, pygame.DOUBLEBUF, 32)
 BUFFER = pygame.Surface(SIZE, flags=pygame.SRCALPHA)
 
