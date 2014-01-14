@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-* Copyright (C) 2013 Matthias Eiserloh & Markus Wolf
+* Copyright (C) 2014 Matthias Eiserloh & Markus Wolf
 *
 * This file is part of KawaFluss.
 *
@@ -221,7 +221,6 @@ class FileBtns:
 
 class WoodnStoneBtns:
     #prepare buffer/bufferArray and create buttons
-    #TODO vielleicht argumente anstatt infoList + defaults (siehe InputBox)
     def __init__(self, infoList):
         self.buttonList = []
         self.buffer = pygame.Surface((1000, 600), flags=pygame.SRCALPHA)
@@ -278,7 +277,6 @@ class WoodnStoneBtns:
             if event.type == pygame.MOUSEBUTTONUP and event.button == LEFT:
                 btn.setIsPressed(False)
                 if btn.mouseOnButton(mouseX, mouseY) and btn.getUnpressable() == False:
-                    #TODO: show popup, return and blit input
                     eingabe = show_popup(POP_UP_ITEM_TEXT, (350,245))
                     if not eingabe == None:    
                         btn.getMouseImage().setRotAngle(0)

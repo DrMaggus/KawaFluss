@@ -17,11 +17,8 @@
 * along with KawaFluss. If not, see <http://www.gnu.org/licenses/>.
 """
 
-# File for all the globals
-import placement
+import main
 
-from config import *
-
-
-riverbedNumber = 0
-placementVar = None #is set in main.py
+if __name__ == "__main__":
+    #run main function
+    main.main();

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-* Copyright (C) 2013 Matthias Eiserloh & Markus Wolf
+* Copyright (C) 2014 Matthias Eiserloh & Markus Wolf
 *
 * This file is part of KawaFluss.
 *
@@ -56,8 +56,6 @@
 #    nextBox() <=> jump to the next box in the list. This box will be focused.
 #####
 
-####TODO: 
-#### - Inputboxes show tabsymbol
 
 
 import pygame, pygame.font, re

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-* Copyright (C) 2013 Matthias Eiserloh & Markus Wolf
+* Copyright (C) 2014 Matthias Eiserloh & Markus Wolf
 *
 * This file is part of KawaFluss.
 *
@@ -23,12 +23,10 @@ from inputbox import InputBox
 from config import *
 
 
-##IN CONFIG
 LEFT = 1
 
 class Log():
     def __init__(self, msg, status = "debug"):
-        #TODO delete file when to big
         msg_type = {"debug":msg+"\n","warn":"## Warning ##  "+msg+"\n","err":"## Error ##  "+msg+"\n"}[status]
         #create file if not existent
         file = open("kawafluss.log","a")
@@ -102,7 +100,6 @@ def show_start_window(size):
     Log("Change screen size to "+str(SIZE))
     
 
-        #TODO POPUP OK-Button
 def show_popup(task, textPosition):
     Log("Open Pop up input screen")
     background = SCREEN.copy()
@@ -142,7 +139,7 @@ def show_popup(task, textPosition):
         pygame.display.update()
     return input.getString()
 
-        #TODO POPUP OK-Button        
+       
 def show_warning(line1, line2, textPos1, textPos2):
     Log("Open Pop up input screen")
     background = SCREEN.copy()

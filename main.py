@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-* Copyright (C) 2013 Matthias Eiserloh & Markus Wolf
+* Copyright (C) 2014 Matthias Eiserloh & Markus Wolf
 *
 * This file is part of KawaFluss.
 *
@@ -27,44 +27,45 @@ from util import *
 from config import *
 
 
-input_boxes_list = [inputbox.EventInputBoxes( [] , SCREEN, font = ARIAL),
-                    inputbox.EventInputBoxes( [(340,502)] , SCREEN, font = ARIAL),
-                    inputbox.EventInputBoxes( [(91,459), (511,479)] , SCREEN, font = ARIAL),
-                    inputbox.EventInputBoxes( [(178,394), (523,474), (36,468)] , SCREEN, font = ARIAL),
-                    inputbox.EventInputBoxes( [(21,194),(88,404),(218,440),(489,441)] , SCREEN, font = ARIAL),
-                    inputbox.EventInputBoxes( [(21,201),(21,441),(194,497),(401,518),(498,445)] , SCREEN, font = ARIAL)]
-
-
-#define buttons for saving, undo
-file_buttons = button.FileBtns([((760, 2), PIC_TRASH_BTN_UP, PIC_TRASH_BTN_DOWN),\
-                                ((810, 2), PIC_UNDO_BTN_UP, PIC_UNDO_BTN_DOWN),\
-                                ((860, 2), PIC_SAVE_BTN_UP, PIC_SAVE_BTN_DOWN),\
-                                ((910, 2), PIC_NEW_BTN_UP, PIC_NEW_BTN_DOWN),])
-
-
-menu_buttons = button.WoodnStoneBtns([((732, 110), PIC_STONE_BUTTON1_UP, PIC_STONE_BUTTON1_DOWN, img.Img(0, 0, False, False, 0, PIC_STONE1, PIC_STONE1, PIC_STONE1)),\
-                                      ((732, 188), PIC_STONE_BUTTON2_UP, PIC_STONE_BUTTON2_DOWN, img.Img(0, 0, False, False, 0, PIC_STONE2, PIC_STONE2, PIC_STONE2)),\
-                                      ((732, 266), PIC_STONE_BUTTON3_UP, PIC_STONE_BUTTON3_DOWN, img.Img(0, 0, False, False, 0, PIC_STONE3, PIC_STONE3, PIC_STONE3)),\
-                                      ((732, 344), PIC_STONE_BUTTON4_UP, PIC_STONE_BUTTON4_DOWN, img.Img(0, 0, False, False, 0, PIC_STONE4, PIC_STONE4, PIC_STONE4)),\
-                                      ((732, 422), PIC_STONE_BUTTON5_UP, PIC_STONE_BUTTON5_DOWN, img.Img(0, 0, False, False, 0, PIC_STONE5, PIC_STONE5, PIC_STONE5)),\
-                                      ((732, 500), PIC_STONE_BUTTON6_UP, PIC_STONE_BUTTON6_DOWN, img.Img(0, 0, False, False, 0, PIC_STONE6, PIC_STONE6, PIC_STONE6)),\
-                                      ((865, 110), PIC_WOOD_BUTTON1_UP, PIC_WOOD_BUTTON1_DOWN, img.Img(0, 0, False, False, 0, PIC_WOOD1, PIC_WOOD1, PIC_WOOD1)),\
-                                      ((865, 188), PIC_WOOD_BUTTON2_UP, PIC_WOOD_BUTTON2_DOWN, img.Img(0, 0, False, False, 0, PIC_WOOD2, PIC_WOOD2, PIC_WOOD2)),\
-                                      ((865, 266), PIC_WOOD_BUTTON3_UP, PIC_WOOD_BUTTON3_DOWN, img.Img(0, 0, False, False, 0, PIC_WOOD3, PIC_WOOD3, PIC_WOOD3)),\
-                                      ((865, 344), PIC_WOOD_BUTTON4_UP, PIC_WOOD_BUTTON4_DOWN, img.Img(0, 0, False, False, 0, PIC_WOOD4, PIC_WOOD4, PIC_WOOD4)),\
-                                      ((865, 422), PIC_WOOD_BUTTON5_UP, PIC_WOOD_BUTTON5_DOWN, img.Img(0, 0, False, False, 0, PIC_WOOD5, PIC_WOOD5, PIC_WOOD5)),\
-                                      ((865, 500), PIC_WOOD_BUTTON6_UP, PIC_WOOD_BUTTON6_DOWN, img.Img(0, 0, False, False, 0, PIC_WOOD6, PIC_WOOD6, PIC_WOOD6))]) 
-                                      
-
-if __name__ == "__main__":
- 
+def main():
     
     pygame.init()
     pygame.font.init()
     pygame.display.set_caption(CAPTION)
     
-    Log("Initializing pygame and font, setting captions")
-    #pygame.display.set_icon(pygame.image.load(ICON))
+    Log("Initializing pygame and font, setting caption")
+    
+    
+    Log("Initializing inputboxes")
+    input_boxes_list = [inputbox.EventInputBoxes( [] , SCREEN, font = ARIAL),
+                        inputbox.EventInputBoxes( [(340,502)] , SCREEN, font = ARIAL),
+                        inputbox.EventInputBoxes( [(91,459), (511,479)] , SCREEN, font = ARIAL),
+                        inputbox.EventInputBoxes( [(178,394), (523,474), (36,468)] , SCREEN, font = ARIAL),
+                        inputbox.EventInputBoxes( [(21,194),(88,404),(218,440),(489,441)] , SCREEN, font = ARIAL),
+                        inputbox.EventInputBoxes( [(21,201),(21,441),(194,497),(401,518),(498,445)] , SCREEN, font = ARIAL)]
+    
+    Log("Loading Buttons")
+    #define buttons for saving, undo
+    file_buttons = button.FileBtns([((760, 2), PIC_TRASH_BTN_UP, PIC_TRASH_BTN_DOWN),\
+                                    ((810, 2), PIC_UNDO_BTN_UP, PIC_UNDO_BTN_DOWN),\
+                                    ((860, 2), PIC_SAVE_BTN_UP, PIC_SAVE_BTN_DOWN),\
+                                    ((910, 2), PIC_NEW_BTN_UP, PIC_NEW_BTN_DOWN),])
+    
+    
+    menu_buttons = button.WoodnStoneBtns([((732, 110), PIC_STONE_BUTTON1_UP, PIC_STONE_BUTTON1_DOWN, img.Img(0, 0, False, False, 0, PIC_STONE1, PIC_STONE1, PIC_STONE1)),\
+                                          ((732, 188), PIC_STONE_BUTTON2_UP, PIC_STONE_BUTTON2_DOWN, img.Img(0, 0, False, False, 0, PIC_STONE2, PIC_STONE2, PIC_STONE2)),\
+                                          ((732, 266), PIC_STONE_BUTTON3_UP, PIC_STONE_BUTTON3_DOWN, img.Img(0, 0, False, False, 0, PIC_STONE3, PIC_STONE3, PIC_STONE3)),\
+                                          ((732, 344), PIC_STONE_BUTTON4_UP, PIC_STONE_BUTTON4_DOWN, img.Img(0, 0, False, False, 0, PIC_STONE4, PIC_STONE4, PIC_STONE4)),\
+                                          ((732, 422), PIC_STONE_BUTTON5_UP, PIC_STONE_BUTTON5_DOWN, img.Img(0, 0, False, False, 0, PIC_STONE5, PIC_STONE5, PIC_STONE5)),\
+                                          ((732, 500), PIC_STONE_BUTTON6_UP, PIC_STONE_BUTTON6_DOWN, img.Img(0, 0, False, False, 0, PIC_STONE6, PIC_STONE6, PIC_STONE6)),\
+                                          ((865, 110), PIC_WOOD_BUTTON1_UP, PIC_WOOD_BUTTON1_DOWN, img.Img(0, 0, False, False, 0, PIC_WOOD1, PIC_WOOD1, PIC_WOOD1)),\
+                                          ((865, 188), PIC_WOOD_BUTTON2_UP, PIC_WOOD_BUTTON2_DOWN, img.Img(0, 0, False, False, 0, PIC_WOOD2, PIC_WOOD2, PIC_WOOD2)),\
+                                          ((865, 266), PIC_WOOD_BUTTON3_UP, PIC_WOOD_BUTTON3_DOWN, img.Img(0, 0, False, False, 0, PIC_WOOD3, PIC_WOOD3, PIC_WOOD3)),\
+                                          ((865, 344), PIC_WOOD_BUTTON4_UP, PIC_WOOD_BUTTON4_DOWN, img.Img(0, 0, False, False, 0, PIC_WOOD4, PIC_WOOD4, PIC_WOOD4)),\
+                                          ((865, 422), PIC_WOOD_BUTTON5_UP, PIC_WOOD_BUTTON5_DOWN, img.Img(0, 0, False, False, 0, PIC_WOOD5, PIC_WOOD5, PIC_WOOD5)),\
+                                          ((865, 500), PIC_WOOD_BUTTON6_UP, PIC_WOOD_BUTTON6_DOWN, img.Img(0, 0, False, False, 0, PIC_WOOD6, PIC_WOOD6, PIC_WOOD6))]) 
+                                          
+     
     
     header = pygame.font.Font( FONT, 45).render( "Kawa - Fluss", True, (0,0,0) )
     stone_header = pygame.font.Font( FONT, 19).render( "Steine", True, (0,0,0) )
@@ -82,13 +83,14 @@ if __name__ == "__main__":
         
     #open river bed selection
     globals.riverbedNumber = show_riverbed_selection()
-
+    
     #set keyboard repeat rate
     pygame.key.set_repeat(100,100)
- 
+     
     #start main loop
     globals.placementVar = placement.Placement(COLORMAPS[globals.riverbedNumber], RIVERBED_POS)
-    x = 0
+
+    Log("Enter main-loop...")
     while True:
         # auf 30 FPS beschraenken
         CLOCK.tick(FRAMERATE)
@@ -113,7 +115,6 @@ if __name__ == "__main__":
         input_boxes.updateBoxes()
             
         # Alle aufgelaufenen Events holen und abarbeiten.
-        allow_place = False
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 if show_security():
@@ -124,8 +125,8 @@ if __name__ == "__main__":
             menu_buttons.eventHandler(event, mouseX, mouseY)
             file_buttons.eventHandler(event, mouseX, mouseY, input_boxes, menu_buttons, RIVERBED_SIZE, SCREEN)
             input_boxes.handleEvent(event)
-
-
+    
+    
         # Inhalt von screen anzeigen.
         pygame.display.update()
     
